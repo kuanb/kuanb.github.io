@@ -24,7 +24,7 @@ var Boid = function ( x, y, angle ) {
 
 	    var index = ( Math.floor( this.x ) + width * Math.floor( this.y ) ) * 4;
 
-	    if ( this.life <= 10 ) this.kill();
+	    if ( this.life <= 0 ) this.kill();
 	    if ( data[ index + 3 ] > 0 ) this.kill();
 
 	    if ( this.x < 0 || this.x > width ) this.kill();						
@@ -52,7 +52,7 @@ var context = canvas.getContext( '2d' );
 var image, data;
 
 var boids = [];
-boids.push( new Boid( width / 2, height / 2, Math.random() * 180 * Math.PI / 180 ) );
+boids.push( new Boid( width / 3, height / 2, Math.random() * 180 * Math.PI / 180 ) );
 
 setInterval( function () {
 
