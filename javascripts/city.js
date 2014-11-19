@@ -1,3 +1,5 @@
+// attribution: this is the work of: http://codepen.io/piksl/pen/EaxJxX
+
 var Boid = function ( x, y, angle ) {
     this.x = x;
     this.y = y;
