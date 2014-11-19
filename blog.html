@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Kuan Butts by kuanb</title>
+    <title>Kuan Butts</title>
 
+    <link rel="stylesheet" href = "stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -14,22 +15,22 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1 style="margin-bottom: 5px"><a href="index.html" style="color: #777; font-weight: bold;">Kuan Butts</a></h1>
+        <h1 style="margin-bottom: 5px"><a href="index.html" style="text-decoration: none !important; color: #777; font-weight: bold;">Kuan Butts</a></h1>
         <p>exploring space, digitally</p>
 
         <p class="view">
         <table style="margin:0px; width: 180px">
           <tr>
-            <td style="border-bottom: 0px; padding: 0px; width: 75px">Work</td>
-            <td style="border-bottom: 0px; padding: 0px; width: 75px">Contact</td>
+            <td style="border: 0px; padding: 0px; width: 75px">Work</td>
+            <td style="border: 0px; padding: 0px; width: 75px">Contact</td>
           </tr>
           <tr>
-            <td style="border-bottom: 0px; padding: 0px; width: 75px"><a href="http://cargocollective.com/kuanbutts">Portfolio</a></td>
-            <td style="border-bottom: 0px; padding: 0px; width: 75px"><a href="https://www.linkedin.com/in/kuanbutts">LinkedIn</a></td>
+            <td style="border: 0px; padding: 0px; width: 75px"><a href="http://cargocollective.com/kuanbutts">Portfolio</a></td>
+            <td style="border: 0px; padding: 0px; width: 75px"><a href="https://www.linkedin.com/in/kuanbutts">LinkedIn</a></td>
           </tr>
           <tr>
-            <td style="border-bottom: 0px; padding: 0px; width: 75px"><a href="https://github.com/kuanb">Github</a></td>
-            <td style="border-bottom: 0px; padding: 0px; width: 75px"><a href="https://dl.dropboxusercontent.com/u/13557332/Update Resume.pdf">Resume</a></td>
+            <td style="border: 0px; padding: 0px; width: 75px"><a href="https://github.com/kuanb">Github</a></td>
+            <td style="border: 0px; padding: 0px; width: 75px"><a href="https://dl.dropboxusercontent.com/u/13557332/Update Resume.pdf">Resume</a></td>
           </tr>
         </table>
         </p>
@@ -42,32 +43,44 @@
       </header>
 
       <section id="blogSection">
-        <h3><a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a>First</h3>
 
-          <p>Here's an attempt at a first blog post. I thought I would be better and more diligent about regular blog posting while at Hacker School, but clearly that hasn't panned out. As I am relatively new to programming at this time, setting up a blog page should have been one of those initial projects. Unfortunately, I started and stopped it multiple times as learning content management systems like Jekyll became more headache than fun. Furthermore, while there are some automation features that are nice in these services, I am suprised by what I believe to be the over complexity of their "solutions." To me, it seems almost easier and more direct to simple type in the HTML. In either method content has to be demarcated within tagged portions of the text. Thus, what's really the difference between writing in markdown and just appending some content to an HTML doc, or add inset HTML docs to an existing "blog" framework? I'm sure such questions underscore my limited experience. Nonetheless, such a solution seems to be easier, by a tremendous degree.</p>
+        <div id="blogApp"></div>
 
-      <script> 
-        function run() {
-          for (var i=0; i<100; i++) {
-            var toLoad = "blog/" + i + ".html";
+        <script> 
+          function run() {
+            for (var i=10; i>=0; i--) {
+              var toLoad = "blog/" + i + ".html";
 
-            var intoDiv = document.createElement("div");
-            intoDiv.id = "inclCont" + i;
-            bodySect = document.getElementById("blogSection");
-            bodySect.appendChild(intoDiv)
+              var intoDiv = document.createElement("div");
+              intoDiv.style.cssText = "padding-bottom:50px";
+              intoDiv.id = "inclCont" + i;
+              bodySect = document.getElementById("blogApp");
+              bodySect.appendChild(intoDiv);
 
-            hashedId = "#inclCont" + i
+              hashedId = "#inclCont" + i;
 
-            plop(hashedId, toLoad)
-          }
-        };
-        function plop(intoDivId, toLoad){
-          $(intoDivId).load(toLoad);
-        };
-        window.onload = run;
-      </script>
-
-      <div id="inclCont"></div>
+              try {
+                plop(hashedId, toLoad);
+              }
+              catch (e) {
+                intoDiv.remove();
+                console.log("WOW", e);
+              };
+            }
+          };
+          function plop(intoDivId, toLoad){
+            $.get(toLoad)
+              .done(function() { 
+                  // exists code 
+                  $(intoDivId).load(toLoad);
+              }).fail(function() { 
+                  // not exists code
+                  $(intoDivId).remove()
+              })
+            
+          };
+          window.onload = run;
+        </script>
 
       </section>
 
