@@ -56,22 +56,26 @@ var image, data;
 var boids = [];
 boids.push( new Boid( width / 3, height / 2, Math.random() * 180 * Math.PI / 180 ) );
 
-setInterval( function () {
+if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 
-    image = context.getImageData( 0, 0, width, height );
-    data = image.data;
+	setInterval( function () {
 
-    for ( var i = 0; i < boids.length; i ++ ) {
+	    image = context.getImageData( 0, 0, width, height );
+	    data = image.data;
 
-	    var boid = boids[ i ];
-	    boid.update();
+	    for ( var i = 0; i < boids.length; i ++ ) {
 
-	    if ( !boid.dead && Math.random() > 0.5 && boids.length < 500 ) {
+		    var boid = boids[ i ];
+		    boid.update();
 
-		    boids.push( new Boid( boid.x, boid.y, ( Math.random() > 0.5 ? 90 : - 90 ) * Math.PI / 180 + boid.angle ) );
+		    if ( !boid.dead && Math.random() > 0.5 && boids.length < 500 ) {
+
+			    boids.push( new Boid( boid.x, boid.y, ( Math.random() > 0.5 ? 90 : - 90 ) * Math.PI / 180 + boid.angle ) );
+
+		    }
 
 	    }
 
-    }
+	}, 10 / 60 );
 
-}, 10 / 60 );
+}
