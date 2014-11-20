@@ -1,0 +1,40 @@
+<h3>Initial Foray into Leaflet and D3<p>November 20, 2014</p></h3>
+
+<p>I'm trying to make a voronoi diagram. Just to get going, I used Citi Bike's station data (they have 332 stations and I just took the live JSOn feed to get each of their locations, by parsing through the data with d3's <code>d3.json()</code> capability. Currently, I am failing and getting very far into this project. I've got it working in a static instance, but I can't get it to dynamically update. I want to figure that out by the end of the day, ideally.</p>
+
+<style>
+	#map {
+		width: 500px;
+		height: 750px;
+	}
+	.svgDefault {
+		fill-opacity: 0.0;
+		stroke: black;
+		stroke-width: 1;
+	}
+</style>
+
+<p id="map" style="width: 500px; height: 750px"></p>
+
+<script src='blog/js/voronoi.js'></script>
+<script type="text/javascript">
+
+// instantiate map
+var map = new L.Map("map", { center: [40.725693, -73.983360], zoom: 13, zoomControl:false, dragging: false})
+	.addLayer(new L.TileLayer("http://{s}.tiles.mapbox.com/v3/kuanb.ipfm8n84/{z}/{x}/{y}.png"));
+map.dragging.disable();
+map.touchZoom.disable();
+map.doubleClickZoom.disable();
+map.scrollWheelZoom.disable();
+map.boxZoom.disable();
+map.keyboard.disable();
+
+// define source
+var url = 'blog/data/bike.json'
+
+// run the visualization
+voronoiMap(map, url);
+
+</script>
+
+<p>At present, the map, as you can see, produces the diagram correctly in a static state. I've understood (learned) how SVG sort of injects itself inside of a layer that Leaflet creates that sits just above the maps layer. Now I need for it to dynamically grab the L.circle objects that are locating the Citi Bike stations and recalculate their new x and y coordinates each time the map is moved. There is this code, that was on a few other Leaflet projects <code>map.on('load moveend', revise());</code> that unforuntately keeps returning a type error to me. Clearly, this is no good and is next on my to-debug list. At the moment though, I am going to need to switch gears and revisit this later in the evening.</p>
