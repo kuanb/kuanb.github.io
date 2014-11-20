@@ -2,9 +2,9 @@ var l_array = [];
 var width = 500;
 var height = 750;
 
-function voronoiMap(map, url) {
+function voronoimapN20(mapN20, url) {
 	// set up svg
-	svg = d3.select(map.getPanes().overlayPane).append("svg")
+	svg = d3.select(mapN20.getPanes().overlayPane).append("svg")
 		.attr("id", 'svgProj')
 		.attr("width", width)
 		.attr("height", height);
@@ -25,9 +25,9 @@ function create(stations) {
 			L.circle(stations[i], 1, {
 				color: 'red',
 				fillOpacity: 1,
-				stroke: 0}).addTo(map);
+				stroke: 0}).addTo(mapN20);
 			var latlng = new L.LatLng(stations[i][0], stations[i][1]);
-			var point = map.latLngToLayerPoint(latlng);
+			var point = mapN20.latLngToLayerPoint(latlng);
 			l_array.push(point);
 			points.push([point.x, point.y]);
 		};

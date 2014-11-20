@@ -3,7 +3,7 @@
 <p>I'm trying to make a voronoi diagram. Just to get going, I used Citi Bike's station data (they have 332 stations and I just took the live JSON feed to get each of their locations, by parsing through the data with d3's <code>d3.json()</code> capability. Currently, I am failing and getting very far into this project. I've got it working in a static instance, but I can't get it to dynamically update. I want to figure that out by the end of the day, ideally. To keep the map from freaking out, I have disabled all panning and zoom functionality in the below example.</p>
 
 <style>
-	#map {
+	#mapN20 {
 		width: 500px;
 		height: 750px;
 	}
@@ -14,20 +14,20 @@
 	}
 </style>
 
-<p id="map" style="width: 500px; height: 750px"></p>
+<p id="mapN20" style="width: 500px; height: 750px"></p>
 
 <script src='blog/js/voronoi.js'></script>
 <script type="text/javascript">
 
-// instantiate map
-var map = new L.Map("map", { center: [40.725693, -73.983360], zoom: 13, zoomControl:false, dragging: false})
-	.addLayer(new L.TileLayer("http://{s}.tiles.mapbox.com/v3/kuanb.ipfm8n84/{z}/{x}/{y}.png"));
-map.dragging.disable();
-map.touchZoom.disable();
-map.doubleClickZoom.disable();
-map.scrollWheelZoom.disable();
-map.boxZoom.disable();
-map.keyboard.disable();
+// instantiate mapN20
+var mapN20 = new L.Map("mapN20", { center: [40.725693, -73.983360], zoom: 13, zoomControl:false, dragging: false})
+	.addLayer(new L.TileLayer("http://{s}.tiles.mapN20box.com/v3/kuanb.ipfm8n84/{z}/{x}/{y}.png"));
+mapN20.dragging.disable();
+mapN20.touchZoom.disable();
+mapN20.doubleClickZoom.disable();
+mapN20.scrollWheelZoom.disable();
+mapN20.boxZoom.disable();
+mapN20.keyboard.disable();
 
 // define source
 var url = 'blog/data/bike.json'
