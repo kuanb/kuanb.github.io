@@ -21,7 +21,7 @@
 
 // instantiate mapN20
 var mapN20 = new L.Map("mapN20", { center: [40.725693, -73.983360], zoom: 13, zoomControl:false, dragging: false})
-	.addLayer(new L.TileLayer("http://{s}.tiles.mapN20box.com/v3/kuanb.ipfm8n84/{z}/{x}/{y}.png"));
+	.addLayer(new L.TileLayer("http://{s}.tiles.mapbox.com/v3/kuanb.ipfm8n84/{z}/{x}/{y}.png"));
 mapN20.dragging.disable();
 mapN20.touchZoom.disable();
 mapN20.doubleClickZoom.disable();
@@ -33,7 +33,7 @@ mapN20.keyboard.disable();
 var url = 'blog/data/bike.json'
 
 // run the visualization
-voronoiMapN20(map, url);
+voronoimapN20(mapN20, url);
 
 </script>
 
