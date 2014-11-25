@@ -10,18 +10,12 @@
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <style>
-      .body {    
-        margin: -10 !important;
-        padding: -10 !important;
-        overflow: hidden;
-      }
-      .h1 {
-        margin-top:-10px
-      }
-    </style>
-
-    </head>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="javascripts/d3.v3.min.js"></script>
+    <script src="javascripts/jquery.js"></script> 
+    
+  </head>
   <body style="padding: 0px; padding-top: 0px; margin: 0px; margin-top: 0px;">
     <canvas id='world' style="width: 100%; height: 100%; padding:0px; padding-top: 0px; margin:0px; margin-top:-8px; margin-bottom:0px; margin-right:0px; margin-left:0px; position: absolute; z-index: -1;"></canvas>
     <div class="wrapper" style="z-index:100; padding: 50px; padding-top: 100px; margin: 8px; margin-left: auto; margin-right: auto">
@@ -83,15 +77,12 @@
           function run() {
             for (var i=10; i>=0; i--) {
               var toLoad = "blog/" + i + ".html";
-
               var intoDiv = document.createElement("div");
               intoDiv.style.cssText = "padding-bottom:50px";
               intoDiv.id = "inclCont" + i;
               bodySect = document.getElementById("blogApp");
               bodySect.appendChild(intoDiv);
-
               hashedId = "#inclCont" + i;
-
               try {
                 plop(hashedId, toLoad);
               }
