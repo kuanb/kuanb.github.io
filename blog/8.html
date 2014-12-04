@@ -1,0 +1,20 @@
+<h3 href="#blogTitle">Mongoose Confusion<p>December 4, 2014</p></h3>
+
+<p>A curious problem stumped me for a bit yesterday. Of course, once I brought it up with another Hacker Schooler, it was quickly resolved. This 'skill' of just asking people right away when an issue arises and not being embarassed to do so is something I am only beginning to warm up to and something that I wish I was more proactive at doing earlier on in my Hacker School career. The issue had to do with <code>user.save</code>. For some reason, when using <code>req.user.save</code>, I was unable to add to the existing <code>userSchema</code>. Although I couldn't add or remove anything from the existing user, I could modify existing parameters. For example, I was able to change a "premium" parameter Boolean from <code>true</code> to <code>false</code>. I was able up update user's listed email addresses as well using <code>user.save</code>.</p>
+
+<p>In order to "add" parameters to the user, though, I needed to use a different command. Vito, another Hacker School, helped me find it via Mongoose's documentation. There, it suggests the method of <code>User.findOneAndUpdate()</code>. Using this method, you introduce a parameter to search by (I used <code>_id</code> since it's a unqiue identified in MongoDB) and then you feed it the element to modify, and then define a callback function.</p>
+
+<pre>
+User.findOneAndUpdate({_id: user._id}, user.toObject(), function(err, updatedUser) {
+	if (err) {
+		throw err;
+    } else {
+        res.render('profile.ejs', {
+			user : updatedUser,
+			message: 'Project added successfully.'
+		})
+    }
+})	
+</pre>
+
+<p>Above is a snippet from my code that demonstrates this <code>User.findOneAndUpdate()</code> in action, with the callback function and render action defined within.</p>
