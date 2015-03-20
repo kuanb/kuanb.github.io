@@ -6,18 +6,18 @@
 
 <pre>
 User.findOneAndUpdate(
-	{_id: user._id}, 
-	user.toObject(), 
-	function(err, updatedUser) {
-		if (err) {
-			throw err;
-	    } else {
-	        res.render('profile.ejs', {
-				user : updatedUser,
-				message: 'Project added successfully.'
-			})
-	    }
-	}
+  {_id: user._id}, 
+    user.toObject(), 
+    function(err, updatedUser) {
+    if (err) {
+      throw err;
+      } else {
+        res.render('profile.ejs', {
+        user : updatedUser,
+        message: 'Project added successfully.'
+      })
+      }
+  }
 )	
 </pre>
 
