@@ -1,0 +1,36 @@
+<h3>Success and Sloppiness<p>November 18, 2014</p></h3>
+
+<p>So here is the solution to my blog complaints. Hopefully this means I will actually blog somewhat regularly now... This was the laziest solution to making a blog that automatically adds new content through git without using any of those content management systems I find annoying. I've been told by just about everyone that if I do blog for a while, consistently, I will soon realize why those systems are so important. Nonetheless, ignorance is currently bliss.</p>
+
+<p>My 'solution' for lack of a better word to handle new blog posts is to simply write these entries as numbered html files in a blog directory. Then, in the HTML for the <code>blog.html</code> page, I have a simple JS function that runs through the files in that directory and plops them, one after another, on this page. There's so much wrong with this method, but for the first 20 blog posts, this will be fine, and I doubt I will be writing more than that in the foreseeable future.</p>
+
+<p>Just to horrify whoever is reading this, open the developer console. I literally picked an arbitrary number and run a for loop to load the files using the <code>index</code> to load files, including those that don't exist (yet). So, the result is a bunch of 404 errors. So sloppy, so glorious. I don't care. I am going to include the code in this just for kicks and to demonstrate that code works in this structure.</p>
+
+<pre>
+function run() { 
+
+  // work backwards numerically, so newest come first
+  for (var i=10; i>=0; i--) { 
+    var toLoad = "blog/" + i + ".html"; 
+      var intoDiv = document.createElement("div");
+
+      	// create new div
+        intoDiv.id = "inclCont" + i; 
+        intoDiv.style = "padding:200px;"; 
+        intoDiv.name = "padding:200px;";
+
+        bodySect = document.getElementById("blogApp");
+        bodySect.appendChild(intoDiv); 
+        hashedId = "#inclCont" + i;
+
+        // run load jquery function
+        plop(hashedId, toLoad)
+      }
+  }; 
+function plop(intoDivId, toLoad){ 
+  $(intoDivId).load(toLoad);
+}; 
+window.onload = run; 
+</pre>
+
+<p>Oh, it's so bad. I just realized that the code has to have manual tab entries in the input, as in using regular expressions. I should at least look into a solution for formatting code that is being typed up in HTML. That's the next "to do" item on this, but first I want to get back to working on Node.js and my FLocktracker user database system.</p>

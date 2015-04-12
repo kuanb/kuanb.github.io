@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
   <head>
@@ -11,18 +10,12 @@
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <style>
-      .body {    
-        margin: -10 !important;
-        padding: -10 !important;
-        overflow: hidden;
-      }
-      .h1 {
-        margin-top:-10px
-      }
-    </style>
-
-    </head>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="javascripts/d3.v3.min.js"></script>
+    <script src="javascripts/jquery.js"></script> 
+    
+  </head>
   <body style="padding: 0px; padding-top: 0px; margin: 0px; margin-top: 0px;">
     <canvas id='world' style="width: 100%; height: 100%; padding:0px; padding-top: 0px; margin:0px; margin-top:-8px; margin-bottom:0px; margin-right:0px; margin-left:0px; position: absolute; z-index: -1;"></canvas>
     <div class="wrapper" style="z-index:100; padding: 50px; padding-top: 100px; margin: 8px; margin-left: auto; margin-right: auto">
@@ -83,18 +76,48 @@
 
       </header>
 
-      <section>
-        <h3><a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h3>
+      <section id="blogSection">
 
-          <p>I'm a recent gradaute of the Recurse Center (previously <a href="https://www.hackerschool.com/">Hacker School</a>), a 3-month retreat for programmers in New York City. Prior, I was a graduate student at MIT's <a href="http://dusp.mit.edu/">Master of City Planning</a> <a href="http://dusp.mit.edu/transportation/program/overview">Transportation Systems Planning</a> program. My interests lie in implementing digital technology in engaging spatial (often transport-related) issues. That's a roundabout way of saying that seeing things end up on a map helps make me feel like the work I do has some tangible benefit to society. I have extensive international experience, from <a href="http://misti.mit.edu/city-planning-grad-student-kuan-butts-researches-peseros-service-operations-intermodal-transit-hubs">Mexico City</a> to <a href="https://www.kickstarter.com/projects/urbanlaunchpad/first-bus-map-of-dhaka">Dhaka, Bangladesh</a>.</p>
-          <p>At present, I am continuing the development and implementation of my ongoing slash never-ending project <a href="http://flocktracker.mit.edu/">Flocktracker</a>, with all my awesome teammates at <a href="http://www.urbanlaunchpad.org/">Urban Launchpad</a>. Also, I am developing <a href="http://www.skyrise.net/sr/">Skyrise</a>, a cloud-based, real estate asset management tool. I hope to reveal more on that soon.</p>
+        <div id="blogApp"></div>
+
+        <script> 
+          function run() {
+            for (var i=20; i>=0; i--) {
+              var toLoad = "blog/" + i + ".html";
+              var intoDiv = document.createElement("div");
+              intoDiv.style.cssText = "padding-bottom:50px";
+              intoDiv.id = "inclCont" + i;
+              bodySect = document.getElementById("blogApp");
+              bodySect.appendChild(intoDiv);
+              hashedId = "#inclCont" + i;
+              try {
+                plop(hashedId, toLoad);
+              }
+              catch (e) {
+                intoDiv.remove();
+                console.log("WOW", e);
+              };
+            }
+          };
+          function plop(intoDivId, toLoad){
+            $.get(toLoad)
+              .done(function() { 
+                  // exists code 
+                  $(intoDivId).load(toLoad);
+              }).fail(function() { 
+                  // not exists code
+                  $(intoDivId).remove()
+              })
+            
+          };
+          window.onload = run;
+        </script>
 
       </section>
 
-      </div>
-    </body>
+      </body>
+    </div>
     <script src="javascripts/scale.fix.js"></script>
-    <script src="javascripts/city.js"></script>
     <script type="text/javascript">
       var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
       document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -104,6 +127,15 @@
         var pageTracker = _gat._getTracker("UA-47292035-1");
         pageTracker._trackPageview();
       } catch(err) {}
+    </script>
+
+    <script>
+      // turn off key code entry for tons of unwanted things...
+      if (e.keyCode == '32') { };
+      if (e.keyCode == '37') { };
+      if (e.keyCode == '38') { };
+      if (e.keyCode == '39') { };
+      if (e.keyCode == '10') { }
     </script>
 
   </body>
