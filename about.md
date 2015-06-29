@@ -18,3 +18,10 @@ At present, I am continuing the development and implementation of my ongoing pro
 * [CoAXs](https://github.com/mitTransportAnalyst/CoAXs): A tool that integrates with bus routing output from tools such as TransitMix (now called ReMix) and plugs into scenario isochrone modelling software developed by the folks at Conveyal (a software consulatancy located in DC). I led the development of the application  within a team at MIT's Media Lab - a staging version is listed in the GH ReadMe if you'd like to view a live demo.
 * [Skyrise](http://skyrise.net/): A cloud-based real estate asset management MVP developed in early 2015 in partnership with an early stage start up. The tool utilizes local NYC data sets to aggregate a variety of information regarding properties within the City's Building Information System network.
 * [Weather+](http://kuanbutts.com/dataCanvas/): A submission to the Data Canvas worldwide live sensing contest held in early 2015, for which my submission received a "Maker Award." More information can be found on the submission's [splash page](http://kuanbutts.com/dataCanvas/).
+
+###### More Links
+
+* [Github](https://github.com/kuanb): Here's where all of my coding work is held - to see all my work be sure to check out the organizations I am a part of, much of the work I perform is hosted on those organizations.
+
+* [Urban Planning Portfolio](http://cargocollective.com/kuanbutts): Looking for some deep cuts? Here is my old architecture and planning work, including links to my undergraduate and early professional work portfolios.
+* [Urban Planning Blog](http://cargocollective.com/kuanbutts): In the spirit of deep cuts, here is an old collection of writing that I produced on planning. All stream of consciousness, mostly, for this blog.
