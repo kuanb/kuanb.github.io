@@ -10,9 +10,9 @@ url:         "http://kuanbutts.com"
 google_analytics: UA-47292035-1
 
 # Optional features
-animated:           false
+animated:           true
 show_related_posts: false
-show_post_footers:  false
+show_post_footers:  true
 
 # Disqus post comments
 # (leave blank to disable Disqus)
@@ -49,6 +49,6 @@ markdown:     redcarpet
 redcarpet:
   extensions: ['smart', 'tables', 'with_toc_data']
 permalink:    pretty
-paginate:     3
+paginate:     5
 sass:
   compressed: true
