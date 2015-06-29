@@ -10,7 +10,7 @@ _Warning: This is an older blog post. I am including it just for posterity, and 
 
 I've been tinkering on a submission to the [Sense Your City](http://datacanvas.org/sense-your-city/) competition hosted by Data Canvas. I hope I got the attributions right. It seems to be some Swissnex data art challenge, the ultimate goal of which is not entirely clear. Nevertheless, I thought that the data was potentially interesting - or at least fun to play with. Plus, it was an easy break from coding for Skyrise all day.
 
-![voronoi]({{ site.url }}/images/_posts/datacanvas.png)
+![voronoi](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/images/_posts/datacanvas.png)
 
 My final product is called "[Weather+](http://kuanbutts.com/dataCanvas/)" and you can check it out [here](http://kuanbutts.com/dataCanvas/). Github guts for the project can be found [here](https://github.com/kuanb/dataCanvas), as well.
 
