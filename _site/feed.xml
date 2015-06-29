@@ -7,6 +7,26 @@
     <atom:link href="http://kuanbutts.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Another post</title>
+        <description>&lt;p&gt;Here we are&lt;/p&gt;
+
+&lt;p&gt;sdfsdf&lt;/p&gt;
+</description>
+        <pubDate>Wed, 24 Jun 2015 00:00:00 -0400</pubDate>
+        <link>http://kuanbutts.com/2015/06/24/another-post/</link>
+        <guid isPermaLink="true">http://kuanbutts.com/2015/06/24/another-post/</guid>
+      </item>
+    
+      <item>
+        <title>Test</title>
+        <description>&lt;p&gt;Test foobar more test&lt;/p&gt;
+</description>
+        <pubDate>Tue, 23 Jun 2015 00:00:00 -0400</pubDate>
+        <link>http://kuanbutts.com/2015/06/23/test/</link>
+        <guid isPermaLink="true">http://kuanbutts.com/2015/06/23/test/</guid>
+      </item>
+    
+      <item>
         <title>A fresh personal site</title>
         <description>&lt;p&gt;Hello. This is a new blog for kuanbutts.com. Prior posts from my old blog (which was not run off Jekyll or any other sort of static web site builder), have been included &amp;ldquo;below&amp;rdquo; this post. Posts &amp;ldquo;after&amp;rdquo; this post will be those for the new posts. I will adjust the dates of entry on the transitioned older posts to try and retain some chronological order, but consider this a friendly warning that things might get messy!&lt;/p&gt;
 </description>
@@ -136,38 +156,6 @@
         <pubDate>Tue, 25 Nov 2014 07:31:19 -0500</pubDate>
         <link>http://kuanbutts.com/2014/11/25/asteroids/</link>
         <guid isPermaLink="true">http://kuanbutts.com/2014/11/25/asteroids/</guid>
-      </item>
-    
-      <item>
-        <title>Initial foray into Leaflet with D3</title>
-        <description>&lt;p&gt;&lt;em&gt;Warning: This is a really old blog post. I am including it just for posterity, and in the interest of just keeping all my old writing from my &amp;ldquo;earlier&amp;rdquo; days.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m trying to make a voronoi diagram. Just to get going, I used Citi Bike&amp;rsquo;s station data (they have 332 stations and I just took the live JSON feed to get each of their locations, by parsing through the data with d3&amp;rsquo;s &lt;code&gt;d3.json()&lt;/code&gt; capability. Currently, I am failing and getting very far into this project. I&amp;rsquo;ve got it working in a static instance, but I can&amp;rsquo;t get it to dynamically update. I want to figure that out by the end of the day, ideally. To keep the map from freaking out, I have disabled all panning and zoom functionality in the below example. (Update: I just replaced it with an image for now, since there is no point in using the map generation at the moment, given the panning doesn&amp;rsquo;t work.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://kuanbutts.com/images/_posts/citibike_station_voronoi.png&quot; alt=&quot;voronoi&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;At present, the map, as you can see, produces the diagram correctly in a static state. I&amp;rsquo;ve understood (learned) how SVG sort of injects itself inside of a layer that Leaflet creates that sits just above the maps layer. Now I need for it to dynamically grab the L.circle objects that are locating the Citi Bike stations and recalculate their new x and y coordinates each time the map is moved. There is this code, that was on a few other Leaflet projects &lt;code&gt;map.on(&amp;#39;load moveend&amp;#39;, revise())&lt;/code&gt; that unforuntately keeps returning a type error to me. Clearly, this is no good and is next on my to-debug list. At the moment though, I am going to need to switch gears and revisit this later in the evening.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 21 Nov 2014 07:31:19 -0500</pubDate>
-        <link>http://kuanbutts.com/2014/11/21/foray-into-leaflet-and-d3/</link>
-        <guid isPermaLink="true">http://kuanbutts.com/2014/11/21/foray-into-leaflet-and-d3/</guid>
-      </item>
-    
-      <item>
-        <title>Node notes</title>
-        <description>&lt;p&gt;&lt;em&gt;Warning: This is a really old blog post. I am including it just for posterity, and in the interest of just keeping all my old writing from my &amp;ldquo;earlier&amp;rdquo; days.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m going to include a first entry on my foray into Node, which began just over a week ago when Chase Lambert, another Hacker Schooler in my batch, suggested I try it over Django. Since he is an MIT CS grad, I take every word he says as Truth, and follow it blindly. All joking aside, the guy seems to be beyond brilliant, so I figured what the hell, I&amp;rsquo;ll try Node. His argument was that Django does too much magic, and in many ways is becoming antiquated given the state of web frameworks. I&amp;rsquo;d been working on Flask prior (well, dabbling at best) which was why I initially thought that Django might be some sort of logical next step. Node.js would also mean that I would get to work with MongoDB, something I had touched about 8-10 months ago, or so, but had not returned to, having been thoroughly confused. Back then, though, I was totally unaquainted with JSON and the like, and now it seems so much more familiar and accessible.&lt;/p&gt;
-
-&lt;p&gt;I followed a few valuable tutorials, namely Christopher Buecheler&amp;rsquo;s The Dead-Simple Step-by-Step Guide for Front-End Developers to Getting Up and Running with Node.JS, Express, Jade, and MongoDB. Yeah, it&amp;rsquo;s quite a mouthful, but it&amp;rsquo;s definitely worth the read and work. There is a second set of tutorials after that one, and a third which is linked at the bottom that is made by one of the commenters after Christopher suggested working out a post method for the web app that you create through those two tutorials. Honestly, this tutorial accounts for 90% of the framework I developed currently for Flocktracker&amp;rsquo;s backend. I&amp;rsquo;ve sort of just adapted the work I did through these.&lt;/p&gt;
-
-&lt;p&gt;The project is (sort of) hosted on GitHub, though I haven&amp;rsquo;t really been pushing my work onto GitHub much. The dependencies used are Mongoose, EJS, Passport, BCrypt, and Express. I&amp;rsquo;ll go through them and explain what each is, as I understand in my limited capacity, and why I am using it. Mongoose makes saving to MongoDB easier. You can go to the site and learn in detail, but it seems that, for me, I create a sort of user schema that defines the structure of each object (I think they call them documents) in MongoDB. This basically gives each of these a default structure and those are the components you are then able to interface with later (usernames, emails, Google authentication, etc.). EJS is a method of using a client side server to stick HTML into a page. The cool aspect of this is that the user essentially goes to one window and then, when they start certain routes in the URL, the server listens and send a response render that plops HTML on the screen. The extra cool feature of this is since the HTML is rendered then, you can do this with specific, say, user information. So the HTML can say &amp;ldquo;Hello, Kuan!&amp;rdquo; if the user logged in is named Kuan. Passport is the authentication middleware that handles authentication (using BCrypt) for Node. So, whenever you want to do something with a user&amp;rsquo;s page, for example, before you run the EJS render action, you shoot the route query through Passport and it returns you a thumbs up (a res object) or a thumbs down (an error and accompanying message).&lt;/p&gt;
-
-&lt;p&gt;I guess my next post can go into how these are implemented in more detail (i.e. let&amp;rsquo;s get some code blocks onto this blog).&lt;/p&gt;
-</description>
-        <pubDate>Thu, 20 Nov 2014 07:31:19 -0500</pubDate>
-        <link>http://kuanbutts.com/2014/11/20/node-notes/</link>
-        <guid isPermaLink="true">http://kuanbutts.com/2014/11/20/node-notes/</guid>
       </item>
     
   </channel>
