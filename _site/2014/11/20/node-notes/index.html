@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Node notes &#8211; Kuan Butts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Thoughts as I started Node for the first time">
+    <meta name="author" content="Kuan Butts">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://kuanbutts.com/2014/11/20/node-notes/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Node notes">
+    <meta property="og:description" content="Personal web page of Kuan Butts.">
+    <meta property="og:url" content="http://kuanbutts.com/2014/11/20/node-notes/">
+    <meta property="og:site_name" content="Kuan Butts">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        
+    
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://kuanbutts.com" class="site-title">Kuan Butts</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>Node notes</h1>
+  <span class="post-meta">Nov 20, 2014</span><br>
+  
+  <span class="post-meta small">3 minute read</span>
+</div>
+
+<article class="post-content">
+  <p><em>Warning: This is a really old blog post. I am including it just for posterity, and in the interest of just keeping all my old writing from my &ldquo;earlier&rdquo; days.</em></p>
+
+<p>I&rsquo;m going to include a first entry on my foray into Node, which began just over a week ago when Chase Lambert, another Hacker Schooler in my batch, suggested I try it over Django. Since he is an MIT CS grad, I take every word he says as Truth, and follow it blindly. All joking aside, the guy seems to be beyond brilliant, so I figured what the hell, I&rsquo;ll try Node. His argument was that Django does too much magic, and in many ways is becoming antiquated given the state of web frameworks. I&rsquo;d been working on Flask prior (well, dabbling at best) which was why I initially thought that Django might be some sort of logical next step. Node.js would also mean that I would get to work with MongoDB, something I had touched about 8-10 months ago, or so, but had not returned to, having been thoroughly confused. Back then, though, I was totally unaquainted with JSON and the like, and now it seems so much more familiar and accessible.</p>
+
+<p>I followed a few valuable tutorials, namely Christopher Buecheler&rsquo;s The Dead-Simple Step-by-Step Guide for Front-End Developers to Getting Up and Running with Node.JS, Express, Jade, and MongoDB. Yeah, it&rsquo;s quite a mouthful, but it&rsquo;s definitely worth the read and work. There is a second set of tutorials after that one, and a third which is linked at the bottom that is made by one of the commenters after Christopher suggested working out a post method for the web app that you create through those two tutorials. Honestly, this tutorial accounts for 90% of the framework I developed currently for Flocktracker&rsquo;s backend. I&rsquo;ve sort of just adapted the work I did through these.</p>
+
+<p>The project is (sort of) hosted on GitHub, though I haven&rsquo;t really been pushing my work onto GitHub much. The dependencies used are Mongoose, EJS, Passport, BCrypt, and Express. I&rsquo;ll go through them and explain what each is, as I understand in my limited capacity, and why I am using it. Mongoose makes saving to MongoDB easier. You can go to the site and learn in detail, but it seems that, for me, I create a sort of user schema that defines the structure of each object (I think they call them documents) in MongoDB. This basically gives each of these a default structure and those are the components you are then able to interface with later (usernames, emails, Google authentication, etc.). EJS is a method of using a client side server to stick HTML into a page. The cool aspect of this is that the user essentially goes to one window and then, when they start certain routes in the URL, the server listens and send a response render that plops HTML on the screen. The extra cool feature of this is since the HTML is rendered then, you can do this with specific, say, user information. So the HTML can say &ldquo;Hello, Kuan!&rdquo; if the user logged in is named Kuan. Passport is the authentication middleware that handles authentication (using BCrypt) for Node. So, whenever you want to do something with a user&rsquo;s page, for example, before you run the EJS render action, you shoot the route query through Passport and it returns you a thumbs up (a res object) or a thumbs down (an error and accompanying message).</p>
+
+<p>I guess my next post can go into how these are implemented in more detail (i.e. let&rsquo;s get some code blocks onto this blog).</p>
+
+</article>
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+		© Kuan Butts 2014, 2015
+      </small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

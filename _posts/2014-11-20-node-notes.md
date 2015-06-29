@@ -1,0 +1,17 @@
+---
+layout:     post
+title:      Node notes
+date:       2014-11-20 12:31:19
+summary:    Thoughts as I started Node for the first time
+categories: 
+---
+
+_Warning: This is a really old blog post. I am including it just for posterity, and in the interest of just keeping all my old writing from my "earlier" days._
+
+I'm going to include a first entry on my foray into Node, which began just over a week ago when Chase Lambert, another Hacker Schooler in my batch, suggested I try it over Django. Since he is an MIT CS grad, I take every word he says as Truth, and follow it blindly. All joking aside, the guy seems to be beyond brilliant, so I figured what the hell, I'll try Node. His argument was that Django does too much magic, and in many ways is becoming antiquated given the state of web frameworks. I'd been working on Flask prior (well, dabbling at best) which was why I initially thought that Django might be some sort of logical next step. Node.js would also mean that I would get to work with MongoDB, something I had touched about 8-10 months ago, or so, but had not returned to, having been thoroughly confused. Back then, though, I was totally unaquainted with JSON and the like, and now it seems so much more familiar and accessible.
+
+I followed a few valuable tutorials, namely Christopher Buecheler's The Dead-Simple Step-by-Step Guide for Front-End Developers to Getting Up and Running with Node.JS, Express, Jade, and MongoDB. Yeah, it's quite a mouthful, but it's definitely worth the read and work. There is a second set of tutorials after that one, and a third which is linked at the bottom that is made by one of the commenters after Christopher suggested working out a post method for the web app that you create through those two tutorials. Honestly, this tutorial accounts for 90% of the framework I developed currently for Flocktracker's backend. I've sort of just adapted the work I did through these.
+
+The project is (sort of) hosted on GitHub, though I haven't really been pushing my work onto GitHub much. The dependencies used are Mongoose, EJS, Passport, BCrypt, and Express. I'll go through them and explain what each is, as I understand in my limited capacity, and why I am using it. Mongoose makes saving to MongoDB easier. You can go to the site and learn in detail, but it seems that, for me, I create a sort of user schema that defines the structure of each object (I think they call them documents) in MongoDB. This basically gives each of these a default structure and those are the components you are then able to interface with later (usernames, emails, Google authentication, etc.). EJS is a method of using a client side server to stick HTML into a page. The cool aspect of this is that the user essentially goes to one window and then, when they start certain routes in the URL, the server listens and send a response render that plops HTML on the screen. The extra cool feature of this is since the HTML is rendered then, you can do this with specific, say, user information. So the HTML can say "Hello, Kuan!" if the user logged in is named Kuan. Passport is the authentication middleware that handles authentication (using BCrypt) for Node. So, whenever you want to do something with a user's page, for example, before you run the EJS render action, you shoot the route query through Passport and it returns you a thumbs up (a res object) or a thumbs down (an error and accompanying message).
+
+I guess my next post can go into how these are implemented in more detail (i.e. let's get some code blocks onto this blog).

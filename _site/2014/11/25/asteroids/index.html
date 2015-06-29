@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Super Simple Asteroids Game &#8211; Kuan Butts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="450 lines of code to shoot rocks">
+    <meta name="author" content="Kuan Butts">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://kuanbutts.com/2014/11/25/asteroids/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Super Simple Asteroids Game">
+    <meta property="og:description" content="Personal web page of Kuan Butts.">
+    <meta property="og:url" content="http://kuanbutts.com/2014/11/25/asteroids/">
+    <meta property="og:site_name" content="Kuan Butts">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        
+    
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://kuanbutts.com" class="site-title">Kuan Butts</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>Super Simple Asteroids Game</h1>
+  <span class="post-meta">Nov 25, 2014</span><br>
+  
+  <span class="post-meta small">1 minute read</span>
+</div>
+
+<article class="post-content">
+  <p><em>Warning: This is a really old blog post. I am including it just for posterity, and in the interest of just keeping all my old writing from my &ldquo;earlier&rdquo; days.</em></p>
+
+<p>I wrote a super simple Asteroids game, under 450 lines of code yesterday. The purpose was just to play around with Canvas and do something that was more visual. After a week of MongoDB, one can yearn for the tactile nature of the web browser and the comfort of knowing you can see something to reward you for your efforts. The game is embedded below and ready to play, though I know the space bar in Chrome causes all sorts of problems. Ultimately, if your browser is acting up when the game is playing, you can <a href="http://kuanbutts.com/blog/embed/asteroids/index.html">open it in its own window and play it there</a>.</p>
+
+<p><embed src="http://kuanbutts.com/blog/embed/asteroids/index.html" style="width:100%;height:350px"></embed></p>
+
+<p>I wouldn&rsquo;t say its tremendously &lsquo;playable.&rsquo; The game is effectively one function and, upon clicking to play, simply begins running. One interesting method I employed was not tying the performance of the ships speed to the browser. Instead, I make each space item, be it the ship, a laser, or an asteroid; and call them space objects. Each object keeps track of the time between when it is at the moment and when it was last called. When it is its turn to be updated, it calculates that delta of time and multiples that by its given speed attribute to determine distance changed for the redraw. I based this method of a helpful tutorial from this blog. The code for my Asteroids game <a href="https://github.com/kuanb/asteroids">lies in this repo</a>.</p>
+
+</article>
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+		© Kuan Butts 2014, 2015
+      </small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

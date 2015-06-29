@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mongoose configuration &#8211; Kuan Butts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Early excercises with Mongoose ORM">
+    <meta name="author" content="Kuan Butts">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://kuanbutts.com/2014/12/04/mongoose/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Mongoose configuration">
+    <meta property="og:description" content="Personal web page of Kuan Butts.">
+    <meta property="og:url" content="http://kuanbutts.com/2014/12/04/mongoose/">
+    <meta property="og:site_name" content="Kuan Butts">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        
+    
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://kuanbutts.com" class="site-title">Kuan Butts</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>Mongoose configuration</h1>
+  <span class="post-meta">Dec 4, 2014</span><br>
+  
+  <span class="post-meta small">1 minute read</span>
+</div>
+
+<article class="post-content">
+  <p><em>Warning: This is a really old blog post. I am including it just for posterity, and in the interest of just keeping all my old writing from my &ldquo;earlier&rdquo; days.</em></p>
+
+<p>A curious problem stumped me for a bit yesterday. Of course, once I brought it up with another Hacker Schooler, it was quickly resolved. This &lsquo;skill&rsquo; of just asking people right away when an issue arises and not being embarassed to do so is something I am only beginning to warm up to and something that I wish I was more proactive at doing earlier on in my Hacker School career. The issue had to do with <code>user.save</code>. For some reason, when using <code>req.user</code>.save, I was unable to add to the existing <code>userSchema</code>. Although I couldn&rsquo;t add or remove anything from the existing user, I could modify existing parameters. For example, I was able to change a &ldquo;premium&rdquo; parameter Boolean from <code>true</code> to <code>false</code>. I was able up update user&rsquo;s listed email addresses as well using <code>user.save</code>.</p>
+
+<p>In order to &ldquo;add&rdquo; parameters to the user, though, I needed to use a different command. Vito, another Hacker School (now called Recurse Center) peer, helped me find it via Mongoose&rsquo;s documentation. There, it suggests the method of <code>User.findOneAndUpdate()</code>. Using this method, you introduce a parameter to search by (I used <code>_id</code> since it&rsquo;s a unqiue identified in MongoDB) and then you feed it the element to modify, and then define a callback function.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">User</span><span class="p">.</span><span class="nx">findOneAndUpdate</span><span class="p">(</span>
+  <span class="p">{</span><span class="nx">_id</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">_id</span><span class="p">},</span> 
+    <span class="nx">user</span><span class="p">.</span><span class="nx">toObject</span><span class="p">(),</span> 
+    <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">updatedUser</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;profile.ejs&#39;</span><span class="p">,</span> <span class="p">{</span>
+          <span class="nx">user</span> <span class="o">:</span> <span class="nx">updatedUser</span><span class="p">,</span>
+          <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;Project added successfully.&#39;</span>
+        <span class="p">})</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">)</span></code></pre></div>
+
+<p>Above is a snippet from my code that demonstrates this <code>User.findOneAndUpdate()</code> in action, with the callback function and render action defined within.</p>
+
+</article>
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+		© Kuan Butts 2014, 2015
+      </small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

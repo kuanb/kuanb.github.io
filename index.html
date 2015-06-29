@@ -1,109 +1,41 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Kuan Butts</title>
+---
+layout: default
+---
 
-    <link rel="stylesheet" href = "stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<div class="home">
 
-    <style>
-      .body {    
-        margin: -10 !important;
-        padding: -10 !important;
-        overflow: hidden;
-      }
-      .h1 {
-        margin-top:-10px
-      }
-    </style>
+  <div class="posts" style="padding-bottom:25px; margin-bottom:100px; border-bottom:1px solid">
+    <div class="post">
+      <a href="/about" class="post-link"><h3 class="h2 post-title">
+        Who, what, where I am.
+      </h3></a>
+      <p class="post-summary">
+        I'm a software developer who loves building and working with transit and urban planning tools. Currently in NYC by way of San Diego, St. Louis, and then Boston. A recent graduate from both MIT and the Recurse Center, I'm currently working on a number of projects that deal with transit mapping and scenario modelling with the MIT Media Lab and the Singapore-MIT Alliance for Research and Technology. <a href="/about">Click for more about me and my work.</a>
+      </p>
+    </div>
+  </div>
 
-    </head>
-  <body style="padding: 0px; padding-top: 0px; margin: 0px; margin-top: 0px;">
-    <canvas id='world' style="width: 100%; height: 100%; padding:0px; padding-top: 0px; margin:0px; margin-top:-8px; margin-bottom:0px; margin-right:0px; margin-left:0px; position: absolute; z-index: -1;"></canvas>
-    <div class="wrapper" style="z-index:100; padding: 50px; padding-top: 100px; margin: 8px; margin-left: auto; margin-right: auto">
-      <header>
-        <h1 style="margin-bottom: 5px"><a href="index.html" style="text-decoration: none !important; color: #777; font-weight: bold;">Kuan Butts</a></h1>
-        <p>exploring space, digitally</p>
+  <div class="posts" style="padding-bottom:25px; margin-bottom:50px; border-bottom:1px solid">
+    <h3 class="h2 post-title">
+      Blog
+    </h3>
+  </div>
 
-        <p class="view">
-        <table style="margin:0px; width: 180px">
-          <tr>
-            <td style="border: 0px; padding: 0px; width: 75px">Work</td>
-            <td style="border: 0px; padding: 0px; width: 75px">About</td>
-          </tr>
-          <tr>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="http://cargocollective.com/kuanbutts" style="text-decoration: none !important;">Portfolio</a></td>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="https://www.linkedin.com/in/kuanbutts" style="text-decoration: none !important;">LinkedIn</a></td>
-          </tr>
-          <tr>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="https://github.com/kuanb" style="text-decoration: none !important;">Github</a></td>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="https://dl.dropboxusercontent.com/u/13557332/Update Resume.pdf" style="text-decoration: none !important;">Resume</a></td>
-          </tr>
-        </table>
+  <div class="posts">
+    {% for post in paginator.posts %}
+      <div class="post">
+        <p class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</p>
+        <a href="{{ post.url | prepend: site.baseurl }}" class="post-link"><h3 class="h3 post-title">{{ post.title }}</h3></a>
+        <p class="post-summary">
+          {% if post.summary %}
+            {{ post.summary }}
+          {% else %}
+            {{ post.excerpt }}
+          {% endif %}
         </p>
-
-        <p class="view">
-        <table style="margin:0px; width: 180px">
-          <tr>
-            <td style="border: 0px; padding: 0px; width: 75px">Blogging</td>
-            <td style="border: 0px; padding: 0px; width: 75px">Contact</td>
-          </tr>
-          <tr>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="blog.html" style="text-decoration: none !important;">Coding</a><br></td>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="mailto:kuanbutts@gmail.com" style="text-decoration: none !important;">Email</a><br></td>
-          </tr>
-          <tr>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="http://systemcity.wordpress.com/" style="text-decoration: none !important;">Planning</a><br></td>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="https://twitter.com/buttsmeister" style="text-decoration: none !important;">Twitter</a><br></td>
-          </tr>
-        </table>
-        </p>
-
-        <p class="view">
-        <table style="margin:0px; width: 180px">
-          <tr>
-            <td style="border: 0px; padding: 0px; width: 75px">Affiliations</td>
-          </tr>
-          <tr>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="http://urbanlaunchpad.org/" style="text-decoration: none !important;">Urban Launchpad</a><br></td>
-          </tr>
-          <tr>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="http://web.mit.edu/mfc/" style="text-decoration: none !important;">MIT MFC</a><br></td>
-          </tr>
-          <tr>
-            <td style="border: 0px; padding: 0px; width: 75px"><a href="https://www.hackerschool.com/" style="text-decoration: none !important;">Hacker School</a><br></td>
-          </tr>
-        </table>
-        </p>
-
-      </header>
-
-      <section>
-        <h3><a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h3>
-
-          <p>I'm a recent gradaute of the Recurse Center (previously <a href="https://www.hackerschool.com/">Hacker School</a>), a 3-month retreat for programmers in New York City. Prior, I was a graduate student at MIT's <a href="http://dusp.mit.edu/">Master of City Planning</a> <a href="http://dusp.mit.edu/transportation/program/overview">Transportation Systems Planning</a> program. My interests lie in implementing digital technology in engaging spatial (often transport-related) issues. That's a roundabout way of saying that seeing things end up on a map helps make me feel like the work I do has some tangible benefit to society. I have extensive international experience, from <a href="http://misti.mit.edu/city-planning-grad-student-kuan-butts-researches-peseros-service-operations-intermodal-transit-hubs">Mexico City</a> to <a href="https://www.kickstarter.com/projects/urbanlaunchpad/first-bus-map-of-dhaka">Dhaka, Bangladesh</a>.</p>
-          <p>At present, I am continuing the development and implementation of my ongoing slash never-ending project <a href="http://flocktracker.mit.edu/">Flocktracker</a>, with all my awesome teammates at <a href="http://www.urbanlaunchpad.org/">Urban Launchpad</a>. Also, I am developing <a href="http://www.skyrise.net/sr/">Skyrise</a>, a cloud-based, real estate asset management tool. I hope to reveal more on that soon.</p>
-
-      </section>
-
       </div>
-    </body>
-    <script src="javascripts/scale.fix.js"></script>
-    <script src="javascripts/city.js"></script>
-    <script type="text/javascript">
-      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script type="text/javascript">
-      try {
-        var pageTracker = _gat._getTracker("UA-47292035-1");
-        pageTracker._trackPageview();
-      } catch(err) {}
-    </script>
+    {% endfor %}
+  </div>
 
-  </body>
-</html>
+  {% include pagination.html %}
+</div>

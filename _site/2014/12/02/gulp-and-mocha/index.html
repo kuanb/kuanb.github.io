@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Gulp and Mocha &#8211; Kuan Butts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Trying to understand the workflow through self-explanation">
+    <meta name="author" content="Kuan Butts">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://kuanbutts.com/2014/12/02/gulp-and-mocha/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Gulp and Mocha">
+    <meta property="og:description" content="Personal web page of Kuan Butts.">
+    <meta property="og:url" content="http://kuanbutts.com/2014/12/02/gulp-and-mocha/">
+    <meta property="og:site_name" content="Kuan Butts">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        
+    
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://kuanbutts.com" class="site-title">Kuan Butts</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>Gulp and Mocha</h1>
+  <span class="post-meta">Dec 2, 2014</span><br>
+  
+  <span class="post-meta small">2 minute read</span>
+</div>
+
+<article class="post-content">
+  <p>The purpose of this is to document the main point from some code review I received today. I am building a backend MongoDB database (as prior mentioned) for Flocktracker. One key comment made was that iteration efficiency would be drammatically increased if I were to employ Gulp + Mocha. I knew vaguely what Gulp was and nothing as to Mocha. I was able to learn about both via this <a href="http://ellengummesson.com/blog/2014/01/06/getting-started-with-gulp/">excellent blog</a>. I found this of merit as their is very little documentation on the use of these two libraries in conjunction. The primary component I found very confusing was how to get Mocha to run. But first I should explain further what Gulp and Mocha are.</p>
+
+<p>Gulp, as I understand it, is a build system that essentially automates redundant tasks. What is a build system? Good question; I barely understand. So beyond automating tasks that are repetitive, another way of thinking about it is through an example. On the Canvas project I worked on last week, it was useful in my pairing partner&rsquo;s project because he was using Node libraries and needed to compile them to a web-ready format in order to test it in his browser. As a result, instead of having to run that everytime he wanted to check out his latest build, he automated the task via Gulp. For me, as I am building out this web application, I need to constantly reload the server and then click through to the area I am fixing or otherwise tweaking. While this is good for UI-related tweaks, it is really slow and inefficient for building the backend logic. This is where Mocha comes in handy. With Gulp, I can create a piping method (a stream of commands, one after another) that prepare the appropriate files, and then I can run Mocha on them. Mocha then runs through the various Express 4.0 <code>app.get</code> and <code>app.put</code> commands I have (along with other logic I am feeding it, and makes sure that they work. If they do, it print a green check in the terminal and if they do not, it can then highlight those problem functions. This lets me find and highlight issue points much more quickly than through manual iteration - what I had been doing prior. Hopefully, this will dramatically improve my workflow and help me stay focused during the development process.</p>
+
+<p><img src="http://kuanbutts.com/images/_posts/mocha_output.png" alt="mocha_output"></p>
+
+<p>Above is a screen capture of the output generated from running a Gulp file that pipes a <code>src</code> folder&rsquo;s contents to Mocha to be evaluated. Included is a simple function <code>add</code> that simple adds to variables. Clearly, more elaborate tests can be devised to test logic of processes in the backend.</p>
+
+</article>
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+		© Kuan Butts 2014, 2015
+      </small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

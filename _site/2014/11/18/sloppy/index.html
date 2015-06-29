@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Success and sloppiness &#8211; Kuan Butts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A pre-Jekyll foray into creating an easy-to-add-to blog system via Github">
+    <meta name="author" content="Kuan Butts">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://kuanbutts.com/2014/11/18/sloppy/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Success and sloppiness">
+    <meta property="og:description" content="Personal web page of Kuan Butts.">
+    <meta property="og:url" content="http://kuanbutts.com/2014/11/18/sloppy/">
+    <meta property="og:site_name" content="Kuan Butts">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        
+    
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://kuanbutts.com" class="site-title">Kuan Butts</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>Success and sloppiness</h1>
+  <span class="post-meta">Nov 18, 2014</span><br>
+  
+  <span class="post-meta small">2 minute read</span>
+</div>
+
+<article class="post-content">
+  <p><em>Warning: This is a really old blog post. I am including it just for posterity, and in the interest of just keeping all my old writing from my &ldquo;earlier&rdquo; days.</em></p>
+
+<p>So here is the solution to my blog complaints. Hopefully this means I will actually blog somewhat regularly now&hellip; This was the laziest solution to making a blog that automatically adds new content through git without using any of those content management systems I find annoying. I&rsquo;ve been told by just about everyone that if I do blog for a while, consistently, I will soon realize why those systems are so important. Nonetheless, ignorance is currently bliss.</p>
+
+<p>My &lsquo;solution&rsquo; for lack of a better word to handle new blog posts is to simply write these entries as numbered html files in a blog directory. Then, in the HTML for the blog.html page, I have a simple JS function that runs through the files in that directory and plops them, one after another, on this page. There&rsquo;s so much wrong with this method, but for the first 20 blog posts, this will be fine, and I doubt I will be writing more than that in the foreseeable future.</p>
+
+<p>Just to horrify whoever is reading this, open the developer console. I literally picked an arbitrary number and run a for loop to load the files using the index to load files, including those that don&rsquo;t exist (yet). So, the result is a bunch of 404 errors. So sloppy, so glorious. I don&rsquo;t care. I am going to include the code in this just for kicks and to demonstrate that code works in this structure.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span> 
+
+  <span class="c1">// work backwards numerically, so newest come first</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="kd">var</span> <span class="nx">toLoad</span> <span class="o">=</span> <span class="s2">&quot;blog/&quot;</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s2">&quot;.html&quot;</span><span class="p">;</span> 
+      <span class="kd">var</span> <span class="nx">intoDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+
+        <span class="c1">// create new div</span>
+        <span class="nx">intoDiv</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;inclCont&quot;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span> 
+        <span class="nx">intoDiv</span><span class="p">.</span><span class="nx">style</span> <span class="o">=</span> <span class="s2">&quot;padding:200px;&quot;</span><span class="p">;</span> 
+        <span class="nx">intoDiv</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;padding:200px;&quot;</span><span class="p">;</span>
+
+        <span class="nx">bodySect</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;blogApp&quot;</span><span class="p">);</span>
+        <span class="nx">bodySect</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">intoDiv</span><span class="p">);</span> 
+        <span class="nx">hashedId</span> <span class="o">=</span> <span class="s2">&quot;#inclCont&quot;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+
+        <span class="c1">// run load jquery function</span>
+        <span class="nx">plop</span><span class="p">(</span><span class="nx">hashedId</span><span class="p">,</span> <span class="nx">toLoad</span><span class="p">)</span>
+      <span class="p">}</span>
+  <span class="p">};</span> 
+<span class="kd">function</span> <span class="nx">plop</span><span class="p">(</span><span class="nx">intoDivId</span><span class="p">,</span> <span class="nx">toLoad</span><span class="p">){</span> 
+  <span class="nx">$</span><span class="p">(</span><span class="nx">intoDivId</span><span class="p">).</span><span class="nx">load</span><span class="p">(</span><span class="nx">toLoad</span><span class="p">);</span>
+<span class="p">};</span> 
+<span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nx">run</span><span class="p">;</span></code></pre></div>
+
+<p>Oh, it&rsquo;s so bad. I just realized that the code has to have manual tab entries in the input, as in using regular expressions. I should at least look into a solution for formatting code that is being typed up in HTML. That&rsquo;s the next &ldquo;to do&rdquo; item on this, but first I want to get back to working on Node.js and my Flocktracker user database system.</p>
+
+</article>
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+		© Kuan Butts 2014, 2015
+      </small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
