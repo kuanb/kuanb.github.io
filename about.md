@@ -4,6 +4,8 @@ title: About Kuan
 permalink: /about/
 ---
 
+[Resume](https://dl.dropboxusercontent.com/u/13557332/Update%20Resume.pdf) | [Github](https://github.com/kuanb) | [LinkedIn](https://www.linkedin.com/in/kuanbutts)
+
 #### Quick Pitch
 
 I'm a recent graduate of the [Recurse Center](https://www.recurse.com/) (previously called Hacker School). It was an amazing experience - for the uninitiated, RC is a 3-month retreat for programmers in New York City. Prior to RC, I was a graduate student at MIT's [Master of City Planning](http://dusp.mit.edu/) [Transportation Systems Planning](http://dusp.mit.edu/transportation/program/overview) program. My interests lie in the implementation of digital solutions in engaging spatial (and, often, transport-related) issues. While I have extensive international experience, from Mexico City to Dhaka, Bangladesh; my interests in tackling urban issues was initially spurred by my time in St. Louis, Missouri. Consequently, I have a particular interest in tackling urban issues specific to the US, as well.
@@ -20,8 +22,6 @@ At present, I am continuing the development and implementation of my ongoing pro
 * [Weather+](http://kuanbutts.com/dataCanvas/): A submission to the Data Canvas worldwide live sensing contest held in early 2015, for which my submission received a "Maker Award." More information can be found on the submission's [splash page](http://kuanbutts.com/dataCanvas/).
 
 ###### More Links
-
-* [Github](https://github.com/kuanb): Here's where all of my coding work is held - to see all my work be sure to check out the organizations I am a part of, much of the work I perform is hosted on those organizations.
 
 * [Urban Planning Portfolio](http://cargocollective.com/kuanbutts): Looking for some deep cuts? Here is my old architecture and planning work, including links to my undergraduate and early professional work portfolios.
 * [Urban Planning Blog](http://cargocollective.com/kuanbutts): In the spirit of deep cuts, here is an old collection of writing that I produced on planning. All stream of consciousness, mostly, for this blog.
