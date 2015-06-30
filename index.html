@@ -117,7 +117,7 @@ layout: default
   var boids = [];
   boids.push( new Boid( width / 2, height / 2, Math.random() * 180 * Math.PI / 180 ) );
 
-  if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+  // if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 
     setInterval( function () {
 
@@ -139,5 +139,5 @@ layout: default
 
     }, 10 / 60 );
 
-  }
+  // }
 </script>
