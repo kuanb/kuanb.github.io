@@ -8,7 +8,7 @@ permalink: /about/
 
 #### Quick Pitch
 
-I'm a recent graduate of the [Recurse Center](https://www.recurse.com/) (previously called Hacker School). It was an amazing experience - for the uninitiated, RC is a 3-month retreat for programmers in New York City. Prior to RC, I was a graduate student at MIT's [Master of City Planning](http://dusp.mit.edu/) [Transportation Systems Planning](http://dusp.mit.edu/transportation/program/overview) program. My interests lie in the implementation of digital solutions in engaging spatial (and, often, transport-related) issues. While I have extensive international experience, from Mexico City to Dhaka, Bangladesh; my interests in urban issues was initially spurred by my time in St. Louis, Missouri. Consequently, I have a particular interest in domestic research as well.
+I'm a graduate student at MIT's [Master of City Planning](http://dusp.mit.edu/) [Transportation Systems Planning](http://dusp.mit.edu/transportation/program/overview) program. My interests lie in the implementation of digital solutions in engaging spatial (and, often, transport-related) issues. Through both my research and work, I've taken on a number of lead technical roles, executing software developement and deployment in a wide variety of settings. This has provided me with extensive international experience, from Mexico City to Dhaka, Bangladesh. That said, my interest in engineering solutions to nuanced urban challenges was initially spurred by my time in St. Louis, Missouri. Consequently, I have a particular interest in domestic research as well.
 
 #### Current Work
 
