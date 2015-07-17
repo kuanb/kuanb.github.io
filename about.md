@@ -8,7 +8,7 @@ permalink: /about/
 
 #### Quick Pitch
 
-I'm a graduate of MIT's [Master of City Planning](http://dusp.mit.edu/) [Transportation Systems Planning](http://dusp.mit.edu/transportation/program/overview) program. My interests lie in the implementation of digital solutions in engaging spatial (and, often, transport-related) issues. Through both my research and work, I've taken on a number of lead technical roles, executing software developement and deployment in a wide variety of settings. This has provided me with extensive international experience, from Mexico City to Dhaka, Bangladesh. That said, my interest in engineering solutions to nuanced urban challenges was initially spurred by my time in St. Louis, Missouri. Consequently, I have a particular interest in domestic research as well.
+I'm a graduate of MIT's [Master of City Planning](http://dusp.mit.edu/) [Transportation Systems Planning](http://dusp.mit.edu/transportation/program/overview) program. My interests lie in the implementation of digital solutions in engaging spatial (and, often, transport-related) issues. Through both my research and work, I've taken on a number of lead technical roles, executing software development and deployment in a wide variety of settings. This has provided me with extensive international experience, from Mexico City to Dhaka, Bangladesh. That said, my interest in engineering solutions to nuanced urban challenges was initially spurred by my time in St. Louis, Missouri. Consequently, I have a particular interest in domestic research as well.
 
 #### Current Work
 
