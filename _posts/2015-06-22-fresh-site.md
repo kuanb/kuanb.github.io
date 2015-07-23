@@ -2,7 +2,6 @@
 published: true
 title: Crafting a Cohesive Vision for Flocktracker
 layout: post
-summary: Observing the difficulty of maintaining context on large, extended projects
 ---
 This will be a brief post. I just wanted to note the difficulty of "pitching a product." For me, [Flocktracker](http://kuanbutts.com/aboutFlocktracker/) is primarily a labor of love - I seek no monetary benefit from it. That said, it is necessary that I effectively convey what exactly [Flocktracker](http://kuanbutts.com/aboutFlocktracker/) is, both for the sake of those using the tool and, of course, for my own. Often, becoming tied up in the inner mechanics of how exactly the tool functions can cause one (myself) to lose sight of the greater picture. 
 
