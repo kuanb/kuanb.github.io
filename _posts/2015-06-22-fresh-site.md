@@ -1,9 +1,10 @@
 ---
-layout:     post
-title:      A fresh personal site
-date:       2015-06-22 12:31:19
-summary:    Converting from old site to a new, Jekyll-managed theme.
-categories: jekyll pixyll
+published: true
+title: Crafting a Cohesive Vision for Flocktracker
+layout: post
 ---
+This will be a brief post. I just wanted to note the difficulty of "pitching a product." For me, [Flocktracker](http://kuanbutts.com/aboutFlocktracker/) is primarily a labor of love - I seek no monetary benefit from it. That said, it is necessary that I effectively convey what exactly [Flocktracker](http://kuanbutts.com/aboutFlocktracker/) is, both for the sake of those using the tool and, of course, for my own. Often, becoming tied up in the inner mechanics of how exactly the tool functions can cause one (myself) to lose sight of the greater picture. 
 
-Hello. This is a new blog for kuanbutts.com. Prior posts from my old blog (which was not run off Jekyll or any other sort of static web site builder), have been included "below" this post. Posts "after" this post will be those for the new posts. I will adjust the dates of entry on the transitioned older posts to try and retain some chronological order, but consider this a friendly warning that things might get messy!
+Also, when working with others, such "scope" issues become increasingly difficult as each user has their own perception of what [Flocktracker](http://kuanbutts.com/aboutFlocktracker/) is or, more often, is becoming. A result of this is that I created a simple [static page](http://kuanbutts.com/aboutFlocktracker/) to organize my thoughts. For fun, I picked a random CSS framework to just "play" with. I somehow landed on Yahoo's Pure.CSS which is truly awful. Humor and nonsense aside, I think such a site might at least provide some sort of point from which I can begin to craft a singular clear approach to the project.
+
+Naturally, the downside to such an endeavor is that it took some of my already really limited time away from Flocktracker. Also, it's probably going to become outdated and end up being a burden, just like the old [MIT page](http://flocktracker.mit.edu/) now is. I suppose you can't win them all.
