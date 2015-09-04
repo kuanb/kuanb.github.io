@@ -1,6 +1,6 @@
 ---
 published: true
-title: Extracting data from traffic cameras (Part 1)
+title: Extracting data from traffic cameras
 layout: post
 summary: Notes on early process of obtaining and processing NYC DOT traffic camera image streams
 ---
