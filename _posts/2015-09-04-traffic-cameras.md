@@ -50,3 +50,30 @@ Above is shown an example of a series of images taken on a Wednesday afternoon i
 ![merged](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/traffic-cameras/merged.png)
 
 Now, there are plenty of limitations with this strategy. For one, there could be issues if the road is intensely congested, resulting in a road that is severely obfuscated. Similarly, there could be issues with camera movement - so far this does not seem to be an issue but on windy days, for example, it could be. Ultimately, this is intended to be purely an exploratory exercise to see if these resources (traffic cameras) could indeed be tapped and, if so, what potential they might hold. In my following post I will document my attempts to identify traffic and, if possible, individual vehicles.
+
+![evening_reg](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/traffic-cameras/evening_reg.png)
+
+Above we see the evening view of the vehicles travelling along an underpass. This is a good example of the complexities that will arise and need to be dealt with. In this image, the vehicle lights are on and their reflections are present on the asphalt. While shadows present themselves as a potential issue in identifying vehicles during the day, the “streaks” that are left by the vehicle lights could be of greater concern for evening imagery.
+
+![evening_merged](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/traffic-cameras/evening_merged.png)
+
+Combining these images produces the above effect. Clearly, this might become an issue when trying to determine the difference between the base image of no vehicles on the road and a vehicle. Fortunately, creating this base image allows for the potential to employ a tool in OpenCV called `absDiff`. `absDiff` calculates the per-element absolute difference between two arrays or between an array and a scalar.
+
+![evening_diff](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/traffic-cameras/evening_diff.png)
+
+Implementation of `absDiff` with the base image being the cleaned “no cars” image and the second image being the latest capture of the road (in this case, with a number of cars) produces an exaggerated (or, perhaps, “heightened”) highlight of the elements of the image that are different from the base image. 
+
+![evening_bin](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/traffic-cameras/evening_bin.png)
+
+This method proved substantially more effective than attempting to calculate the difference between the base image and the current image with what I initially assumed would be a logical method. This was to create binary (black and white) interpretations of each image and effectively create a difference of the pixels from one to another. Unfortunately, this method created a great deal of noise and proved to be a sort of dead end.
+
+So, returning back to the more successful `absDiff` image, we can see that the edges of the image have been highlighted in a fairly explicit manner. From here, I was able to easily run a [Harris Corner Detector in OpenCV](http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_feature2d/py_features_harris/py_features_harris.html), which provided me with a series of potential edge points. Taking each of these edge values, I then proceeded to simply plot each on top of the original `absDiff` image, which results in the below image.
+
+![evening_pts](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/traffic-cameras/evening_pts.png)
+
+From here, I’d like to see if I can get some very base level vehicle detection implemented this weekend. (We’ll see how successful I am.) Nonetheless, I think from this vantage point, there are clear opportunities to implement some machine learning techniques to improve vehicle detection and tracking, which could lead to improved and automated traffic flow monitoring. Such devices could serve to enhance other forms of traffic data, as well as perhaps lend a hand in monitoring for accidents or other traffic issues at critical route junctures.
+
+
+
+
+
