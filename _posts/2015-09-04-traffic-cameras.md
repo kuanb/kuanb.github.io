@@ -5,8 +5,6 @@ layout: post
 summary: Notes on early process of obtaining and processing NYC DOT traffic camera image streams
 ---
 
-This is part 1 of a 2 (maybe more?) series of posts on my exploration of traffic camera data from NYC DOT.
-
 Recently, I’ve been looking into what I’ll call “non-explicit” data resources. By that, I mean that there is a lot of data out there that is not cleaned and prepared for a specific purpose, although it might be tangentially relevant. Thus, some labor must be invested to access the relevant aspect of this data. An example of this are traffic cameras. As I was floating around NYC’s data offerings, I came across the NYCDOT traffic camera page. Through this page, one can easily acquire a list of url endpoints for each camera feed and limited metadata, including latitude, longitude, and a name indicating the approximate location or intersection at which the camera has been placed. Here’s an example of a JSON representing the data for a single camera:
 
 {% highlight javascript %}
