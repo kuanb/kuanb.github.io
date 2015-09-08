@@ -14,6 +14,8 @@ I'm a graduate of MIT's [Master of City Planning](http://dusp.mit.edu/) [Transpo
 
 At present, I am continuing the development and implementation of my ongoing project [Flocktracker](http://flocktracker.org/), with all my awesome teammates at Urban Launchpad and the [Singapore-MIT Alliance for Research and Technology](http://smart.mit.edu/). In addition to Flocktracker, I have a number of side projects, both at MIT (such as [CoAXs](https://github.com/mitTransportAnalyst/CoAXs), a bus routing scenario modelling tool I am developing for the Media Lab's [Changing Places Reseach Group](https://www.media.mit.edu/research/groups/changing-places)) and elsewhere (such as [Skyrise](http://skyrise.net/), a cloud-based, real estate asset management tool).
 
+Update: As of the end of August, I am a Civic Tech Fellow at Microsoft NY. While a Fellow, I'll be munging through traffic and transit-related datasets and working on some early foundations for the [Microsoft + DataKind Data Science Vision Zero Fellowship](https://blogs.microsoft.com/firehose/2015/08/28/microsoft-partners-with-datakind-vision-zero-to-improve-traffic-safety/).
+
 #### Projects List
 
 * [Flocktracker](http://www.flocktracker.org/): The project, which I currently lead remotely, is the result of an ongoing collaborative effort under the research of MIT DUSP's Mobility Futures Collaborative. The current application is based off of initial designs produced with Urban Launchpad in the mapping of Dhaka’s bus system to create the city’s first complete bus map.
