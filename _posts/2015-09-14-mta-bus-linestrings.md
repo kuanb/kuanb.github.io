@@ -39,7 +39,7 @@ As a result, I’ve created a temporary solution that involves basically clumps 
 
 ![clean](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/mta-bus-linestrings/clean.png)
 
-And, finally, for reference, here is the full `app.post` method for this endpoint at the time of publishing. (It will likely change so please reference the GH link for the latest; this is purely for reference to understand the general gist for how the resulting data was cleaned).
+I've started a [discussion](https://groups.google.com/forum/#!topic/mtadeveloperresources/llz0p2b1mv8) on the MTA Developers Google Group with regards to my questions. There, I have framed both my confusion with regards to the way the data is published as well as have asked for comments with regards to accessing decent shapefiles. Should the conversation die or not be fruitful, I think my next step will be to create a tool for producing decent shapefiles of each bus line myself, and then set about publishing that. Finally, for reference, here is the full `app.post` method for this endpoint at the time of publishing. (It will likely change so please reference the GH link for the latest; this is purely for reference to understand the general gist for how the resulting data was cleaned).
 
 {% highlight javascript %}
 app.post('/sql/route', function (req, res) {
