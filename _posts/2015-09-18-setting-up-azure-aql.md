@@ -78,4 +78,12 @@ info:    sql db list command OK
 
 Similarly, `azure sql db show foo` where `foo` is your server name should bring up a series of prompts that results in a list of metadata associated with the database. What we need to do now is open up the database and execute some SQL commands to set up tables and such.
 
-Note: This post is UNFINISHED. I will be adding the completion to this soon. Please email with any questions.
+In order to accomplish this we are going to need to be able to interface with the server through a command line interface for SQL we can drop into. The [one I am currently using](https://github.com/hasankhan/sql-cli) is called `sql-cli` and is [available through npm](https://www.npmjs.com/package/sql-cli). The associated `README` for the repository is great and includes everything you need to get it set up. Just run `npm install -g sql-cli` to install the tool globally. Once this has been accomplished, you should be able to access the tool from your command line by simply entering `mssql`. 
+
+{% highlight bash %}
+mssql -s abcdef.database.windows.net -u username@abcdef -p thepassword -d mydatabase -e
+{% endhighlight %}
+
+The instructions on the Github page indicate the above method to access the database. The value associated with `-s` is your server so, in my case, it was that same `vz8gxde2ej.database.windows.net` from earlier. The username is NOT the user you created as co-administrator from the Azure management console. This is a tad confusing - it is instead the login “Server Admin” name associated with that server. The password is the one joined with that, as well. Then the value associated with `-d` is the database name that is associated with that SQL database you created. Completing those value entries will allow you to drop into an interface.
+
+Now that we are here, we are able to execute scripts, create and destroy tables, whatever you want! Congrats - you made it!
