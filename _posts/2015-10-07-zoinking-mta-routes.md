@@ -58,7 +58,7 @@ var decodePolyline = function(encoded) {
 }
 {% endhighlight %}
 
-This tool is pretty useful. Writing a simple Node app that takes the name of the bus route. You don't even need the exact name - MTA guesses which it is and gives you suggestions. It's decent; if you put in any variation of, say "M60" (such as "m60" or "M60-sbs") and it will return the M60 bus line information. In the below `server.js` code I just made a simple Node app that takes the bus route name that you want and it reconfigures the JSON supplied by MTA with the actual latitude/longitudes instead of the polyline encoded string value. The code for this tool is included in the below snippet. Just make sure to include the defintion for the `decodePolyline` function, as well, and it should be good to go.
+This tool is pretty useful. I wrote a simple Node app that takes the name of the bus route. You don't even need the exact name - MTA guesses which it is and gives you suggestions. It's decent; if you put in any variation of, say "M60" (such as "m60" or "M60-sbs") and it will return the M60 bus line information. In the below `server.js` code I just made a simple Node app that takes the bus route name that you want and it reconfigures the JSON supplied by MTA with the actual latitude/longitudes instead of the polyline encoded string value. The code for this tool is included in the below snippet. Just make sure to include the defintion for the `decodePolyline` function, as well, and it should be good to go.
 
 {% highlight javascript %}
 var express = require('express');
