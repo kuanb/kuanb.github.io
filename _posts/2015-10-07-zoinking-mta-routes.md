@@ -68,28 +68,39 @@ var fs = require('fs');
 var request = require('request');
 
 app.get('/route/:route', function(req, res){
-	var busRoute = req.params.route == undefined ? 'M60-SBS' : req.params.route;
-	console.log(busRoute);
-	var url = 'http://bustime.mta.info/api/search?q=' + busRoute;
+  var busRoute = req.params.route;
 
-	request(url, function(error, response, data){
-		if(error){
-			res.status(500).send();
-		} else {
-			var data = JSON.parse(data).searchResults,
-					route = data.matches[0];
+  if (busRoute == undefined)
+    res.status(400).send(Error('No bus route included.'));
 
-			route.directions[0].polylines.forEach(function (pl, i) {
-				route.directions[0].polylines[i] = decodePolyline(pl);
-			});
+  var url = 'http://bustime.mta.info/api/search?q=' + busRoute;
 
-			route.directions[1].polylines.forEach(function (pl, i) {
-				route.directions[1].polylines[i] = decodePolyline(pl);
-			});
+  request(url, function(error, response, data){
+    if(error){
+      res.status(500).send(response);
+    } else {
+      var data = JSON.parse(data).searchResults;
 
-			res.status(200).send(data);
-		}
-	});
+      if (data.empty) {
+        res.status(500).send({error: error, response: response});
+      } else {
+        var route = data.matches[0];
+
+        route.directions[0].shape = [];
+        route.directions[1].shape = [];
+
+        route.directions[0].polylines.forEach(function (pl, i) {
+          route.directions[0].shape.push(decodePolyline(pl));
+        });
+
+        route.directions[1].polylines.forEach(function (pl, i) {
+          route.directions[1].shape.push(decodePolyline(pl));
+        });
+
+        res.status(200).send(data);
+      }
+    }
+  });
 })
 
 app.listen('8080')
