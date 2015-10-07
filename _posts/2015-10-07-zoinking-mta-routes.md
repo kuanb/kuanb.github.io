@@ -1,6 +1,6 @@
 ---
 published: true
-title: MTA bus route shapefiles via webscrapes
+title: MTA bus route shapefiles via Bustime site
 layout: post
 summary: Utilizing the One Bus Away toolkit to decode polyline strings from MTA web data
 ---
