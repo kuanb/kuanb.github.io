@@ -12,9 +12,11 @@ I'm a graduate of MIT's [Master of City Planning](http://dusp.mit.edu/) [Transpo
 
 #### Current Work
 
-At present, I am continuing the development and implementation of my ongoing project [Flocktracker](http://flocktracker.org/), with all my awesome teammates at Urban Launchpad and the [Singapore-MIT Alliance for Research and Technology](http://smart.mit.edu/). In addition to Flocktracker, I have a number of side projects, both at MIT (such as [CoAXs](https://github.com/mitTransportAnalyst/CoAXs), a bus routing scenario modelling tool I am developing for the Media Lab's [Changing Places Reseach Group](https://www.media.mit.edu/research/groups/changing-places)) and elsewhere (such as [Skyrise](http://skyrise.net/), a cloud-based, real estate asset management tool).
+Update (Sep. '15): I have been accepted as a Fellow at Code for America for next year (2016)! From January to November of 2016, I'll be working as a developer helpingt to improve operations within a partner US city. More details to come.
 
-Update: As of the end of August, I am a Civic Tech Fellow at Microsoft NY. While a Fellow, I'll be munging through traffic and transit-related datasets and working on some early foundations for the [Microsoft + DataKind Data Science Vision Zero Fellowship](https://blogs.microsoft.com/firehose/2015/08/28/microsoft-partners-with-datakind-vision-zero-to-improve-traffic-safety/).
+Update (Aug. '15): As of the end of August, I am a Civic Tech Fellow at Microsoft NY. While a Fellow, I'll be munging through traffic and transit-related datasets and working on some early foundations for the [Microsoft + DataKind Data Science Vision Zero Fellowship](https://blogs.microsoft.com/firehose/2015/08/28/microsoft-partners-with-datakind-vision-zero-to-improve-traffic-safety/).
+
+At present, I am continuing the development and implementation of my ongoing project [Flocktracker](http://flocktracker.org/), with all my awesome teammates at Urban Launchpad and the [Singapore-MIT Alliance for Research and Technology](http://smart.mit.edu/). In addition to Flocktracker, I have a number of side projects, both at MIT (such as [CoAXs](https://github.com/mitTransportAnalyst/CoAXs), a bus routing scenario modelling tool I am developing for the Media Lab's [Changing Places Reseach Group](https://www.media.mit.edu/research/groups/changing-places)) and elsewhere (such as [Skyrise](http://skyrise.net/), a cloud-based, real estate asset management tool).
 
 #### Projects List
 
