@@ -1,0 +1,17 @@
+---
+published: true
+title: Undocumented MTA API capabilities
+layout: post
+summary: Explorations into the Bustime site's API calls
+---
+
+
+This morning on the MTA Developer Forum I received a question on my [post](https://groups.google.com/forum/#!topic/mtadeveloperresources/llz0p2b1mv8) from prior about my OBA Path Extractor tool. It got me thinking that, since the Bustime site seems to be a single page application, there must be a RESTful call to get all the bus stops that are listed in either direction under the left-hand column. I played around for a bit and was finally able to find the call. For route BX5, for example, the call `http://bustime.mta.info/api/stops-on-route-for-direction?callback=jsonp1444833569642&_=1444833813644&routeId=MTA+NYCT_BX5&directionId=0` is made when navigating to that route. It is curious that the routes are decoupled from the shapefile, as I would imagine those would be useful. 
+
+Also strange is that the initial call that returns the encoded polylines (which I wrote the tool from a few posts ago to untangle), includes in its JSON response object a key store for `stops` yet this value is always `null`. Why not just throw in the stops at that points and save the subsequent call? Seems like an easy add, to me. Also strange is how the MTA does not seem to follow the One Bus Away (OBA) standards. If you look online at the MTA site for the [OBA API](http://bustime.mta.info/wiki/Developers/OneBusAwayRESTfulAPI), they send you to the organization's [RESTful API documentation](http://developer.onebusaway.org/modules/onebusaway-application-modules/current/api/where/index.html). There, they have a [section](http://developer.onebusaway.org/modules/onebusaway-application-modules/current/api/where/methods/stops-for-route.html) specifically for querying by route for stops. The method string is `stops-for-route` and and example is provided as such: `http://api.pugetsound.onebusaway.org/api/where/stops-for-route/1_44.xml?key=TEST&version=2`. 
+
+So, given that, why do they diverge in their implementation of OBA with the prior listed call `http://bustime.mta.info/api/stops-on-route-for-direction?callback=jsonp1444833569642&_=1444833813644&routeId=MTA+NYCT_BX5&directionId=0`? This question is, rhetorical, but it seems strange to me to link to a resource that, if actually followed, would enable users to easily query vast amounts of very useful information but, now, requires a user to munge throught the web browser console's XHR results to find a call that is comparable to the one that was referenced in the documentation.
+
+Either way, the endpoint is indeed useful and I intend to add it to the OBA Extractor tool I made from before so look out for that update shortly. For the time being, if you are interested in quickly grabbing all the stops for a particular route, then simply go to `http://bustime.mta.info/api/stops-on-route-for-direction?routeId=MTA+NYCT_X12&directionId=0` where `X12` is your route's ID and `directionId` is set to either 1 or 0 for the direction you want.
+
+I am still trying to figure out the nuances to this API. Some calls, such as a call to route Q6 (`http://bustime.mta.info/api/stops-on-route-for-direction?routeId=MTA+NYCT_Q6&directionId=0`), will result in an internal error (500). Also, the api will error on `M60-SBS`. Thus, there is some issue with the way those routes are called. I'll need to figure that out prior to implementing the update. If anyone has thoughts I am all ears.
