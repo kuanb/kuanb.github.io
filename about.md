@@ -10,6 +10,9 @@ permalink: /about/
 
 I'm a graduate of MIT's [Master of City Planning](http://dusp.mit.edu/) [Transportation Systems Planning](http://dusp.mit.edu/transportation/program/overview) program. My interests lie in the implementation of digital solutions in engaging spatial (and, often, transport-related) issues. Through both my research and work, I've taken on a number of lead technical roles, executing software development and deployment in a wide variety of settings. This has provided me with extensive international experience, from Mexico City to Dhaka, Bangladesh. That said, my interest in engineering solutions to nuanced urban challenges was initially spurred by my time in St. Louis, Missouri. Consequently, I have a particular interest in domestic research as well.
 
+![presenting](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/presenting.png)
+Here's me presenting at BetaNYC in October of 2015 in New York on the Code for America Summit report back talk.
+
 #### Current Work
 
 Update (Sep. '15): I have been accepted as a Fellow at Code for America for next year (2016)! From January to November of 2016, I'll be working as a developer helpingt to improve operations within a partner US city. More details to come.
