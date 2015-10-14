@@ -10,7 +10,7 @@ In yesterday's post, I wrote about using the One Bus Away (OBA) utility toolkit 
 
 Feel free to jump to yesterday's post to learn more about the MTA API feed via `search`. All I want to accomplish with this blog post is to point to the completed tool which is hosted at the aforementioned [repo](https://github.com/Bus-Data-NYC/oba-path-extractor). The `README.md` should be pretty self-explanatory but, just in case, here's an outline of what's there:
 
-If you don't care about actually generating the shapefiles yourself, I went ahead and uploaded them to the repo, as well. Go straight ahead to the geojsons/ folder. Inside, each bus route is a folder, within which the inbound and outbound directions are placed as featureCollection geojsons. Github has a nice feature that allows you to visually preview each shapefile so you can check them out by clicking within each folder and just watching it load the shape and plop it on the map.
+If you don't care about actually generating the shapefiles yourself, I went ahead and uploaded them to the repo, as well. Go straight ahead to the `geojsons/` folder. Inside, each bus route is a folder, within which the inbound and outbound directions are placed as featureCollection geojsons. Github has a nice feature that allows you to visually preview each shapefile so you can check them out by clicking within each folder and just watching it load the shape and plop it on the map.
 
 If you want to "DIY" and have an interest in doing more with the content that is returned, then go ahead and clone the repo and run it locally. Use `node server.js` and wait until you are alerted that the app is up and running. Open a browser and use the following endpoints to run specific queries:
 
