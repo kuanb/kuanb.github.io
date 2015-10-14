@@ -8,6 +8,7 @@ permalink: /about/
 
 
 ![presenting](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/presenting.png)
+
 <sub><sup>Presenting at BetaNYC in October of 2015 in New York on the Code for America Summit report back talk.<sub><sup>
 
 #### Quick Pitch
