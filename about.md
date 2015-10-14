@@ -6,12 +6,13 @@ permalink: /about/
 
 [Resume](https://dl.dropboxusercontent.com/u/13557332/Update%20Resume.pdf) | [Github](https://github.com/kuanb) | [LinkedIn](https://www.linkedin.com/in/kuanbutts)
 
+
+![presenting](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/presenting.png)
+Me presenting at BetaNYC in October of 2015 in New York on the Code for America Summit report back talk.
+
 #### Quick Pitch
 
 I'm a graduate of MIT's [Master of City Planning](http://dusp.mit.edu/) [Transportation Systems Planning](http://dusp.mit.edu/transportation/program/overview) program. My interests lie in the implementation of digital solutions in engaging spatial (and, often, transport-related) issues. Through both my research and work, I've taken on a number of lead technical roles, executing software development and deployment in a wide variety of settings. This has provided me with extensive international experience, from Mexico City to Dhaka, Bangladesh. That said, my interest in engineering solutions to nuanced urban challenges was initially spurred by my time in St. Louis, Missouri. Consequently, I have a particular interest in domestic research as well.
-
-![presenting](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/presenting.png)
-Here's me presenting at BetaNYC in October of 2015 in New York on the Code for America Summit report back talk.
 
 #### Current Work
 
