@@ -69,16 +69,16 @@ We should note that we performed this test between 12:30 PM and 2:00 PM on Sunda
 In the third test, results were suprising. Nathan got 21,349 and I (Kuan) got 21,271. The difference was a third of one percent or, essentially, null. Nathan was running method two and I was running method one. It was expected that Nathan's results would involve significantly more unique entries than my method. Results for all three tests are shown below. Code used to run the tests is held at [this repository on Github](https://github.com/Bus-Data-NYC/mta-bus-monitor-node). Operations were run via `app.js` and calculation on results were performed using the `calcUniques.js` tool, which returned a number representing the number of unique rows resulting from a test run.
 
 Test 1:
-`Kuan B <Method 1>: 19 files, 18,977 unique entries`
-`Nathan <Method 1>: 19 files, 19,351 unqiue entries`
+Kuan B <Method 1>: 19 files, 18,977 unique entries
+Nathan <Method 1>: 19 files, 19,351 unqiue entries
 
 Test 2:
-`Kuan B <Method 2>: 19 files, 21,740 unique entries`
-`Nathan <Method 1>: 19 files, 20,641 unqiue entries`
+Kuan B <Method 2>: 19 files, 21,740 unique entries
+Nathan <Method 1>: 19 files, 20,641 unqiue entries
 
 Test 3:
-`Kuan B <Method 1>: 19 files, 21,271 unique entries`
-`Nathan <Method 2>: 19 files, 21,349 unqiue entries`
+Kuan B <Method 1>: 19 files, 21,271 unique entries
+Nathan <Method 2>: 19 files, 21,349 unqiue entries
 
 Results raised some questions. Why had the first test returned on ~19 thousand entries and the second and third ~21 thousand entries? Furthermore, what had happened that caused Nathan to net only marginally more responses than I when he ran method two and I method one? Finally, was there a better way to make the second call in method one?
 
@@ -121,7 +121,7 @@ req.on('error', function(err) {
 I then ran the tool again, for another 10 minutes, to observe if there was any significant difference. The thought was that this might marginally beat out prior results, though I think the nuance at this level might be hard to observe, particularly at ten minute intervals. Nonetheless, it was worth a try just to learn more about the mechanics of the Bustime API. The results of this test were as follows:
 
 Test 4:
-`Kuan B <Method 3>: 20 files, 19,282 unique entries`
+Kuan B <Method 3>: 20 files, 19,282 unique entries
 
 It appears results were back to the ~19 thousand entry range. Comparisons to the prior results are difficulat at this point. It's hard to say anything more at this point, I think the best move will be to rerun these tests later, preferably during a peak period on a weekday, when variation is likely to be more clear and hypothesis can be better tested.
 
