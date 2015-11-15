@@ -1,0 +1,26 @@
+---
+published: true
+title: Frontline dispatch: Using Node for data munging
+layout: post
+summary: TL;DR - I should have stuck with Python
+---
+
+
+I've been working with "very large" amounts of data recently, primarily in parsing ~5 million rows of geospatial data from buses via the MTA OBA Bustime API project. You can read more on this by clicking on pretty much any of my prior posts from the past few months. When I started this project, I began by adapting a friend's code that was parsing the MTA results at ~30 second intervals and then passing on the cleaned data points to temporary storage on Azure's blob/contiainer service (an equivalent of AWS S3, for those more familiar with that). There is also a second process, an "archiver," that will scoop up a day's worth of results, prune for duplicates, and write the compressed results to another container. When that is finished, it removed the handled CSVs from the temporary storage container.
+
+This scraping process, as I mentioned, can ultimately be handling 300,000-400,000 rows of data per hour and over 5 million unique local points per hour. Looping over and handling this data requires a language that is designed to efficiently handle these processes. When I started the project, I was just coming off of two Node/Angular projects (well, actually, the prior one was a "Djangular" application - Django and Angular on the front - but, through it, I had become familiar with Node through some other work). I was on a "Node-high" of sorts and wanted to continue using it on this project. 
+
+Needless to say, it's been overly difficult. The most frustrating discovery was, last week, when I discovered that Node is lazy in terms of grabage collecting. The intent behund this is to help improve performance and, while I know very little about language otimization (correction: nothing), I did run into barriers as a result of the consequences of this designed decision. I'm running a VM to run the archive function on a D1 tier service through Azure. This means I have a box with ~50 GB and 3.5GB of RAM. It was this situation, in fact, that did originally make me think Node might provide some advantages. Initially, I had performed all the parsing and duplicate removal in memory. I would load all of a day's location values into memory, and then iterate over them, creating a duplicate of the object that filtered out values I deemed unneeded or duplicates.
+
+I figured one advantage of Node in this situation is the plethora of streaming services Node provides. Instead of loading all the data directly into memory, I would stream the data in row by row, process those attributes, dump them, and proceed. This did, by and large, work. I would stream data into a CSV using Node's handy `File Service` library. I then went to improve the process by removing CSV from the equation and writing to a SQLite database that would automatically allow me to query for a results table that did not include the unwanted rows.
+
+This, by the way, introduced its own host of nuisances, namely that SQLite3 (what I am using) does not allow batch inserts over 500 rows long. As a result, the array of rows from each parsed CSV from the temporary Azure cloud service needed to be reduced into a sub-array of <500 row objects. Then, each insert would call the next "batch" as a callback. At any rate, this is besides the point. Moving back to the issue of Node - I am currently embroiled in a new issue which has to do with handling the cleaned results. I run a query into SQLite3 as such:
+
+
+{% highlight SQL %}
+SELECT * FROM temp WHERE rowid IN (SELECT MIN(rowid) FROM temp GROUP BY timestamp, trip_id);
+{% endhighlight %}
+
+The result of this is roughly ~3 million rows of unique location points, in row form. By running this SQL query with the library [node-sqlite3](https://github.com/mapbox/node-sqlite3), maintained by the talented folks over at Mapbox, I was hoping to be able to again create a sort of streaming mechanism. Tragically, there appears to likely be a leak in the [function](https://github.com/mapbox/node-sqlite3/wiki/API), `db.each()`, that would have allowed me to accomplish this. I have [opened an issue](https://github.com/mapbox/node-sqlite3/issues/552) about it and hope to hear back at some point regarding this issue. I would like to be able to run this function, really. As it stands, I think that the solution will be that I need to load all the results into memory. The whole SQLite3 database weighs in at ~400mb tops, so a ~300mb result from the query, say, will not be unreasonable and will be much improved over the processes that happened before. That said, it is unfortunate as it undermines one of the prime reasons I was initially intrigured by Node in this use case - the heavy support for streaming data in and out of an application. 
+
+To conclude, I'd say that the combination of lazy garbage collection leading to excessive memory use and relatively young and untests libraries can make performing computationally intense operations over large amounts of data prone to errors outside of one's control, compared to languages where folks typically congregate to perform these types of tasks and have created tools and a language structure that is focused on controlling against these situations.
