@@ -1,8 +1,8 @@
 ---
 published: true
-title: Frontline dispatch: Using Node for data munging
+title: Frontline dispatch, using Node for data munging
 layout: post
-summary: TL;DR I should have stuck with Python
+summary: TLDR I should have stuck with Python
 ---
 
 
