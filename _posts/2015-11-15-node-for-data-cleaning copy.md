@@ -2,7 +2,7 @@
 published: true
 title: Frontline dispatch, using Node for data munging
 layout: post
-summary: TLDR I should have stuck with Python
+summary: TL;DR I should have stuck with Python
 ---
 
 
