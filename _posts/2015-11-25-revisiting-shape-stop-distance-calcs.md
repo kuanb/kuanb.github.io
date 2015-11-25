@@ -8,7 +8,7 @@ summary: Acquiring bus stop distance from route start by leveraging route shapef
 
 I recently have been trying to calculate the distance along the route that each stop along a bus route is at in New York. Simple enough, I had assumed. First, one would query for the stop, then acquire the corresponding shape (via shape_id) and run the haversine formula a couple times and voila, it would be complete. Unfortunately, that's not what happened. Before I continue, I will explain how my code originally worked.
 
-<iframe src="http://bus-data-nyc.github.io/shape-with-stops/testing/" frameborder="0" width="100%" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<iframe src="http://bus-data-nyc.github.io/shape-with-stops/testing/" frameborder="0" width="100%" height="625" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 Shown in the above animation (click the run button to run it), is a visualization showing the strategy I employ in identifying the distance for a given stop. In the full implementation, I loop through an entire array of stops that are paired with a given shape but, in this situation, I focus on just two markers, which are the stops, and a small segment of the larger route. The purpose for this, of course, is just demonstration so, if you look at the code for the animated components in the `iframe`, you'll see a lot of potential for edge cases that are not controlled against. Thus, please ignore the code used in the iframe as its intent was purely as demonstration and to get an animation up and running quickly. The pull code for the actual tool is held in [this Github repository](https://github.com/Bus-Data-NYC/shape-with-stops/). 
 
