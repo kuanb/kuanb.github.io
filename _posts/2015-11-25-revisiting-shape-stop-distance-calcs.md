@@ -6,7 +6,7 @@ summary: Acquiring bus stop distance from route start by leveraging route shapef
 ---
 
 
-I recently have been trying to calculate the distance along the route that each stop along a bus route is at in New York. Simple enough, I had assumed. First, one would query for the stop, then acquire the corresponding shape (via shape_id) and run the haversine formula a couple times and voila, it would be complete. Unfortunately, that's not what happened. Before I continue, I will explain how my code originally worked.
+I recently have been trying to calculate the distance along the route that each stop along a bus route is at in New York. Simple enough, I had assumed. First, one would query for the stop, then acquire the corresponding shape (via `shape_id`) and run the haversine formula a couple times and voila, it would be complete. Unfortunately, that's not what happened. Before I continue, I will explain how my code originally worked.
 
 <iframe src="http://bus-data-nyc.github.io/shape-with-stops/testing/" frameborder="0" width="100%" height="625" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
@@ -37,7 +37,7 @@ function deg2rad (d) {
   return (d * (Math.PI/180));
 };
 {% endhighlight %}
-Shown above is my implementation of the haversine formula in JS for the embedded iframe. Note: The radius of the Earth at 40.7 degrees latitude is 6369087 meters. Depending on the form you're using, you might instead need the length of one degree of latitude at 40.7 degrees, which is 111048 meters.
+<small>Shown above is my implementation of the haversine formula in JS for the embedded iframe. Note: The radius of the Earth at 40.7 degrees latitude is 6369087 meters. Depending on the form you're using, you might instead need the length of one degree of latitude at 40.7 degrees, which is 111048 meters.</small>
 
 {% highlight python %}
 def haversine(pt1, pt2):
@@ -56,7 +56,7 @@ def haversine(pt1, pt2):
     h = 2 * 6369087 * asin(sqrt(d))
     return round(h, 2)
 {% endhighlight %}
-Again, the haversine formula, this time from my implementation in Python.
+<small>Again, the haversine formula, this time from my implementation in Python.</small>
 
 In the iframe example visualization, the animation should loop through the segment of the route we are lookint at and, for every point, draw a "triangle" from that first shapefile point to the stop to the next shapefile point. Thus two lines will be drawn. If the sum of those 2 lines is the current shortest distance for the route, it is green, if it is not, it is red. If a shorter 2 line combination is found, that one becomes highlighted in green and the prior shortest is removed.
 
