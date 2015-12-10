@@ -57,7 +57,7 @@ layout: default
     }
   }
 
-  // attribution: this is the work of: http://codepen.io/piksl/pen/EaxJxX
+  // attribution: this is adapted from the work of: http://codepen.io/piksl/pen/EaxJxX
 
   var Boid = function ( x, y, angle ) {
       this.x = x;
@@ -103,7 +103,7 @@ layout: default
   }
 
   var width = window.innerWidth;
-  var height = window.innerHeight; //document.getElementById('whowhatwhere').clientHeight*0.8;
+  var height = window.innerHeight;
   document.getElementById('whowhatwhere').setAttribute("style","height:" + height + "px");
 
   var canvas = document.getElementById('world');
@@ -118,7 +118,7 @@ layout: default
 
   // if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 
-    setInterval( function () {
+    var drawInterval = setInterval( function () {
 
         image = context.getImageData( 0, 0, width, height );
         data = image.data;
@@ -139,4 +139,6 @@ layout: default
     }, 10 / 60 );
 
   // }
+
+  setTimeout(function () {clearInterval(drawInterval)}, 7000)
 </script>
