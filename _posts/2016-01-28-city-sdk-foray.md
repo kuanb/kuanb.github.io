@@ -6,7 +6,7 @@ summary: Creating simple client side interface that interacts with JSON API of P
 ---
 
 
-I wanted to explore the [CitySDK](http://uscensusbureau.github.io/citysdk/guides/censusModule/queryBuilder.html) Census Module Query interface. When this first came out roughly a year ago I thought it had potential but had not yet been built out. Since then, it appears some solid strides have been made. The post powerful aspect, conceptually, of this tool is that a single API interface and structure can become interoperable between any comparable urban/civic structure in the country. For example, the same tool built for Las Vegas might work "instanataneously" for Detroit. 
+I wanted to explore the [CitySDK](http://uscensusbureau.github.io/citysdk/guides/censusModule/queryBuilder.html) Census Module Query interface. When this first came out roughly a year ago I thought it had potential but had not yet been built out. Since then, it appears some solid strides have been made. The post powerful aspect, conceptually, of this tool is that a single API interface and structure can become interoperable between any comparable urban/civic structure in the country. For example, the same tool built for Las Vegas might work "instantaneously" for Detroit. 
 
 ![screencap](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/city-sdk-foray/tool-screen.png)
 
@@ -20,7 +20,4 @@ In the above example, the URL parameters is created by entering `/lat=12.34,-23.
 
 ![googlesearch](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/city-sdk-foray/googlesearch.png)
 
-Also make sure that your longitudinal value is negative when you enter it into the URL. Since longitude is stated as "W" for "West", it is "negative" of the Prime Meridian. I should note that I absolutely do not guarantee this will work completely for other cities, but it does appear to from the litle I have explored. Because Salt Lack County is a, well, county, there is a possibility that the queries I have built may not be compeltely transferable. That said, I have made an effort to make it "ubiquitous." If there are observed break points, please list them in the [project issues page on the tool's repository](https://github.com/kuanb/slc_stats/issues).
-
-
-
+Also make sure that your longitudinal value is negative when you enter it into the URL. Since longitude is stated as "W" for "West", it is "negative" of the Prime Meridian. I should note that I absolutely do not guarantee this will work completely for other cities, but it does appear to from the little I have explored. Because Salt Lack County is a, well, county, there is a possibility that the queries I have built may not be completely transferable. That said, I have made an effort to make it "ubiquitous." If there are observed break points, please list them in the [project issues page on the tool's repository](https://github.com/kuanb/slc_stats/issues).
