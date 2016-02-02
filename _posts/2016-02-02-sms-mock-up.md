@@ -9,7 +9,7 @@ I was recenttly in a situation where I needed to create a simple interface that 
 
 ![text-service-mockup](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sms-mock-up/text-service-mockup.png)
 
-Unfortunately, when I surveyed the landscape of free tools, I found that interfaces seemed to focus on representing iPhone or other smartphone-like screens and interfaces. This is fine and is totally effective, but I wanted to have an "old candybar" phone to convey the effectiveness and simplicity of the SMS tool. I wanted an interface that would help emphasize to the non-technical individuals involved that this was a tool designed specifically for folks that did not have all the bells and whistles that come with owning a smartphone. Rather, I wanted to emphasize the "stripped down" nature of the service.
+Unfortunately, when I surveyed the landscape of free tools, I found that interfaces seemed to focus on representing iPhone or other smartphone-like screens and interfaces. This is fine and is totally effective, but [I wanted to have an "old candybar" phone](http://kuanbutts.com/sms_mock/) to convey the effectiveness and simplicity of the SMS tool. I wanted an interface that would help emphasize to the non-technical individuals involved that this was a tool designed specifically for folks that did not have all the bells and whistles that come with owning a smartphone. Rather, I wanted to emphasize the "stripped down" nature of the service.
 
 ![main](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sms-mock-up/main.png)
 
@@ -17,7 +17,7 @@ Unfortunately, when I surveyed the landscape of free tools, I found that interfa
 
 ![diagram](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sms-mock-up/diagram.png)
 
-The diagram above shows an early flow diagram of a simple early sketch of how this SMS tool would work. A far more robust version is to be built at a later date. All we wanted to do was demonstrate to key stakeholders the experience of interacting with the endpoint that were shown in the flow diagram in a more engaing manner. The piece of information that allows the SMS mock up page to emulate that flow chart is the `structure.json` file that accompanies the page. A direct link to the `structure.json` file is [located here](https://github.com/kuanb/sms_mock/blob/master/structure.json).
+The diagram above shows an early flow diagram of a simple early sketch of how [this SMS tool](http://kuanbutts.com/sms_mock/) would work. A far more robust version is to be built at a later date. All we wanted to do was demonstrate to key stakeholders the experience of interacting with the endpoint that were shown in the flow diagram in a more engaing manner. The piece of information that allows the SMS mock up page to emulate that flow chart is the `structure.json` file that accompanies the page. A direct link to the `structure.json` file is [located here](https://github.com/kuanb/sms_mock/blob/master/structure.json).
 
 {% highlight javascript %}
 {
@@ -37,4 +37,4 @@ An example of the `structure.json` code is shown above. The structure only has a
 
 ![entry](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sms-mock-up/entry.png)
 
-Above is an image of the fake SMS phone having text entered through the input box in the right portion of the screen. For more on the work, please visit the [project's repository on Github](https://github.com/kuanb/sms_mock).
+Above is an image of the fake SMS phone having text entered through the input box in the right portion of the screen. For more on the work, please visit the [project's repository on Github](https://github.com/kuanb/sms_mock). You can visit the main page of the SMS mock up [here](http://kuanbutts.com/sms_mock/).
