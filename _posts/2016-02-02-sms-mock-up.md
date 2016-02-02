@@ -13,7 +13,11 @@ Unfortunately, when I surveyed the landscape of free tools, I found that interfa
 
 ![main](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sms-mock-up/main.png)
 
-[My solution](http://kuanbutts.com/sms_mock/) is still a work in progress, but I think it achieves a fun, playful approach to this method and also sets the base for future expansion. First, the code seriously needs to be cleaned up but, second, the JSON that is pulled into the page is a simple structure, intended to make it easy to come back and modify the questions and branching structure quickly and easily at a later date. A direct link to the `structure.json` file is [located here](https://github.com/kuanb/sms_mock/blob/master/structure.json).
+[My solution](http://kuanbutts.com/sms_mock/) is still a work in progress, but I think it achieves a fun, playful approach to this method and also sets the base for future expansion. First, the code seriously needs to be cleaned up but, second, the JSON that is pulled into the page is a simple structure, intended to make it easy to come back and modify the questions and branching structure quickly and easily at a later date. 
+
+![diagram](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sms-mock-up/diagram.png)
+
+The diagram above shows an early flow diagram of a simple early sketch of how this SMS tool would work. A far more robust version is to be built at a later date. All we wanted to do was demonstrate to key stakeholders the experience of interacting with the endpoint that were shown in the flow diagram in a more engaing manner. The piece of information that allows the SMS mock up page to emulate that flow chart is the `structure.json` file that accompanies the page. A direct link to the `structure.json` file is [located here](https://github.com/kuanb/sms_mock/blob/master/structure.json).
 
 {% highlight javascript %}
 {
