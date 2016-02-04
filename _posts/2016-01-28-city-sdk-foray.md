@@ -25,3 +25,7 @@ Also make sure that your longitudinal value is negative when you enter it into t
 ![heatmap](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/city-sdk-foray/heatmap.png)
 
 Addendum: I have since added heatmap integration into the service, as well as automatic Socrata data plotting. You can see both in action in the above image. Here, crimes have been plotted from [this limited data set](https://opendata.utah.gov/Public-Safety/2013-Drug-Arrests-Salt-Lake-City/9rpk-ibpq) that is available on Utah.gov's open data portal (a Socrata platform offering). Using Socrata's SODA API, I allow the user to submit a SODA API endpoint from that specific data "Export" options in the portal page. From this URL, I extract the `JSON` and convert it to a formatted pop up that is associated with each crime data point (or whatever other data point you choose). The heatmap option is just another way of visualizing that data and intensity is calculated via proximity.
+
+![presenting](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/city-sdk-foray/presenting.png)
+
+Shown above is an image of me presenting the interface during "Alpha" at Code for America on Wednesday, February 3, 2016.
