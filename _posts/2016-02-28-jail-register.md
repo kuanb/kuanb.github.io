@@ -1,0 +1,46 @@
+---
+published: true
+title: Jail OCR Band-Aids
+layout: post
+summary: Rapid development to capture lost CJS clients
+---
+
+I am currently a Fellow at Code for America on Team Salt Lake County. While we are tasked with looking at recedivism here in Salt Lake County and, specifically, the issue of "Failure to Appear" (FTA); I was recently made aware of a significant challenge that Criminal Justice Services (CJS) was running headlong into. If I've learned one thing in the past month-long intesnive here in Salt Lake County, it is that that vast mesh of interlocking services that is "government" is less "interlocking" and more "tenuous." While I have indeed have had some experience observing this phenomena through my work in transportation planning, working with transportation data and the like, I have not had the opportunity to see these tenuous relationships exhibited so "physically" as I have this past few weeks.
+
+I should comment at this point that I in no way do find this to be a situation that is particular to Salt Lake County and do emphasize that this is not an attempt at criticsm. No, rather, is it just an observation how, because of this tenous connection, data flow between organizations becomes so fragile. Because systems do not line up or are not synchornized in any systemic and centralized manner, data flow becomes intrinsically tied to physical work flow.
+
+Indeed, much form entry that case workers can invest their day to day in is essentially manually reading and transferring relevant data from a portal to one remote system and enterring it into theirs. In other situations, data is sent to other data stores for other government organizations only at certain points in a process. Thus, if anything work to change the structue of organization flow of the individuals within it, all data that is related to that process can effectively be jeapordized because ad hoc programmatic systems have been designed to be dependent on human actions occuring in a certain order. The moment that order breaks, so does the entire data management system
+
+This is a pretty heady consideration, especially when you magnify it to the scale of an entire regional government (or zoom even farther out than that). It also adds a whole new perspective to the rigidity of government departments. If Person X at Department X does not perform a certain action at a certain point in a process involving public Citizen C, then when C is transferred over to Department Y, their systems will not have data, and Citizen C will be lost in the sea of government, tethered to nothing (queue a montage of lines and waiting, all for naught).
+
+It is this very problem that CJS and the Salt Lake County jail are about to face, come Tuesday, March 1. Without going into too much detail, the County Jail is having serious overcrowding problems. The Sheriff has decided to essentially turn away anyone beneath a Felony crime (I think some misdemeanors are also going to be booked). At any rate, many accused or arrested individuals will be taken to the County Jail by a police officer and have their arrested individual turned away. The reason for this is that their simply are too many persons being booked at the moment and the Jail can't handle the capapity that is being demanded of it.
+
+While this is understandable, this creates a massive problem for CJS. Because these individuals are being arrested, they could be charged and handed a court date. But, because they were never booked, CJS does not receive any information on them! As a result, CJS Pretrial services can't get ahold of these individuals and, most alarmingly, they will not be able to reach out to individuals when they find that their court date has been set. This could, theoretically, result in a spike in bench warrants being issued down the road as a result of people failing to appear to court dates that were set on crimes that they were arrested for but turned away from the jail due to overcrowding.
+
+In order to deal with this, I had the opportunity to create a stop gap measure that allows officers, from their phones, to book the user with Pretrial services. This tool enables officers to easily register arrested individuals which gives CJS Pretrial the opportunity to at least look up the individual and enter them into their system. By doing so, they can begin monitoring the person, as well as keeping an eye out for their court date or any outstanding bench warrants and work quickly to deal with those as soon as possible. In the following sections I will present a brief overview of the simple tool, created in about a day's time span, which has been designed to function as a stop gap measure for CJS as they strategize how to change their system workflow in light of the Sheriff's new restricted booking polcies at the County Jail.
+
+![entry](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/jail-register/entry.png)
+
+Here is the main work flow of the public, officer-facing input. Required elements have a red star next to them. The form will not submit unless those components have been filled out.
+
+There are 2 main components to the site, which is hosted online at [jailregister.org](http://jailregister.org/). 
+
+First, the "public" side of the site allows officers to quickly and easily add clients to the system without needing to log in. See the above image for a screen shot of the main page. The arrangement of the whole site is such that every page is predesigned to be "mobile first." This means that the layout and size of all content is geared to be optimized for upload from a smartphone. The purpose of this is to prepare for the possibility that access to this site might be limited from Officer vehicles, and therefore might benefit from being able to be submitted through their smartphones.
+
+![welcome](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/jail-register/welcome.png)
+
+The second component of the application is the user management portal. Access is granted via the "Admin Login" in the bottom left of the screen. There are 2 views administrators can work with at present. The first is to create new users that have permissions. These users can be made to be "Super Users" as well and have the ability to create more users, or they have be made as just Jail or CJS employees. 
+
+![completed_bar](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/jail-register/completed_bar.png)
+
+CJS employees can manage the processing of new intakes. When new intakes come in, they show up as green in the "fill bar" beneath the link, indicating how many new submissions have yet to be processed.
+
+![roster](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/jail-register/roster.png)
+
+Opening up the tool will show the new clients that have been loaded in the system. The radio buttons along the top let you filter by those that have or have not been processed, as well as by all in the system in general.
+
+![singleintake](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/jail-register/singleintake.png)
+
+Clicking on a client will give you all the data the officer submitted on the user. The upper right corner has a button that allows a CJS employee to "Archive" a submission after she or he has finished processing the user. The thought here is that archiving users will allow CJS to manage the users they have processed and the ones that still remain in their work queue.
+
+Jail employees have access to Jail Controls (not yet built, but it will be metrics for how many officers are making reports and what the distribution is among reporting officers, as well as any other relevant statistics). 
