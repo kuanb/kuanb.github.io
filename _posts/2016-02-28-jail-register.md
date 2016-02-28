@@ -23,9 +23,7 @@ In order to deal with this, I had the opportunity to create a stop gap measure t
 
 Here is the main work flow of the public, officer-facing input. Required elements have a red star next to them. The form will not submit unless those components have been filled out.
 
-There are 2 main components to the site, which is hosted online at [jailregister.org](http://jailregister.org/). 
-
-First, the "public" side of the site allows officers to quickly and easily add clients to the system without needing to log in. See the above image for a screen shot of the main page. The arrangement of the whole site is such that every page is predesigned to be "mobile first." This means that the layout and size of all content is geared to be optimized for upload from a smartphone. The purpose of this is to prepare for the possibility that access to this site might be limited from Officer vehicles, and therefore might benefit from being able to be submitted through their smartphones.
+There are 2 main components to the site. First, the "public" side of the site allows officers to quickly and easily add clients to the system without needing to log in. See the above image for a screen shot of the main page. The arrangement of the whole site is such that every page is predesigned to be "mobile first." This means that the layout and size of all content is geared to be optimized for upload from a smartphone. The purpose of this is to prepare for the possibility that access to this site might be limited from Officer vehicles, and therefore might benefit from being able to be submitted through their smartphones.
 
 ![welcome](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/jail-register/welcome.png)
 
