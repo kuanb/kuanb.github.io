@@ -28,4 +28,4 @@ My interests lie in the implementation of digital solutions in engaging spatial 
 ###### More Links
 
 * [Urban Planning Portfolio](http://cargocollective.com/kuanbutts): Looking for some deep cuts? Here is my old architecture and planning work, including links to my undergraduate and early professional work portfolios.
-* [Urban Planning Blog](http://cargocollective.com/kuanbutts): In the spirit of deep cuts, here is an old collection of writing that I produced on planning. All stream of consciousness, mostly, for this blog.
+* [Urban Planning Blog](http://systemcity.wordpress.com/): In the spirit of deep cuts, here is an old collection of writing that I produced on planning. All stream of consciousness, mostly, for this blog.
