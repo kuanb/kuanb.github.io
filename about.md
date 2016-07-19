@@ -8,7 +8,7 @@ permalink: /about/
 
 
 ![presenting](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/presenting.png)
-<sub><sup>Presenting to Salt Lake County Mayor and criminal justice leadership in April 2016 on Code for America Fellowship achievements.</sub></sup>
+<sub><sup>Presenting to Salt Lake County Mayor and criminal justice leadership in April 2016.</sub></sup>
 
 #### Pitch
 
