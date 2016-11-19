@@ -15,7 +15,7 @@ permalink: /about/
 <sub><sup>Updated December, 2015</sub></sup><br>
 I'm a 2016 Code for America (CfA) Fellow Developer, with 7 years of experience in data science and software development. Prior to CfA, I've worked in a research capacity at organizations from Microsoft to the MIT Media Lab and the Singapore-MIT Alliance for Research and Technology (SMART). More details are available in my [resume](https://dl.dropboxusercontent.com/u/13557332/Update%20Resume.pdf). 
 
-My interests lie in the implementation of digital solutions in engaging spatial (and often transport-related) issues, combining programming, urban planning, and geospatial analytics. Through both my research and work, I've taken on a number of lead technical roles executing digital development and deployment in a wide variety of settings, providing me with extensive international experience; from Mexico City to Dhaka, Bangladesh.
+My interests lie in the implementation of digital solutions in engaging spatial (and often transport-related) issues, combining programming, urban planning, and geospatial analytics. Through both my research and work, I've taken on a number of technical roles executing digital development, research, and deployment in a wide variety of settings, providing me with extensive international experience; from Mexico City to Dhaka, Bangladesh.
 
 #### Projects List
 
