@@ -2,7 +2,7 @@
 title:       exploring space, digitally
 email:       kuanbutts@gmail.com
 author:      Kuan Butts
-description: "Personal web page of Kuan Butts."
+description: "Personal web page for Kuan Butts."
 baseurl:     ""
 url:         "http://kuanbutts.com"
 
@@ -19,12 +19,12 @@ show_post_footers:  true
 disqus_shortname:
 
 # Social icons
-show_social_icons: false
-github_username: "kuanb"
-stackoverflow_id: "3407994"
-twitter_username: "buttsmeister"
-google_plus_id: "+KuanButts"
-linkedin_username: "kuanbutts"
+show_social_icons:  true
+github_username:    "kuanb"
+stackoverflow_id:   "3407994"
+twitter_username:   "buttsmeister"
+google_plus_id:     "+KuanButts"
+linkedin_username:  "kuanbutts"
 angellist_username:
 bitcoin_url:
 paypal_url:
@@ -32,23 +32,23 @@ flattr_button:
 
 # Post sharing icons
 show_sharing_icons: false
-share_text: 'Share this post!'
-# Change to 'true' to enable individual icons
-share_facebook: false
-share_twitter: false
-share_googleplus: false
-share_linkedin: false
-share_digg: false
-share_tumblr: false
-share_reddit: false
-share_stumbleupon: false
-share_hackernews: false
+share_text:         "Share this post!"
+share_facebook:     false
+share_twitter:      false
+share_googleplus:   false
+share_linkedin:     false
+share_digg:         false
+share_tumblr:       false
+share_reddit:       false
+share_stumbleupon:  false
+share_hackernews:   false
 
 # Build settings
-markdown:     redcarpet
+markdown:     kramdown
 redcarpet:
-  extensions: ['smart', 'tables', 'with_toc_data']
+  extensions: ["smart", "tables", "with_toc_data"]
 permalink:    pretty
 paginate:     5
 sass:
   compressed: true
+gems: ["jekyll-paginate"]
