@@ -4,8 +4,6 @@ title: About Kuan
 permalink: /about/
 ---
 
-[Resume](https://dl.dropboxusercontent.com/u/13557332/Update%20Resume.pdf) | [Github](https://github.com/kuanb) | [LinkedIn](https://www.linkedin.com/in/kuanbutts) | [Twitter](https://twitter.com/buttsmeister)
-
 
 ![presenting](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/presenting.png)
 <sub><sup>Presenting to Salt Lake County Mayor and criminal justice leadership in April 2016.</sub></sup>
