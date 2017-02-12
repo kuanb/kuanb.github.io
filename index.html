@@ -13,20 +13,21 @@ layout: default
       <p>
         I'm a researcher engineering digital tools with urban data; currently with <a href="http://calthorpeanalytics.com/">Calthorpe Analytics</a> as a data scientist at in the Bay Area.
       </p>
-      <p>
-        Before my current role, I was a <a href="http://www.codeforamerica.org/people/kuan-butts">2016 Fellow</a> software engineer at <a href="http://www.codeforamerica.org/">Code for America</a>. Prior, I was in New York City as a Civic Tech Fellow at <a href="http://microsoftnewyork.com/">Microsoft</a>, where I developed performance data tools on top of MTA's One-Bus-Away implementation. Before that, I worked on scenario modeling software with the <a href="http://www.media.mit.edu/research/groups/changing-places">MIT Media Lab</a> and <a href="https://mfc.mit.edu/">Flocktracker</a> - a transit network mapping tool - with the <a href="http://smart.mit.edu/research/future-urban-mobility/future-urban-mobility.html">Singapore-MIT Alliance for Research and Technology</a> while performing graduate studies at <a href="http://web.mit.edu/">MIT</a>. <i><a href="/about">Learn more.</a></i>
-      </p>
+      <ul>
+        <li>
+          Before my current role, I was a <a href="http://www.codeforamerica.org/people/kuan-butts">2016 Fellow</a> software engineer at <a href="http://www.codeforamerica.org/">Code for America</a>. 
+        </li>
+        <li>
+          Prior, I was in New York City as a Civic Tech Fellow at <a href="http://microsoftnewyork.com/">Microsoft</a>, where I developed performance data tools on top of MTA's One-Bus-Away implementation. 
+        </li>
+        <li>
+          Before that, I worked on scenario modeling software with the <a href="http://www.media.mit.edu/research/groups/changing-places">MIT Media Lab</a> and <a href="https://mfc.mit.edu/">Flocktracker</a> - a transit network mapping tool - with the <a href="http://smart.mit.edu/research/future-urban-mobility/future-urban-mobility.html">Singapore-MIT Alliance for Research and Technology</a> while performing graduate studies at <a href="http://web.mit.edu/">MIT</a>.
+        </li>
+      </ul>
+      <div class="strong-btn">
+        <i><a href="/about">Learn more</a></i>
+      </div>
     </div>
-  </div>
-
-  <div class="feature-list">
-    Foobar
-    {% for company in site.companies %}
-      Hello {{ company.shift }}
-    {% endfor %}
-  </div>
-
-  <div class="feature-list">
   </div>
 </div>
 
@@ -96,7 +97,7 @@ layout: default
   };
 
   var width = window.innerWidth;
-  var height = Math.min(window.innerHeight, 650);
+  var height = Math.min(window.innerHeight, 900); //650
   document.getElementById('whowhatwhere').setAttribute("style","height:" + height + "px");
 
   var canvas = document.getElementById('world');

@@ -349,6 +349,22 @@ h6,
     top: 0.1em;
 }
 
+.intro li {
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.intro .strong-btn {
+  font-size: 1.2rem;
+  float: right;
+  text-align: right;
+  background-color: #FFF;
+  opacity: 1;
+  font-weight: 500;
+  padding: 10px 20px;
+  box-shadow: 0px 0px 15px 0px #999999;
+}
+
 .feature-list {
   background-color: red; //#FFF:
 }

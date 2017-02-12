@@ -1,11 +1,14 @@
 ---
 layout: page
-title: Kuan Butts Blog
-permalink: /blog/
+title: Blog
 ---
 
+<b>
+  Page {{ paginator.page }}
+</b>
+
 <div class="home">
-  {{ paginator.page }}
+
   <div class="posts">
     
     {% for post in paginator.posts %}
