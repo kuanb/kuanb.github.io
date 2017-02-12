@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
+
+
+<canvas id='world' style=" width: 100%;
+                           top: -32px;
+                           position: absolute; 
+                           z-index: -1;">
+</canvas> 
+
 {% include head.html %}
 <body class="{% if site.animated %}animated fade-in-down{% endif %}">
   <div class="site-wrap">
 
     {% include header.html %}
-
-    <canvas id='world' style="width: 100%; top:-23px; margin:0px; margin-top:-8px; padding:0px; margin-bottom:0px; margin-right:0px; margin-left:0px; position: absolute; z-index: -1;"></canvas>
 
     <div class="post p2 p-responsive wrap" role="main">
       <div class="measure">
