@@ -14,7 +14,7 @@
 */
 
 body {
-  font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif;
+  font-family: "Helvetica", sans-serif, "Arial";
 }
 
 html, body {
@@ -41,7 +41,7 @@ img {
 }
 
 body {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 
           box-sizing: border-box;
      -moz-box-sizing: border-box;
@@ -59,7 +59,12 @@ body {
 
 .site-header a {
   color: #333;
-  font-weight: 300;
+  font-weight: 500;
+  opacity: 0.5;
+}
+
+.site-header a:hover {
+  opacity: 1;
 }
 
 .site-header nav a {
@@ -80,6 +85,17 @@ body {
 .site-nav {
   margin: 0;
   padding: 0;
+}
+
+.blurb {
+  margin-top: 35px;
+  line-height: 1em;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.blurb p {
+  margin-bottom: 10px;
 }
 
 .site-header a:hover,
@@ -168,10 +184,12 @@ table {
   text-align: center;
 }
 
-.post-footer .avatar {
-  margin: 2rem 0;
-  width: 100px;
+.avatar {
+  height: 75px;
   border-radius: 50%;
+  border-top-left-radius: 0;
+  vertical-align:middle;
+  margin-right: 20px;
 }
 
 .pagination,
@@ -314,13 +332,13 @@ h6,
 }
 
 .social-icons {
-    padding: 0.5em 0 0 0;
-    font-size: 1.25rem;
+    padding: 0 0 0 1.5em;
+    font-size: 1rem;
     width: 100%;
 }
 .social-icons a.fa {
     padding: 0.2em;
-    opacity: 0.8;
+    opacity: 0.4;
     cursor: pointer;
 }
 .social-icons a.fa:hover {
@@ -329,6 +347,10 @@ h6,
 .social-icons iframe[title=Flattr] {
     position: relative;
     top: 0.1em;
+}
+
+.feature-list {
+  background-color: red; //#FFF:
 }
 
 @media screen and (min-width: 48em) {
