@@ -97,7 +97,11 @@ layout: default
   };
 
   var width = window.innerWidth;
-  var height = Math.min(window.innerHeight, 900); //650
+  var baseHeight = 725;
+  var height = Math.min(window.innerHeight, baseHeight);
+  if (height < baseHeight) {
+    height = baseHeight;
+  }
   document.getElementById('whowhatwhere').setAttribute("style","height:" + height + "px");
 
   var canvas = document.getElementById('world');
