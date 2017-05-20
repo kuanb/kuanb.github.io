@@ -11,22 +11,26 @@ layout: default
 
     <div class="blurb">
       <p>
-        Researcher and software developer; currently working as a data scientist at <a href="http://calthorpeanalytics.com/">Calthorpe Analytics</a> in Berkeley, California.
+        Transportation systems researcher and software developer; currently working as a data scientist at <a href="http://calthorpeanalytics.com/">Calthorpe Analytics</a> in Berkeley, California.
       </p>
       <ul>
+        ___
         <li>
           <a href="http://www.codeforamerica.org/people/kuan-butts">2016 Fellow</a> software engineer at <a href="http://www.codeforamerica.org/">Code for America</a>. 
         </li>
+        ___
         <li>
           2015 Civic Tech Fellow at <a href="http://microsoftnewyork.com/">Microsoft</a> in New York City, where I developed performance data tools on top of MTA's One-Bus-Away implementation. 
         </li>
+        ___
         <li>
          Former researcer and developer working on scenario modeling software with the <a href="http://www.media.mit.edu/research/groups/changing-places">MIT Media Lab</a> and <a href="https://mfc.mit.edu/">Flocktracker</a> - a transit network mapping tool - with the <a href="http://smart.mit.edu/research/future-urban-mobility/future-urban-mobility.html">Singapore-MIT Alliance for Research and Technology</a> while performing graduate studies at <a href="http://web.mit.edu/">MIT</a>.
         </li>
       </ul>
-      <div class="strong-btn">
-        <i><a href="/about">Learn more</a></i>
-      </div>
+    </div>
+
+    <div class="strong-btn">
+      <i><a href="/about">Learn more</a></i>
     </div>
   </div>
 </div>
@@ -35,108 +39,120 @@ layout: default
 <script type="text/javascript">
   var metas = document.getElementsByTagName('meta');
   var i;
+
+  // shim for iPhones...
   if (navigator.userAgent.match(/iPhone/i)) {
     for (i=0; i<metas.length; i++) {
-      if (metas[i].name == "viewport") {
-        metas[i].content = "width=device-width, minimum-scale=1.0, maximum-scale=1.0";
+      if (metas[i].name == 'viewport') {
+        metas[i].content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
       }
     }
-    document.addEventListener("gesturestart", gestureStart, false);
+    document.addEventListener('gesturestart', gestureStart, false);
   }
+
   function gestureStart() {
-    for (i=0; i<metas.length; i++) {
-      if (metas[i].name == "viewport") {
-        metas[i].content = "width=device-width, minimum-scale=0.25, maximum-scale=1.6";
+    for (i=0; i < metas.length; i++) {
+      if (metas[i].name == 'viewport') {
+        metas[i].content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
       }
     }
   }
 
-  // attribution: this is adapted from the work of: http://codepen.io/piksl/pen/EaxJxX
-
-  var Boid = function ( x, y, angle ) {
+  // attribution: this is adapted from the
+  // work of: http://codepen.io/piksl/pen/EaxJxX
+  var Boid = function (x, y, angle) {
       this.x = x;
       this.y = y;
 
-      this.angle = Math.pow( Math.random(), 20 ) + angle;
-      this.dx = Math.cos( this.angle );
-      this.dy = Math.sin( this.angle );
+      this.angle = Math.pow(Math.random(), 45) + angle;
+      this.dx = Math.cos(this.angle);
+      this.dy = Math.sin(this.angle);
 
-      this.life = Math.random() * 100 + 100;
+      this.lifeFactor = Math.random();
+      this.life = this.lifeFactor * 100 + 100;
       this.dead = false;
 
-      this.update = function () {
+      // stroke with determines by lifespan
+      this.girth = this.lifeFactor * 3;
 
-        context.strokeStyle = '#eeeeee';
+      this.update = function () {
+        context.strokeStyle = '#EEEEEE';
         context.beginPath();
-        context.moveTo( this.x, this.y );
+        context.moveTo(this.x, this.y);
 
         this.x += this.dx * 3;
         this.y += this.dy * 3;
         this.life -= 1;
 
-        context.lineTo( this.x, this.y );
+        context.lineTo(this.x, this.y);
+        context.lineWidth = this.girth;
         context.stroke();
 
-        var index = ( Math.floor( this.x ) + width * Math.floor( this.y ) ) * 4;
+        var index = (Math.floor(this.x) + width * Math.floor(this.y)) * 4;
 
-        if ( this.life <= 0 ) this.kill();
-        if ( data[ index + 3 ] > 0 ) this.kill();
+        if (this.life <= 0) this.kill();
+        if (data[index + 3] > 0) this.kill();
 
-        if ( this.x < 0 || this.x > width ) this.kill();            
-        if ( this.y < 0 || this.y > height ) this.kill();
+        // remove if getting drawn off screen
+        if (this.x < 0 || this.x > width) this.kill();            
+        if (this.y < 0 || this.y > height) this.kill();
 
       };
 
       this.kill = function () {
-
-        boids.splice( boids.indexOf( this ), 1 );
+        boids.splice(boids.indexOf(this), 1);
         this.dead = true;
 
+        // sometimes, draw a dot like a transit stop
+        if (Math.random() < 0.025) {
+          context.fillStyle = '#AAA';
+          context.beginPath();
+          var radius = Math.max(this.lifeFactor * 5, 1);
+          context.arc(this.x, this.y, radius, 0, (2 * Math.PI));
+          context.fill();
+        }
       };
 
   };
 
   var width = window.innerWidth;
-  var baseHeight = 725;
-  var height = Math.min(window.innerHeight, baseHeight);
-  if (height < baseHeight) {
-    height = baseHeight;
-  }
-  document.getElementById('whowhatwhere').setAttribute("style","height:" + height + "px");
+  var baseHeight = 725; // just some min pixel height
+  var height = Math.max(window.innerHeight, baseHeight);
+  if (height < baseHeight) height = baseHeight;
+
+  var heightStyleString = 'height:' + height + 'px';
+  var divToDrawIn = document.getElementById('whowhatwhere');
+  divToDrawIn.setAttribute('style', heightStyleString);
 
   var canvas = document.getElementById('world');
   canvas.width = width;
   canvas.height = height;
 
-  var context = canvas.getContext( '2d' );
+  var context = canvas.getContext('2d');
   var image, data;
 
   var boids = [];
-  boids.push( new Boid( width / 2, height / 2, Math.random() * 180 * Math.PI / 180 ) );
+  boids.push(new Boid((width/2),
+                      (height/2),
+                      (Math.random() * 180 * Math.PI / 180)));
 
-  // if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+  var drawRate = (10 / 60.0); // 10 steps per 60 milliseconds?
+  var drawInterval = setInterval(function () {
+      image = context.getImageData(0, 0, width, height);
+      data = image.data;
 
-    var drawInterval = setInterval( function () {
+      for ( var i = 0; i < boids.length; i ++ ) {
+        var boid = boids[ i ];
+        boid.update();
 
-        image = context.getImageData( 0, 0, width, height );
-        data = image.data;
-
-        for ( var i = 0; i < boids.length; i ++ ) {
-
-          var boid = boids[ i ];
-          boid.update();
-
-          if ( !boid.dead && Math.random() > 0.5 && boids.length < 500 ) {
-
-            boids.push( new Boid( boid.x, boid.y, ( Math.random() > 0.5 ? 90 : - 90 ) * Math.PI / 180 + boid.angle ) );
-
-          }
+        // occasionally make a new spur off a branch
+        if (!boid.dead && Math.random() > 0.5 && boids.length < 500) {
+          var newBoidAngle = ((Math.random() > 0.5 ? 90 : - 90) * Math.PI/180 + boid.angle);
+          boids.push(new Boid(boid.x, boid.y, newBoidAngle));
 
         }
+      }
+  }, drawRate);
 
-    }, 10 / 60 );
-
-  // }
-
-  setTimeout(function () {clearInterval(drawInterval)}, 7000)
+  setTimeout(function () {clearInterval(drawInterval)}, 7000);
 </script>
