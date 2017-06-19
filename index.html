@@ -105,11 +105,13 @@ layout: default
 
         // sometimes, draw a dot like a transit stop
         if (Math.random() < 0.025) {
-          context.fillStyle = '#AAA';
+          context.lineWidth = 1;
+          context.strokeStyle = '#AAA';
+          context.fillStyle = '#FFF';
           context.beginPath();
           var radius = Math.max(this.lifeFactor * 5, 1);
           context.arc(this.x, this.y, radius, 0, (2 * Math.PI));
-          context.fill();
+          context.stroke();
         }
       };
 
