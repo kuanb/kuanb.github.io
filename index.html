@@ -3,34 +3,39 @@ layout: default
 ---
 
 <div class="home">
-  <div class="intro" id="whowhatwhere" style="padding-bottom:25px; margin-bottom:100px; border-bottom:1px solid">
+  <div id="whowhatwhere" class="whowhatwhere">
     <img src="/images/me.jpeg" alt="Kuan Butts" class="avatar"/>
     <span class="h3">
       who, what, and where
     </span>
 
     <div class="blurb">
-      <p>
+      <div class='splash'>
         Transportation systems researcher and software developer; currently working as a data scientist at <a href="http://calthorpeanalytics.com/">Calthorpe Analytics</a> in Berkeley, California.
-      </p>
+      </div>
+      
       <ul>
-        ___
         <li>
-          <a href="http://www.codeforamerica.org/people/kuan-butts">2016 Fellow</a> software engineer at <a href="http://www.codeforamerica.org/">Code for America</a>. 
+          <div class='splash'>
+            <a href="http://www.codeforamerica.org/people/kuan-butts">2016 Fellow</a> software engineer at <a href="http://www.codeforamerica.org/">Code for America</a>, on <a href="http://c4a-slc.tumblr.com/">Team Salt Lake County</a>.
+          </div>
         </li>
-        ___
         <li>
-          2015 Civic Tech Fellow at <a href="http://microsoftnewyork.com/">Microsoft</a> in New York City, where I developed performance data tools on top of MTA's One-Bus-Away implementation. 
+          <div class='splash'>
+            2015 Civic Tech Fellow at <a href="http://microsoftnewyork.com/">Microsoft</a> in New York City, where I developed performance data tools on top of MTA's One-Bus-Away implementation. 
+          </div>
         </li>
-        ___
         <li>
-         Former researcer and developer working on scenario modeling software with the <a href="http://www.media.mit.edu/research/groups/changing-places">MIT Media Lab</a> and <a href="https://mfc.mit.edu/">Flocktracker</a> - a transit network mapping tool - with the <a href="http://smart.mit.edu/research/future-urban-mobility/future-urban-mobility.html">Singapore-MIT Alliance for Research and Technology</a> while performing graduate studies at <a href="http://web.mit.edu/">MIT</a>.
+          <div class='splash'>
+            Former researcer and developer working on scenario modeling software with the <a href="http://www.media.mit.edu/research/groups/changing-places">MIT Media Lab</a> and <a href="https://mfc.mit.edu/">Flocktracker</a> - a transit network mapping tool - with the <a href="http://smart.mit.edu/research/future-urban-mobility/future-urban-mobility.html">Singapore-MIT Alliance for Research and Technology</a> while performing graduate studies at <a href="http://web.mit.edu/">MIT</a>.
+          </div>
         </li>
       </ul>
     </div>
 
     <div class="strong-btn">
-      <i><a href="/about">Learn more</a></i>
+      <b>Latest Post</b>
+      <a href="/2017/06/18/dask-geoprocessing/">Parallelizing Geoprocesses</a>
     </div>
   </div>
 </div>
@@ -39,6 +44,27 @@ layout: default
 <script type="text/javascript">
   var metas = document.getElementsByTagName('meta');
   var i;
+
+  // this allows us to generate a color range and is borrowed
+  // from this JSFiddle: http://jsfiddle.net/snoapps/krzy3jwm/
+  function GColor(r, g, b) {
+    r = (typeof r === 'undefined')?0:r;
+    g = (typeof g === 'undefined')?0:g;
+    b = (typeof b === 'undefined')?0:b;
+    return {r:r, g:g, b:b};
+  }
+
+  function createColorRange(c1, c2) {
+    var colorList = [], tmpColor;
+    for (var i = 0; i < 255; i++) {
+      tmpColor = new GColor();
+      tmpColor.r = Math.round(c1.r + ((i*(c2.r-c1.r))/255));
+      tmpColor.g = Math.round(c1.g + ((i*(c2.g-c1.g))/255));
+      tmpColor.b = Math.round(c1.b + ((i*(c2.b-c1.b))/255));
+      colorList.push(tmpColor);
+    }
+    return colorList;
+  }
 
   // shim for iPhones...
   if (navigator.userAgent.match(/iPhone/i)) {
@@ -57,6 +83,12 @@ layout: default
       }
     }
   }
+
+  // before we begin, we need a color range for the nodes
+  var lightBlue = new GColor(0, 204, 198);
+  var blue = new GColor(0, 50, 204);
+  var colorRange = createColorRange(lightBlue, blue);
+  var currentPointInRange = 0;
 
   // attribution: this is adapted from the
   // work of: http://codepen.io/piksl/pen/EaxJxX
@@ -104,14 +136,19 @@ layout: default
         this.dead = true;
 
         // sometimes, draw a dot like a transit stop
-        if (Math.random() < 0.025) {
-          context.lineWidth = 1;
-          context.strokeStyle = '#AAA';
-          context.fillStyle = '#FFF';
+        if (Math.random() < 0.01) {
+          // we draw each circle a little darker than the last
+          if (currentPointInRange + 1 < colorRange.length) {
+            currentPointInRange += 1;
+          }
+          var rc = colorRange[currentPointInRange];
+          var fillColor = `rgba(${rc.r}, ${rc.g}, ${rc.b}, 0.25)`;
+
+          context.fillStyle = fillColor;
           context.beginPath();
           var radius = Math.max(this.lifeFactor * 5, 1);
           context.arc(this.x, this.y, radius, 0, (2 * Math.PI));
-          context.stroke();
+          context.fill();
         }
       };
 

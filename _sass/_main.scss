@@ -1,15 +1,11 @@
 @charset "UTF-8";
 /*
 
-  Pixyll
+  Modifications by Kuan Butts, 2014-17
 
-  A simple, beautiful theme for Jekyll that emphasizes content rather than
-  aesthetic fluff.
-
-  Best served with BASSCSS (http://jxnblk.github.io/basscss)
-
-  Crafted with <3 by John Otander (@4lpine) - ©2015 John Otander
-  MIT License http://opensource.org/licenses/MIT
+  Based off of Puxyll, which was:
+  "Crafted with <3 by John Otander (@4lpine) - ©2015 John Otander
+  MIT License http://opensource.org/licenses/MIT"
 
 */
 
@@ -92,15 +88,46 @@ body {
   padding: 0;
 }
 
-.blurb {
-  margin-top: 35px;
-  line-height: 1em;
-  font-size: 0.8rem;
-  color: #333;
-}
+.whowhatwhere {
+  padding-bottom: 25px;
+  margin-bottom: 100px;
 
-.blurb p {
-  margin-bottom: 10px;
+  .blurb {
+    margin-top: 35px;
+    line-height: 1em;
+    font-size: 1rem;
+    padding: 10px;
+    padding-top: 25px;
+    // background-color: rgba(255, 255, 255, 0.55);
+
+    .splash {
+      padding: 10px;
+      background-color: #FFF;
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 5px;
+    }
+  }
+  
+  ul, li {
+    list-style: none;
+    list-style-type: none;
+  }
+
+  .strong-btn {
+    font-size: 1rem;
+    float: left;
+    // text-align: right;
+    background-color: #FFF;
+    opacity: 1;
+    font-weight: 300;
+    padding: 10px 20px;
+
+    b {
+      font-weight: 700;
+    }
+  }
 }
 
 .site-header a:hover,
@@ -354,33 +381,11 @@ h6,
     top: 0.1em;
 }
 
-.intro li {
-  font-weight: 300;
-  font-size: 1rem;
-}
-
-.intro .strong-btn {
-  font-size: 1.2rem;
-  float: right;
+.pagination_context {
   text-align: right;
-  background-color: #FFF;
-  opacity: 1;
-  font-weight: 500;
-  padding: 10px 20px;
-  // box-shadow: 0px 0px 15px 0px #999999;
-}
-
-.intro .blurb {
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-.intro ul, li {
-  list-style: none;
-  list-style-type: none;
-}
-
-.feature-list {
-  background-color: red; //#FFF:
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 100;
 }
 
 @media screen and (min-width: 48em) {
