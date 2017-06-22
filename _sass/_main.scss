@@ -52,8 +52,13 @@ body {
   -webkit-box-sizing: border-box;
 }
 
-.gist,
-.gist .highlight .p {
+hr {
+  border: 0;
+  background-color: #c2c9d4;
+  height: 1px;
+}
+
+.gist {
   font-size: .75rem;
 }
 
@@ -326,11 +331,6 @@ pre {
   margin-bottom: 0.88em;
 }
 
-.highlight .p {
-  font-size: 1.125rem;
-  line-height: 1;
-}
-
 blockquote {
   padding: 1.33em;
   font-style: italic;
@@ -420,7 +420,6 @@ h6,
     font-size: 1.150rem;
   }
 
-  .p,
   p,
   li {
     font-size: 1rem;

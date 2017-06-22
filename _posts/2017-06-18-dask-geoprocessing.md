@@ -3,6 +3,7 @@ published: true
 title: Parallelizing Geoprocesses
 layout: post
 summary: Utilizing Dask to speedup distance matrix calculation
+comments: true
 ---
 
 Performing geospatial operations in Python can be a slow and tedious process. Tools for handling spatial data in Python (specifically [GeoPandas](http://geopandas.org/), which supplies [Pandas](http://pandas.pydata.org/) Dataframes with spatial capabilities on geometry columns containing [Shapely](http://toblerity.org/shapely/manual.html) objects) that are highly effective during the exploratory phase can fall short when performing on larger datasets. For example, a common use case I have run into is running a series of geometric operations in which, given a GeoPandas GeoDataFrame, I need to perform some arithmetic operation on a subset of the total data frame comprised of all rows within or intersecting a varying range (buffer) of a given row’s geometry. This need to be performed on each row in the data frame, for each subsequent analysis.
