@@ -6,7 +6,7 @@ summary: Roll your own accessibility analysis tool on a custom network
 comments: true
 ---
 
-Performing geospatial operations in Python can be a slow and tedious process. Tools for handling spatial data in Python (specifically [GeoPandas](http://geopandas.org/), which supplies [Pandas](http://![accessibility_distributions](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/accessibility/access.gif)
+![access](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/accessibility/access.gif)
 
 # Background
 [Isochrones](https://mapzen.com/documentation/mobility/isochrone/api-reference/) are all the rage these days; they are quite handy for visualizing the area that a given individual can cover in a certain amount of time, given a set of networks s/he can traverse. 
