@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 
-My interests lie in the implementation of digital solutions in engaging spatial (usually transportation related) issues; combining programming, urban planning, and geospatial analytics. Through both my research and work, I've taken on a number of technical roles executing research, digital development, and deployment in a wide variety of settings. This has provided me with extensive international experience from Mexico City to Dhaka, Bangladesh.
+My interests lie in the implementation of digital solutions in engaging spatial (usually transportation related) issues; combining programming, urban planning, and geospatial analytics. I've taken on a number of technical roles executing research, digital development, and deployment in a wide variety of settings. This has provided me with extensive international experience from Mexico City to Dhaka, Bangladesh.
 
 #### Projects List
 
