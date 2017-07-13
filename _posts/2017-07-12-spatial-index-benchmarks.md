@@ -124,3 +124,27 @@ Regardless, I am now able to update my run an updated subset query that will uti
 The results show that, on a local machine, average performance of this variation clocks it at an average of 0.0269 seconds per run. This is about 5 times slower than when using the spatial index. That said, there are opportunities to utilize parallelization techniques that have been designed to play well with Pandas and Numpy arrays using this method that prior may not have been as easily accomplished. That is to say, parallelizing GeoDataFrame operations is not something that has been developed as a capacity within the Python community as of yet, while parallelization support for Numpy as Pandas is robust. By converting GeoDataFrames to standard Pandas DataFrames with vectorized bounds attributes, we open the door for possible optimizations to the execution infrastructure that may not have been possible prior.
 
 That said, it is worth acknowledging the significant value of the spatial index and to consider it may be worth preserving, if possible, even during parallelization. Here is a [notebook](https://gist.github.com/kuanb/4d2d75726dfa163184197d38da1ff7e8) if you would like to review the code used in producing this post.
+
+## Observing performance as GeoDataFrame size increases
+
+This is an update to the original post as I was curious to see how performance changes as the original GeoDataFrame size increases. We can do this easily by making the base data frame append to itself as many times as we would like to multiply it by. Let’s make it four times larger by appending 4 times (`gdf = gdf.append(gdf).append(gdf).append(gdf)`). This is sort of sloppy but should work for a quick test. Make sure to reset the index to avoid downstream errors (`gdf.reset_index(inplace=True)`). 
+
+The results are as follows (GeoDataFrame length 119,492):
+
+1. Standard, no optimization: 1.86s
+2. Spatial indexed: 0.005s (+ 9.3µs to create spatial index)
+3. Vectorized bounds: 0.026s
+
+Again, with a 16x increase (GeoDataFrame length 477,968):
+
+1. Standard, no optimization: 7.8s
+2. Spatial indexed: 0.03s (+ 12.9µs to create spatial index)
+3. Vectorized bounds: 0.07s
+
+Again, with a 64x increase (GeoDataFrame length 1,911,872):
+
+1. Standard, no optimization: 30.75s
+2. Spatial indexed: 0.045s (+ 21.5µs to create spatial index)
+3. Vectorized bounds: 0.26s
+
+Again, these sub-second operation times do matter. Imagine doing a row-wise apply operation where the above is essentially performed on each row. One the 120,000 row data frame the spatial indexed version executes in a total time of 600 seconds, or 10 minutes. Meanwhile, the vectorized alternative would clock in at 3,120 seconds, or 52 minutes! These delays only become more severe as the size of the data we are working with gets larger, of course.
