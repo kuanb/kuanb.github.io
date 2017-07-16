@@ -148,3 +148,35 @@ Again, with a 64x increase (GeoDataFrame length 1,911,872):
 3. Vectorized bounds: 0.26s
 
 Again, these sub-second operation times do matter. Imagine doing a row-wise apply operation where the above is essentially performed on each row. One the 120,000 row data frame the spatial indexed version executes in a total time of 600 seconds, or 10 minutes. Meanwhile, the vectorized alternative would clock in at 3,120 seconds, or 52 minutes! These delays only become more severe as the size of the data we are working with gets larger, of course.
+
+## Second update: More aggressive curation
+
+It occurred to me that a way to better optimize the `check_bounds_intersect()` function would be to toss all “definite outliers from the intersection check process before we even enter the helper function itself. To do that, we could toss all items whose furthest extremity lies outside the bounds of the target geometry. Then, once we have those subsetted, we can enter the more detailed check. This would allow us to work with smaller vectors. This should improve performance somewhat.
+
+{% highlight python %}
+def run_m4():
+    gdf3_temp = gdf3.copy()
+    
+    gdf3_temp = gdf3_temp[gdf3_temp['bounds_maxx'] <= vector_target['bounds_minx']]
+    gdf3_temp = gdf3_temp[gdf3_temp['bounds_minx'] >= vector_target['bounds_maxx']]
+
+    gdf3_temp = gdf3_temp[gdf3_temp['bounds_miny'] >= vector_target['bounds_maxy']]
+    gdf3_temp = gdf3_temp[gdf3_temp['bounds_maxy'] <= vector_target['bounds_miny']]
+    
+    possible = gdf3_temp[check_bounds_intersect(vector_target, gdf3_temp)]
+    sub_v2 = possible[possible.intersects(target_geom)]
+{% endhighlight %}
+
+Above is a sketch of how that might work. Here, we simply move the bounds checks for some of the “definite” misses to before we can the `check_bounds_intersect` operation. Below are there results on a few data frame lengths:
+
+- 29,873 rows: 0.0283s (20.7% speedup vs. orig method: 0.0357s)
+- 119,492 rows: 0.036s (16% speedup vs. orig method: 0.0432s)
+- 477,968 rows: 0.0829s (37.7% speedup vs. orig method 0.133)
+
+Note: These performance times were calculated by running each operation 25 times and taking the average of the resulting time. This is why times are different than those listed in prior sections. Comparative performance between methods is the primary focus here.
+
+The takeaway from these results would be that such a “tossing” of definite misses prior to the creation of the boolean vector for intersecting bounds helps make this method more competitive when compared with spatial indexing. This likely mimics some of the first steps of a spatial index, which tosses the geometries that lie absolutely outside of the indexed rectangles that intersect with the bounds of the geometry being compared. Still, the the third variation of the above tests (the one that uses 477,968 rows), running the spatial index on this step instead during this series of run throughs resulted in an average performance time of 0.017s, or nearly 5x faster than the optimized vectorized version, still.
+
+## Conclusion
+
+Subsequent runs with various improvements on the vectorized alternative to the spatial index seem to continue to solidify the indexes lead as a more performant option when compared with vectorization methods that may simply require too many run throughs of the underlying Numpy arrays to gain from the potential advantages that dealing with just the vectorized column data affords.
