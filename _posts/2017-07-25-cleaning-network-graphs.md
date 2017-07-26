@@ -1,8 +1,8 @@
 ---
 published: true
-title: Bounds Vectorization vs. R-Tree
+title: Trimming Disconnected Network Subgraphs
 layout: post
-summary: Benchmarking performance of filtering vectorized bound attributes vs. a spatial index
+summary: Identifying and managing weakly linked and disconnected subgraphs in OSM network graphs
 comments: true
 ---
 
