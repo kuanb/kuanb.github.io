@@ -38,7 +38,7 @@ G = ox.graph_from_bbox(south=south, west=west, north=north, east=east,
                        retain_all=True, truncate_by_edge=True, simplify=False, network_type='walk')
 {% endhighlight %}
 
-OSMnx is a nice open source tool that can facilitate querying for OSM data and neatly plotting the results. It plays quite well in a Jupyter/iPython notebook, too - I’d recommend it. In the above code snippet, we pull down the OSM network for Madison, Wisconsin.
+[OSMnx](https://github.com/gboeing/osmnx) is a nice open source tool that can facilitate querying for OSM data and neatly plotting the results. It plays [quite well](https://github.com/gboeing/osmnx-examples/tree/master/notebooks) in a Jupyter/iPython notebook, too - I’d recommend it. In the above code snippet, we pull down the OSM network for Madison, Wisconsin.
 
 {% highlight python %}
 fig, ax = ox.plot_graph(ox.project_graph(G))
@@ -54,7 +54,11 @@ In the output, we can see disconnected networks along the periphery of the netwo
 G2 = max(nx.strongly_connected_component_subgraphs(G), key=len)
 {% endhighlight %}
 
-OSMnx is a library that is largely based on NetworkX. As a result, we can break apart the network into its component separate subgraphs and identify the largest strongly connected subgraph. A strongly connected graph is one in which all nodes can be reached by all others, whereas a weak one has some nodes which are only accessible one way. These “hanging nodes,” from which other nodes can sometimes not be accessed, are largely the typically the product of boundary trims in OSM networks. We could access them, if we desired, by using the comparable NetworkX API call `nx.weally_connected_component_subgraphs`.
+[OSMnx](https://github.com/gboeing/osmnx) is largely based on [NetworkX](https://networkx.github.io/). As a result, we can break apart the network into its component separate subgraphs and identify the largest strongly connected subgraph. A strongly connected graph is one in which all nodes can be reached by all others, whereas a weak one has some nodes which are only accessible one way. If you'd like to read more about weak and strong networks, here's a helpful [Stack Overflow post](https://math.stackexchange.com/questions/238087/difference-between-weak-and-strong-connected-regarding-directed-graphs) to get you started.
+
+These “hanging nodes,” from which other nodes can sometimes not be accessed, are largely the typically the product of boundary trims in OSM networks. We could access them, if we desired, by using the comparable NetworkX API call `nx.weally_connected_component_subgraphs`.
+
+That said, because (in this case) we are pulling down the walk network, each edge is inherently bidirectional (we/OSM does not assume any strict directionality on walk networks, just as you are able to walk either direction on a sidewalk). As a result, all edges between two nodes ought to be represented in both directions. as a result, a query for the largest strongly connected network should be sufficient.
 
 ![trimmed_network](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/cleaning-network-graph/trimmed_network.png)
 
