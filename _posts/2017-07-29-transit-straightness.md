@@ -425,3 +425,19 @@ Bottom 5 routes: 891, 892, 888, 894, 11
 Results seem to make sense from just looking at the above. Longer routes that provide extended service rather than ones that slip around corners in downtown seem to fair better through these metrics. But, downtown routes do not fall too far behind. Rather, it is the far flung east San Diego rural service routes that result in the poorest scores as a result of these metrics.
 
 Want a notebook profiling all these steps in order? Available [here](https://gist.github.com/kuanb/3064e75d990587d5ae9c740ac13cc04d).
+
+## Updates from the Twitter-sphere
+
+Thanks to all those who read this article and made comments online. In particular, I wanted to highlight this response which pointed to an academic journal on urban network circuity. I'd suggest clicking on this tweet to view the whole thread, which includes a direct link to the article.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/buttsmeister">@buttsmeister</a> See Huang, Jie and David Levinson (2015) Circuity in Urban Transit Networks. JTG <a href="https://t.co/Dov0e0N0XB">https://t.co/Dov0e0N0XB</a></p>&mdash; David M. Levinson (@trnsprtst) <a href="https://twitter.com/trnsprtst/status/891822978727464960">July 31, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+The article dives far deeper into the observation I made in the above post with regards to how San Diego's road network demonstrated greater consolidation of bearing directionality along east-west cooridors than did the transit network. In the paper, circuity is analyzed for both trip and transit routes and their relative disparity is then scored against other cities in the US. My favorite takeaway from the article was the observation that Houston has a relatively circuity relationship between autos and transit compared to other American cities.
+
+## Looking Forward
+
+Next, I'd like to set this up to run for all feeds in all cities in at least the US. This isn't so easily done as there are tons of edge cases when it comes to consuming GTFS feeds and I'll need to update the script accordingly. I spent some time to do so for New York. The results for Brooklyn are shown below:
+
+<blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">Swapped out SD &gt; Brooklyn. In BK, routes down the borough core fare better than inter-borough routes.<br><br>Next (time permitting): all US feeds! <a href="https://t.co/0jYOVysmfG">pic.twitter.com/0jYOVysmfG</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/891763297778712576">July 30, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
