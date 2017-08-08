@@ -55,6 +55,10 @@ During the daytime, there is a consistent gap wherein mean values for headways a
 
 Thus, it is important to both be aware of these assumptions as well as to understand their impact as this decision represents significant impact on resulting accessibility metrics produced.
 
+![difference_vs_count](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/mean-median-headways/difference_vs_count.png)
+
+As expected, the discrepencies (shown above in red, measured in seconds) between mean and median are also exacerbated by lower observation counts (shown above in blue, measured in the 1,000's of observations). Because these late night and early morning hours have less scheduled trips, non-standard timing distributions are both more common and represent a greater portion of the total available headways to analyze because there are simple less trips (and thus less data points) to measure. The above graph shows just that. 
+
 
 ## Comparing Unimodal and Bimodal Peaks
 
