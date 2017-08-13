@@ -191,3 +191,11 @@ Some things I would like to try, now that the data is cleaned:
 - point buffer overlays to identify route area-of-service and route spline flexibility/convergence
 
 A notebook of my work so far is available here: [Gist](https://gist.github.com/kuanb/4f5b1af5082ea0d60ee07722226ad9fb).
+
+## Some Updates From the Exploration Post-Data Cleaning
+
+<blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">Got an hr in playing w/ inferring route splines. Wrote a snap to <a href="https://twitter.com/hashtag/OSM?src=hash">#OSM</a> method but it&#39;s meh. Will want to compare w/ <a href="https://twitter.com/mapzen">@mapzen</a> Flex/Meili res. <a href="https://t.co/vIrVV2SDjC">pic.twitter.com/vIrVV2SDjC</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/896580437925023745">August 13, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">So <a href="https://twitter.com/mapzen">@mapzen</a> Flex returns same results as my method; I assume their method is prob not too different (haversine proximity measure). Oh, well 😛 <a href="https://t.co/1x4nxRoDO7">pic.twitter.com/1x4nxRoDO7</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/896750305420877824">August 13, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
