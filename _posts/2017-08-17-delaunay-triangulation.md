@@ -48,6 +48,8 @@ So, what does the underlying generator do? According to the underlying package�
 
 If you are curious to learn more, the [Wikipedia](https://en.wikipedia.org/wiki/Delaunay_triangulation) page is a good place to start. Basically, through this algorithm, we can break a geometry down into representative triangles of minimum cumulative complexity. Also important is that it does not return “sliver” triangles. As a result, this is a terrific mechanism for getting good, representative triangles along the long “arms” of strangely shaped parks.
 
+Sliver triangles are avoided via the use of threshold. For a given cloud of points, multiple triangulation combinations are possible, but many include sliver triangles. For an example of this, see [slide 5 of this presentation](http://www.cs.uu.nl/docs/vakken/ga/slides9alt.pdf). By setting a threshold of a larger angle, say 20 degrees, we can toss resulting triangulation combinations where one or more angles in any of the triangles composing the total triangulated geometry are less than that threshold. By using a larger angle, such as 20 degrees, we can safely ensure that sliver triangles are parsed out of the resulting triangulation.
+
 Note: A special thanks to [Geoff Boeing](http://geoffboeing.com/) for showing me this methodology! Without him demonstrating this method, I’d likely still be performing some sort of points grid overlay to get representative points from a geometry!
 
 ## Implementing a constrained Delaunay triangulation
