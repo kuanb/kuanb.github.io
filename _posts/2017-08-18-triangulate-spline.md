@@ -128,7 +128,7 @@ while not reached_end_pt:
         reached_end_pt = True
 {% endhighlight %}
 
-## Closing discussion
+## Methodology limitations
 
 This is by no means the most refined method of inferring a point cloud spline but it’s fast and dirty. With additional tools like Mapzen’s map matching tools, this method will get you “close enough” so that the final refinement against OSM path network data is possible. It will also leverage the advantages that multiple crowd-sourced pass throughs of a given route affords. That is, we can normalize against noise and discrepancies on multiple rides. Ends of rides may still be a little awkward so some further refinement may be necessary to handle the “hooks” that can occur (as seen in the above example). That said, map-matching typically handles such issues sufficiently to produce useful final shapefiles, which can be used as reference route shapes for any downstream analysis or scheduling, such as in creating a GTFS schedule.
 
@@ -146,3 +146,29 @@ gj_LineString(list(LineString(sorted_pts).coords))
 {% endhighlight %}
 
 For reference, here's a notebook of the steps taken in the above blog post: [Gist](https://gist.github.com/kuanb/e98e03f1aa8e0c2730051557ab1f0d12).
+
+## Update dealing with limitations during a real world example
+
+Unfortunately, this method is not as rock solid as I initially thought. Below are some screen captures from me running through this method with a real dataset from the Flocktracker Bogota data. For those who have access to the data, I was using Trip ID `T49774371`.
+
+![step_1](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/triangulate-spine/step_1.png)
+
+Trip `T49774371` is shown in the first image above. The second, middle one, is the result of all trips merged that overlap with that trip. As you can see, this is an effective way of capturing all the trips that run along the same route.
+
+Once we pull in all those similar trips, we can merge them into a single shape and triangulate it. As you can see in the right most image above, that shape is very complex.
+
+![step_2](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/triangulate-spine/step_2.png)
+
+We can take a step back and simplify that original unary union of buffered points (50 meter buffer as GPS trace accuracy roughly matches that). In the following steps we perform a simple triangulation operation and plot the results of this simplified geometry. The operation is much fast as the number of triangles has been reduced by about an order of magnitude.
+
+![step_3](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/triangulate-spine/step_3.png)
+
+This leads us to the third series of operations. Here, we parse out all points from the midpoints of those triangle vertices that touch the edges of the buffered route shape. From that resulting point cloud we try and tease out a path that should be the spline.
+
+Here’s where this methodology starts falling apart. The mess about 30% up from the southernmost point of the route is causing trouble. In these areas, we can see that the methodology failed to handle the tight turns in the route. 
+
+![step_4](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/triangulate-spine/step_4.png)
+
+We can see how complex this part of the network is when we look at the map match results as well. Mapzen Flex does its best to pair these squiggles with the road network, but the result is a hair ball of paths.
+
+As a result of this exploration, it is clear I will need to work on a better method of cleaning these splines so that we can manage these complex routes. One strategy may be to just dump the portions of the path that loop on themselves by pinpointing the self intersection and dropping all points between it. This could have some unforeseen consequences, though. I will report back here with any learnings when they occur/are discovered.
