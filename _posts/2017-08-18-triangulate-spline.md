@@ -268,3 +268,46 @@ route = nx.shortest_path(G, source=21, target=33, weight='length')
 {% endhighlight %}
 
 For the sake of creating rudimentary GTFS network shapes, though, this method should suffice. Additional coverage area lost can then be recaptured by simply utilizing the point cloud of trace data as a spatial overlay over geometry layers with relevant metata.
+
+## Operationalizing the final method
+
+This is a third and final update to this post. The steps to perform this operation are currently being contained into well-scoped methods. I'll roll all these utilities up into a single utility file. For now, as I am sketching them out, I have called the file `flocktracker.py`. By importing it, methods can be called quickly and succinctly, like so:
+
+{% highlight python %}
+import flocktracker as ft
+
+# first get a single trip (iterate through a list of reference trips
+# to then create a GTFS shapes reference for the whole recordings dataset)
+target_trip = ft.get_next_target_trip(bdfc, use_vals)
+print('Using this target trip: {}'.format(target_trip))
+
+single_trip_mpoly = ft.extract_single_trip(bdfc, target_trip)
+grouped_trips = ft.get_similar_routes(single_trip_mpoly, bdfc)
+
+# and so on...
+{% endhighlight %}
+
+Thus far, this method has been holding up quite well. Here's another example showing how the operation handled the fact that a route tended to also diverge from the center/main trajectory and go deep into two side streets (below image).
+
+![second_test_steps](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/triangulate-spine/second_test_steps.png)
+
+From left to right:
+
+- Starting reference trip
+- All overlapping trips
+- Simplification step
+- Triangulation step
+
+With the current method, we are able to avoid them, but to account for their popularity when determining the speed at which the vehicle should be scheduled to traverse the network. We can effectively "slow down" its performance at this juncture, to acknowledge that it tends to "go off course" at this point and thus those who are farther down the route from this point may have to wait longer than if the vehicle were to consistently go straight on and not diverge.
+
+Aside: It is also possible that this is a situation where there was a segment of another trip that passed through this trip and this small segment was getting caught in this particular route's traces during the intersection subsetting step. If that is the case, this is another example where the shortest path method comes in handy as a way of handling such situations and ignoring perpendicular intersections to the main route spline.
+
+![shortest_path_4](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/triangulate-spine/shortest_path_4.png)
+
+![shortest_path_5](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/triangulate-spine/shortest_path_5.png)
+
+Just as with the prior example, here is the triangulated path, simplified, and converted into a network. The second image is then that same graph but with the shortest path from start to finish superimposed.
+
+## Next steps
+
+In addition to finishing up this `flocktracker.py` utility library, I will need to figure out a way to programmatically determine the start and end nodes for the routes. This is extra tricky as I have noticed that some riders would start in the middle of a route and not at one of its extermities. This makes it hard to be sure that the earliest traces  from a trip are at the start or end of the trip. As a result, I will need to devise an alternative strategy for determining route start and end points.
