@@ -50,7 +50,9 @@ layout: default
     </div>
   </div>
 
-  <a class="twitter-timeline" data-lang="en" data-theme="light" data-link-color="#2B7BB9" href="https://twitter.com/buttsmeister">Tweets by buttsmeister</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <div style="max-width: 500px; margin-top: 20px">
+    <a class="twitter-timeline" data-lang="en" data-theme="light" data-link-color="#2B7BB9" href="https://twitter.com/buttsmeister">Tweets by buttsmeister</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
   
 </div>
 
@@ -99,8 +101,8 @@ layout: default
   }
 
   // before we begin, we need a color range for the nodes
-  var lightBlue = new GColor(0, 204, 198);
-  var blue = new GColor(0, 50, 204);
+  var lightBlue = new GColor(232, 134, 188);
+  var blue = new GColor(204, 0, 112);
   var colorRange = createColorRange(lightBlue, blue);
   var currentPointInRange = 0;
 
@@ -122,7 +124,7 @@ layout: default
       this.girth = this.lifeFactor * 3;
 
       this.update = function () {
-        context.strokeStyle = '#EEEEEE';
+        context.strokeStyle = '#d0ecf4';
         context.beginPath();
         context.moveTo(this.x, this.y);
 

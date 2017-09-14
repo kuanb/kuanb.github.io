@@ -2,7 +2,7 @@
 published: true
 title: Tethering Schedules to Routes via Trace Data
 layout: post
-summary: From Trace to GTFS: Proposed operations structure for generative Flocktracker GTFS, Part 2
+summary: From Trace to GTFS - Proposed operations structure for generative Flocktracker GTFS, Part 2
 comments: true
 ---
 

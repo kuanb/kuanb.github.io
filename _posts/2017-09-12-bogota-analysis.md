@@ -2,7 +2,7 @@
 published: true
 title: Programmatic Geometry Manipulation to Auto-generate Route Splines
 layout: post
-summary: From Trace to GTFS: Proposed operations structure for generative Flocktracker GTFS, Part 1
+summary: From Trace to GTFS - Proposed operations structure for generative Flocktracker GTFS, Part 1
 comments: true
 ---
 
@@ -159,7 +159,7 @@ df_int_gdf = df_gdf[df_gdf.intersects(reference_trip)]
 
 This is another step that could be far improved. We should have more intelligent intersection. For example, if the reference trip is indeed the full length of the route, then we would need all other trips to match within a certain percent of overlap. Another idea would allow for a reference trip to not need to be the whole length of the trip would be to “grow” the reference shape by incrementally adding any trip IDs that overlap within a certain percentage threshold and then update the reference shape to that one.
 
-## Iteration part 5 - 8
+#### Iteration part 5 - 8
 
 With the resulting subset, we take the unique trip IDs and add them to the reference dictionaries that are keeping track of already assigned Trip IDs, as well as the object that keeps pairs together. The key for this dictionary will use the longest trip ID from Part 2 as it’s identifier. The route will end up using that trip ID as the basis for its unique ID downstream.
 
@@ -203,6 +203,7 @@ simplified = ft.unify_trips(sub_gdf.geometry, 0.0025)
 `unify_trips` takes that list of points and buffers them by the second parameter variable. It then converts that into a MultiPolygon and takes the largest of the Polygons. This helps handle situations where there are hanging points that lie outside the main “blob.” 
 
 Here is an example of that happening:
+
 ![buffer_with_hanging](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/bogota-analysis/buffer_with_hanging.png)
 
 In that example case, we would end up with two Polygons. We take the larger and simply toss the smaller. Once we have that larger, we return it, simplified (`largest.simplify(0.0001)`). Again, this is a parameter that needs to be parameterized. You can also see that I’ve been working in degrees projection (generally ill-advised, but this is just a sketch of the process as a working concept).
