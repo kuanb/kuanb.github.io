@@ -3,10 +3,11 @@ layout: default
 ---
 
 <div class="home">
+
   <div id="whowhatwhere" class="whowhatwhere">
     <img src="/images/me.jpeg" alt="Kuan Butts" class="avatar"/>
-    <span class="h3">
-      who, what, and where
+    <span class="h3" style="text-shadow: 0 0 10px #FFF;">
+      who, what, where
     </span>
 
     <div class="blurb">
@@ -112,25 +113,35 @@ layout: default
       this.x = x;
       this.y = y;
 
-      this.angle = Math.pow(Math.random(), 45) + angle;
+      this.angle = Math.pow(Math.random(), 90) + angle;
       this.dx = Math.cos(this.angle);
       this.dy = Math.sin(this.angle);
 
       this.lifeFactor = Math.random();
       this.life = this.lifeFactor * 100 + 100;
+      this.age = 0;
+      this.projectedAge = this.life;
       this.dead = false;
 
       // stroke with determines by lifespan
       this.girth = this.lifeFactor * 3;
 
       this.update = function () {
-        context.strokeStyle = '#d0ecf4';
+        if (this.girth < 1.0) {
+          context.strokeStyle = '#29acd1';
+        } else if (this.girth < 2.0) {
+          context.strokeStyle = '#69c9e5';
+        } else {
+          context.strokeStyle = '#d0ecf4';
+        }
+        
         context.beginPath();
         context.moveTo(this.x, this.y);
 
         this.x += this.dx * 3;
         this.y += this.dy * 3;
         this.life -= 1;
+        this.age += 1;
 
         context.lineTo(this.x, this.y);
         context.lineWidth = this.girth;
@@ -172,7 +183,7 @@ layout: default
 
   var width = window.innerWidth;
   var baseHeight = 725; // just some min pixel height
-  var height = Math.max(window.innerHeight, baseHeight);
+  var height = Math.max(window.innerHeight, baseHeight) + 150;
   if (height < baseHeight) height = baseHeight;
 
   var heightStyleString = 'height:' + height + 'px';
@@ -191,7 +202,7 @@ layout: default
                       (height/2),
                       (Math.random() * 180 * Math.PI / 180)));
 
-  var drawRate = (10 / 60.0); // 10 steps per 60 milliseconds?
+  var drawRate = (5 / 60.0); // 10 steps per 60 milliseconds?
   var drawInterval = setInterval(function () {
       image = context.getImageData(0, 0, width, height);
       data = image.data;

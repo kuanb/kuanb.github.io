@@ -129,6 +129,19 @@ hr {
     font-weight: 300;
     padding: 10px 20px;
 
+    a {
+      border-bottom: 0.5px #c0ebf7 solid;
+      border-left: 0.5px #c0ebf7 solid;
+      margin-top: 15px;
+      padding-left: 3px;
+      padding-right: 3px;
+    }
+
+    a:hover {
+      background-color: #29acd1;
+      color: #FFF;
+    }
+
     b {
       font-weight: 700;
     }
@@ -139,7 +152,8 @@ hr {
 .posts .post a:hover .post-meta,
 .posts .post a:hover .post-title,
 .posts .post a:hover .post-summary {
-  opacity: 0.88;
+  opacity: 1;
+  font-color: #FF0000;
 }
 
 /*
@@ -263,6 +277,7 @@ table {
 
 .wrap .measure {
   margin: 0 auto;
+  text-shadow: 0 0 10px #FFF;
 }
 
 .meta,
@@ -370,7 +385,7 @@ h6,
 }
 .social-icons a.fa {
     padding: 0.2em;
-    opacity: 0.4;
+    opacity: 1;
     cursor: pointer;
 }
 .social-icons a.fa:hover {
@@ -492,6 +507,7 @@ h6,
     text-align: center;
     margin-top: 0.666em;
     margin-bottom: 1.333em;
+    font-weight: 900;
   }
 
   .social-icons .left, .social-icons .right {
