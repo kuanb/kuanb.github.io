@@ -8,7 +8,13 @@ comments: true
 
 ![all_routes](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/bogota-analysis/all_routes.png)
 
+Note: This is the first part in a two-part series. The second section is located here: [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/).
+
+## Introduction to Part 1
+
 The intent of this post is to outline how previous explorations into converting unsorted points into single route splines has been organized into a workflow that would enable one to generate a GTFS schedule and paired route shape files dataset given minimal trace data. It will also go into where the current algorithms are overly brittle and how such limitations would be remedied in a more robust implementation (or refactor).
+
+When referring to the “current algorithms,” I will be referring to the state of the `ft_bogota` [Github repo](https://github.com/kuanb/ft_bogota/) I created to support these analyses. The state of the current build of the sketch utility repo when this was written is at commit `10d3a9f5e88e8be36911dd8622ed1a8391d7a3fd`. Reviewing the repo after this commit may reveal significant differences. It is important to understand this post more as a proposal with a functional sketch system built out than a finalized implementation of such a utility package.
 
 A notebook that provides something for readers to follow along with exists [here](https://gist.github.com/kuanb/6ecea2e8decfab024ef6e46e4693aa9a) as a Gist. I would just like to warn that it’s very much a working document so please excuse the dust.
 
@@ -56,7 +62,7 @@ The `ft.clean_base_df` method performs a few key functions. First, it pulls out 
 
 Null values are dropped and removed, as well all values that lie outside of the supplied bounding box. The bounding box is a rough bounding of the Bogota area. The primary intent for this operation is to drop wildly off coordinates. This occasionally, happens, and often points can end up on Null Island, the default coordinate location that a phone may supply as its location when it is unable to successfully calibrate itself.
 
-Once we have the unique trips pulled out and cleaned (held in `bdfc`, for “Bogota Data Frame Clean”), we need to create two output dictionaries:
+Once we have the unique trips pulled out and cleaned (held in `bdfc`, a shorthand for “Bogota Data Frame Clean”), we need to create two output dictionaries:
 
 {% highlight python %}
 # We will use this to hold all our final result shapes
@@ -73,7 +79,7 @@ all_possible_ids = list(set(bdfc['trip_id'].values))
 do_not_use = []
 {% endhighlight %}
 
-At this point, I am going to show the entire loop and then step through each highlighted step and explain what is happening in that sections:
+At this point, I am going to show the entire loop and then step through each highlighted step and explain what is happening in that section:
 
 {% highlight python %}
 start_time = time.time()
@@ -118,7 +124,7 @@ while len(do_not_use) < len(all_possible_ids):
     unique_trip_paths[target_trip] = None # placeholder
 {% endhighlight %}
 
-First, the `while` is used so that we continue to iterate until there are no remaining unplaced/unused unique trip IDs left. Once all have been assigned to some unique route shape, we are free to exit the loop. In the case of this Bogota dataset, this will result in 24 unique routes from the ~550,000 unique trip trace points.
+First, the `while` loop is used so that we continue to iterate until there are no remaining unplaced (or, rather, unused) unique trip IDs left. Once all trip IDs have been assigned to some unique route shape, we are free to exit this `while` loop. In the case of this Bogota dataset, this will result in 24 unique routes from the ~550,000 unique trip trace points.
 
 ### Iteration part 1
 
@@ -126,7 +132,7 @@ For each iteration we first extract the subset of the cleaned data frame that is
 
 #### Iteration part 2
 
-With this subset, we’ll now execute the `get_next_target_trip` utility function. This function loops through the original clean data frame and finds, from the trip IDs identified as being under consideration, which is the longest. This is determined right now as which has the most points. We could, instead, calculate great circle distance between each point as sorted by date time and then determine what routes is indeed the longest. Either way, in this case, this suffices for sketching out how this step might work. In the future, a more robust method of calculating length might be worth building out.
+With this subset, we’ll now execute the `get_next_target_trip` utility function. This function loops through the original clean data frame and finds, from the trip IDs identified as being under consideration, which is the longest. This is determined in the current state of the utility, as which has the most points. We could, instead, calculate great circle distance between each point as sorted by date time and then determine what routes is indeed the longest. Either way, in this case, this suffices for sketching out how this step might work. In the future, a more robust method of calculating length might be worth building out.
 
 ![process](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/bogota-analysis/process.png)
 
@@ -143,7 +149,7 @@ Once we have the ID of the longest of the remaining trips, we use the `extract_s
 
 #### Iteration part 4
 
-Now we start to enter the part of this workflow that becomes a bit laborious and slow in Python. Suffice to say, this is an area that is ripe for optimization.
+Now we start to enter the part of this workflow that becomes a bit laborious and slow in Python. Suffice to say, this is an area that is ripe for optimization in future refactoring.
 
 In this portion of the iteration, we use `get_similar_routes` to pull out all unique trips that are deemed “related” to the reference trip. This method accomplishes this by first converting the cleaned reference data frame into a GeoDataFrame. As an aside, this is actually not that expensive of a step, but there is no reason to do it on every iteration; it could be stored and retrieved on each run.
 
@@ -163,7 +169,7 @@ This is another step that could be far improved. We should have more intelligent
 
 With the resulting subset, we take the unique trip IDs and add them to the reference dictionaries that are keeping track of already assigned Trip IDs, as well as the object that keeps pairs together. The key for this dictionary will use the longest trip ID from Part 2 as it’s identifier. The route will end up using that trip ID as the basis for its unique ID downstream.
 
-The print statements included in the utilities as well as the workflow outlined in the snippet above will result in a number of logs such as the below being printed. These can help you track progress as the loop runs through completion.
+The `print` statements included in the utilities as well as the workflow outlined in the snippet above will result in a number of logs such as the below being printed. These can help you track progress as the loop runs through completion.
 
 {% highlight bash %}
 Starting new pass through. Elapsed time: 15 min
@@ -171,7 +177,7 @@ Good vals remaining: 236
 Using this target trip: T88248718
 Subset that intersect target trip:  288
 Of that subset, 25 are valid
-Identified 25 trip IDs: ['T24651929', 'T60297485', 'T68459160', 'T88613629', 'T93153258', 'T83730458', 'T90497910', 'T28154135', 'T56134698', 'T97925018', 'T53979518', 'T60357736', 'T64032436', 'T58548281', 'T89764088', 'T83293275', 'T37408698', 'T94878792', 'T74826201', 'T81532461', 'T26493351', 'T51295162', 'T88248718', 'T38539886', ‘T19859556']
+Identified 25 trip IDs: ['T24651929', ... ‘T19859556']
 {% endhighlight %}
 
 ## Routes generation performance
@@ -190,7 +196,7 @@ sub_xys = [Point(x, y) for x, y in zip(sub_df['lon'].values, sub_df['lat'].value
 sub_gdf = gpd.GeoDataFrame(sub_df, geometry=sub_xys)
 {% endhighlight %}
 
-Each point cloud consists of all routes that are within that trip’s pairings. Note that here is another unnecessary recreation of the reference layer GeoDataFrame. This is hardly the main performance bottleneck, as you will see in a moment.
+Each point cloud consists of all routes that are within that trip’s pairings. Note that here is another unnecessary recreation of the reference layer GeoDataFrame. That said, this is hardly the main performance bottleneck, as you will see in a moment.
 
 #### Simplifciation
 
@@ -210,40 +216,44 @@ In that example case, we would end up with two Polygons. We take the larger and 
 
 #### Triangulation
 
-Now we get to run a triangulation process to convert the geometry into a series of triangle elements. This is another area that needs a lot more work. There is a Python library Tri that allows for constrained Delaunay Triangulation, but it’s quite brittle. I outlined how it works in a previous post if you are interested in knowing more.
+Now we get to run a triangulation process to convert the geometry into a series of triangle elements. This is another area that needs a great deal more refinement. There is a Python library [Tri](https://github.com/drufat/triangle) that allows for constrained [Delaunay Triangulation](https://en.wikipedia.org/wiki/Delaunay_triangulation), but it’s quite brittle. I outlined how it works in a [previous post](http://kuanbutts.com/2017/08/17/delaunay-triangulation/) if you are interested in knowing more.
 
 {% highlight python %}
 # Convert this polygon into a triangulated composition
 tri_cleaned = ft.triangulate_path_shape(simplified)
 {% endhighlight %}
 
-This method skips the use of the constrained method and just uses GEOS’s built in triangulation method which is bound via Shapely’s `triangulate` API function. The result typically works to return a shape where triangles are drawn between all points along the edge of the shape but this is not ensured. I discovered that and made a note of it on the Shapely repo [here](https://github.com/Toblerity/Shapely/issues/518). Through that discussion we found that this behavior was reasonable. It is for this reason that an implementation of a constrained triangulation method in Python would be quite valuable. This would be a time intensive project, but one I might be interesting in diving into more, having been exposed to this issue.
+This method skips the use of the constrained method and just uses GEOS’s built in triangulation method which is bound via Shapely’s `triangulate` API function. The result [typically works](https://github.com/Toblerity/Shapely/issues/518) to return a shape where triangles are drawn between all points along the edge of the shape.
+
+This result is not 100% guaranteed, though. I discovered that and made a note of it on the Shapely repo [here](https://github.com/Toblerity/Shapely/issues/518). Through that discussion we found that this observed and reported behavior was reasonable. It is for this reason that a stable implementation of a constrained triangulation method in Python would be quite valuable. This would be a time intensive project, but one I might be interesting in diving into more, having been exposed to this issue. Again, if you refer to that issues conversation, you will see that an equivalent method has been built out in Java. Potentially integrating a Java component to this workflow to execute that portion of the analysis may be the most viable path forward in the short term.
 
 ![simplified](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/bogota-analysis/simplified.png)
 
-We can see hints at this issue from the above image. The above triangulation method is not rock solid. We an see instances where triangles that ought to be returned are not. There is a chance that a disconnected MultiPolygong could be returned.
+We can see hints at this issue from the above image. The above triangulation method is not rock solid. We an see instances where triangles that ought to be returned are not. There is a chance that a disconnected MultiPolygon could be returned.
 
 ![triangulation_issue](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/bogota-analysis/triangulation_issue.png)
 
 Above, the issue in greater detail, circled in red.
 
-So why are we performing this triangulation? Again, for more detail it is best to see previous posts on this topic, but you can generate shortest paths from these triangulations that will provide us with a discreet spline for this group of routes. 
+So why are we performing this triangulation? Again, for more detail it is best to see [previous](http://kuanbutts.com/2017/08/18/triangulate-spline/) [posts](http://kuanbutts.com/2017/08/17/delaunay-triangulation/) on this topic, but you can generate shortest paths from these triangulations that will provide us with a discreet spline for this group of routes. 
 
 ![shortest_paths_snippets](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/bogota-analysis/shortest_paths_snippets.png)
 
 Above: Examples of shortest paths being calculated using the triangulation output as a graph network to identify potential route splines.
 
-Although these paths may be slightly off from where the real road network would be, there are within a defensible margin of area. Most importantly, for performing service analyses of networks and transit systems, they are within <3 minute walk from the actual spline at any point at this buffer level. This is sufficient for calculating coverage, service levels, and accessibility defensibly. If a truly accurate route path shape is desired, then we must dive into a creating a converter that takes these shapes and best snaps them to the OSM network (as well as deals with inaccuracies in the OSM network). This is out of scope for the intent of this post and the problem trying to be solved.
+Although these paths may be slightly off from where the “real” road network would be, they are within a defensible margin of area. Most importantly, for performing service analyses of networks and transit systems, they are within a roughly 5-minute minute walk radius from the actual spline at any point at this buffer level. This is sufficient for calculating coverage, service levels, and accessibility within a region, defensibly. If a truly accurate route path shape is desired, then we must dive into a creating a converter that takes these shapes and best snaps them to the OSM network (as well as deals with inaccuracies in the OSM network). This is out of scope for the intent of this post and the problem trying to be solved.
+
+It definitely is something worth looking into later, though.
 
 #### Skeletonization
 
-Once we have the triangulated the geometry, we are still missing 2 values before we can actually generate those shortest paths for each triangulated route shape shown above. What we still need is a start and an end point. There’s a couple of ways to the get the two farthest points on a geometry and what I ended up landing on was Polyskel: Polyskel is a Python 2 implementation of the straight skeleton algorithm as described by Felkel and Obdržálek in their 1998 conference paper “Straight Skeleton Implementation.”
+Once we have the triangulated the geometry, we are still missing 2 values before we can actually generate those shortest paths for each triangulated route shape shown above. What we still need is a “start” and an “end” point. There’s a couple of ways to the get the two farthest points on a geometry and what I ended up landing on was [Polyskel](https://github.com/Botffy/polyskel): [Polyskel](https://github.com/yonghah/polyskel/blob/master/Create%20layout%20network%20using%20straight%20skeletons%20.ipynb) is a Python 2 implementation of the straight skeleton algorithm as described by Felkel and Obdržálek in their 1998 conference paper “Straight Skeleton Implementation.” You can learn more about it by visiting the [Github repository](https://github.com/Botffy/polyskel).
 
-It is included in its entirety in the `ft_bogota` repo. Slight modifications have been made to it (and the Pyeuclid library that it relies on) to allow them to run in Python 3. The method takes a geometry and identifies the least number of lines that extends to each of the polygon’s vertices and then the least number of lines that connects those points to an internal central spline.
+It is included in its entirety in the `ft_bogota` repo. Slight modifications have been made to it (and the Pyeuclid library that it relies on) to allow them to run in Python 3. The method takes a geometry and identifies the least number of lines that extends to each of the polygon’s vertices and then the least number of lines that connects those points to an internal, “central” spline.
 
 ![polyskel](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/bogota-analysis/polyskel.png)
 
-In the interest of somewhat containing the length of this post, I won’t dive too much in to how this work and can save that for a later post. Suffice to say, if you look at the example in the above image, I can then take these limited edges and convert them to a NetworkX graph. With that NetowrkX graph, I can identify all possible paths in that network and select the longest one. This is the path whose extremities are essentially the “start” and “end” points of the parent geometry.
+In the interest of _somewhat_ containing the length of this post, I won’t dive too much in to how this work and can save that for a later post. Suffice to say, if you look at the example in the above image, I can then take these limited edges and convert them to a NetworkX graph. With that NetowrkX graph, I can identify all possible paths in that network and select the longest one. This is the path whose extremities are essentially the “start” and “end” points of the parent geometry.
 
 #### Identifying route splines
 
@@ -253,11 +263,11 @@ Once we have the skeletonization results (two farthest points within a geometry)
 first_point, last_point = ft.get_farthest_point_pair(skeleton)
 {% endhighlight %}
 
-The above method simply converts the triangulated geometry into a NetworkX graph and uses the triangle edges as graph edges. An improvement here is to not introduce redundancies between triangle edges so that graphs can be constructed and navigated more quickly. This will help speed up this step.
+The above method simply converts the triangulated geometry into a NetworkX graph and uses the triangle edges as graph edges. [NetworkX](https://networkx.github.io/documentation) is a pure Python implementation of a network graph analyses tool that was started (and I believe continues to be supported by) Los Alamos Labs since the early 2000s. An improvement here would be to not introduce redundancies between triangle edges so that graphs can be constructed and navigated more quickly. This will help speed up this step.
 
 #### Route imputation performance
 
-This process is slow. On the 24 routes from the Bogota dataset, execution time was about 3 minutes each (so a little over an hour for the whole set). A great deal of work could be done to optimize these steps.
+This process is slow; really slow. On the 24 routes from the Bogota dataset, execution time was about 3 minutes each (so a little over an hour for the whole set). A great deal of work could be done to optimize these steps. I’ll note the low hanging fruit in each section as I describe the overall structure throughout the remainder of this post.
 
 {% highlight bash %}
 ---
@@ -308,7 +318,7 @@ Intersecting this with the UPZs, we can then pull out the portion of each area o
 
 ## What’s next?
 
-The shapes are only rough. It would be nice to have routes that line up with the OSM network data. In order to do this there may need to be a by hand portion. I can load these geometries up into a map and use Mapzen or Mapbox’s map matching API to tweak the routes until they satisfy a visual inspection. I can easily set up a local QA tool to do this that works through each route and loads in the geometry as a GeoJSON and attempts a naive map match that I can then tweak by dragging the points around a map until it looks satisfactory.
+The shapes are only rough. It would be nice to have routes that line up with the OSM network data. In order to do this there may need to be a “by-hand” portion. I can load these geometries up into a map and use Mapzen or Mapbox’s map matching API to tweak the routes until they satisfy a visual inspection. I can easily set up a local QA tool to do this that works through each route and loads in the geometry as a GeoJSON and attempts a naive map match that I can then tweak by dragging the points around a map until it looks satisfactory.
 
 Other than that, it is important to note that this is just a sketch of a framework. I have identified a number of points here that are brittle. Each of these could easily thrown a wrench in the workflow for any number of edge cases and working through how these are handled will be a great deal of work. Some already have been handled, though, and this system does successfully run from end to end with the Bogota dataset.
 
@@ -329,3 +339,7 @@ One of the core checks of the Mapzen matching API is to penalize potential route
 ## GTFS
 
 In the next post, I will outline how we can then take that original trace data and derive time cost between each route segment.
+
+## Continue to the second section
+
+This concludes the first part in a two-part series. The second section is located here: [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/).

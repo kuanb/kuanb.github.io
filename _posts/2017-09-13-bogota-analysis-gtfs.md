@@ -6,9 +6,13 @@ summary: From Trace to GTFS - Proposed operations structure for generative Flock
 comments: true
 ---
 
+Note: This is the second part in a two-part series. The first section is located here: [Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/).
+
 ## Introduction to Part 2
 
 In this post, we will be working with the same data from the previous post on converting trip trace data to route splines and paired GTFS schedule data. The intent of this post is to sketch out the logic behind how I’ve used the outputs from the route spline generation to auto-generate speed zones along discrete routes and use those to infer time cost which can then be used to generate GTFS for a given route.
+
+When referring to the “current algorithms,” I will be referring to the state of the `ft_bogota` [Github repo](https://github.com/kuanb/ft_bogota/) I created to support these analyses. The state of the current build of the sketch utility repo when this was written is at commit `10d3a9f5e88e8be36911dd8622ed1a8391d7a3fd`. Reviewing the repo after this commit may reveal significant differences. It is important to understand this post more as a proposal with a functional sketch system built out than a finalized implementation of such a utility package.
 
 A notebook that provides something for readers to follow along with exists [here](https://gist.github.com/kuanb/6ecea2e8decfab024ef6e46e4693aa9a) as a Gist. I would just like to warn that it’s very much a working document so please excuse the dust. For this post, we will be starting from `In [585]`. The top of the cell should look like this:
 
