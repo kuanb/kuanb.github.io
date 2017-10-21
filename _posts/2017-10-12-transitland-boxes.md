@@ -234,6 +234,8 @@ Above, another plot, this time of Europe and western Russia. As you can see, thi
 
 At this point you should be free to explore the feeds available on Transit.Land - there's a ton of them! Need ideas for what to explore next? How about choosing a more refined base layer if you'd like to work at a "closer" scale and explore and work with transit bounds data at, for example, the county and census tract scale in the United States.
 
+![world](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/transitland-boxes/world.png)
+
 Once you find a feed you like, you can download the zip file by examining the `url` attribute in the API response for a given operator. If given permission, Transit.Land will also hold a copy of the GTFS zip file themselves on an S3 bucket. Simply going to that link will enable you to download the zip file. Once you have downloaded the zip file, there's plenty of tools out there to explore the schedule data with. 
 
 If you enjoy working with Pandas DataFrames and find this data structure convenient when working with ordered datasets such as GTFS (I do!), then you may enjoy [Partidge](https://github.com/remix/partridge/). This is a new but promising library that proposes a standard for how one might organize transit schedule data on a series of Pandas DataFrames, reflecting the same files that would exist in `.txt` format within the zip file.
