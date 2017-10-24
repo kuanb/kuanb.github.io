@@ -6,7 +6,7 @@ summary: Utilizing clustering on a weighted Laplacian to segment OSM walk networ
 comments: true
 ---
 
-![both-graphs](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/spectral-cluster-berkeley/both-graphs.png)
+![sf-blob](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/spectral-cluster-berkeley/sf-blob.png)
 
 # Introduction
 
@@ -231,3 +231,17 @@ Unfortunately, if you look at the elbow of the plot, it’s about 4 clusters. Us
 # Request for feedback
 
 Hopefully, if you’ve followed me to this point, you might have some ideas on how to best determine the number of clusters. Is my 12 cluster plot of any use? Is there a reason why it both runs accurate to neighborhoods in Berkeley and does appear to return reasonable results? Would there by a way to modify the elbow process to somehow modify the method to return a value more similar to, say, 12?   Perhaps additional information could help inform this, such as point of interest (POI) data. If you have ideas or questions, I’d be interested. Feel free to hit me up on Twitter or in the comments below. Thanks for reading!
+
+## Updates
+
+Since publishing this I have receive some helpful suggestions. You can read some of them on my Twitter feed, [here](https://twitter.com/gboeing/status/922539123935649792). In particular, 2 different algorithms were suggested: DBSCAN and HDBSCAN. You can read more about them online with a quick Google search, but I wanted to just include images of the result here for any others interested. 
+
+I will include the results of the two methods, embedded below as I tweeted them out in response to the suggestions. The short of it is that these yielded not so exciting results. I'll need to spend more time to think about the process by which I am approaching the clustering operation. I imagine including a single other dataset will help ensure more consistent results.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">DBSCAN results w/2 diff eps thresholds (100 &amp; 400 meters) below. min_samples set to 4 nodes. Results don&#39;t seem as compelling on first pass. <a href="https://t.co/HuICRuYGG1">pic.twitter.com/HuICRuYGG1</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/922704694312611840?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Similarly, here is HDBSCAN with minimum cluster size set at 10 and 25. <a href="https://t.co/OVnza9slC3">pic.twitter.com/OVnza9slC3</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/922706910268203008?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Another suggestion that I plan to do soon and report the results of is to get ahold of the actual neighborhoods of Berkeley and to publish those results on this blog, too.
