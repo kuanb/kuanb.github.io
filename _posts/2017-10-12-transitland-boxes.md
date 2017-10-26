@@ -8,6 +8,13 @@ comments: true
 
 ![usa](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/transitland-boxes/usa.png)
 
+### Note
+
+An updated version of this post, featuring more pictures and better spelling and sentence structure has been posted to Transitland's blog. You can read it, [here](https://transit.land/news/2017/10/25/geopandas-tutorial.html), or by clicking the below embedded tweet:
+
+<blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">Follow <a href="https://twitter.com/buttsmeister?ref_src=twsrc%5Etfw">@buttsmeister</a>&#39;s tutorial at <a href="https://t.co/2kyHQfjmd1">https://t.co/2kyHQfjmd1</a> and soon you&#39;ll be making your own maps from Transitland using Python + GeoPandas <a href="https://t.co/neujX7x350">pic.twitter.com/neujX7x350</a></p>&mdash; Transitland (@transitland) <a href="https://twitter.com/transitland/status/923317145039118336?ref_src=twsrc%5Etfw">October 25, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 # Introduction
 
 Recently, I posted the above image on Twitter. It generated some positive responses, so I went ahead and generated a few more, one for each continent as well as a few "special requests." Also included was a script that would allow someone to recreate the same scenes themselves. This post will provide more context around the steps listed out in that notebook, as well as some notes about how tools such as [GeoPandas](http://geopandas.org/) and [Shapely](https://github.com/Toblerity/Shapely) can help make the process of exploring [Transit.Land's](https://transit.land/) API more visual and, perhaps, easier to peruse.
