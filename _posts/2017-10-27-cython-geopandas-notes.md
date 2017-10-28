@@ -267,6 +267,105 @@ That said, I really don’t want this to come across at all as me be down on the
 
 The issue I am dealing with has to do particularly with the operation I am performing, which is effectively the calculation of a distance matrix wherein values are tossed on a row-by-row bases and the distances are used in a one-off summary operation. This calculation has a cost that grows exponentially as the number of rows `n` rises (Big O: O(N2)).
 
+# Revisiting the Distance Matrix
+
+One way to get the for loop out of Python is to create the entire distance matrix within the the Pandas data frame such that each geometry becomes paired with all other geometries. We can do this by creating a single new “join column” that has some single value (say, “1”) that it joins to itself on. This will create a table that is `n` by `n` tall.
+
+{% highlight python %}
+stl_reproj2 = stl_reproj.copy()
+
+sr3 = pd.merge(stl_reproj2, 
+               stl_reproj2,
+               how='inner',
+               on='join_col',
+               left_index=False,
+               right_index=False,
+               suffixes=('_l', '_r'),
+               copy=True)
+
+print(len(stl_reproj2)), print(len(sr3))
+# 1000
+# 1000000
+{% endhighlight %}
+
+The above code snippet highlights how this can be done.. We can now see that we have two geometry columns, a `_l` and a `_r` one, like so:
+
+{% highlight python %}
+sr3.columns
+Index(['employees_l', 'households_l', 'geometry_l', 'x_l', 'y_l', 'join_col',
+       'employees_r', 'households_r', 'geometry_r', 'x_r', 'y_r'],
+      dtype=‘object')
+{% endhighlight %}
+
+You also can check the `dtype` of the geometry column. For example, `sr3.households_l.dtype` would work on a non-geometry column or any Pandas data frame just fine. For geometry, we get `dtype(‘O’)`.
+
+I wanted to see if we could still use these geometry columns even after the inner join operation. Instead of using the whole table, I wanted to just use a few (`head(5)`) to see what the results were. Again, once we selected out the geometries.
+
+My first thought was to just point to the column that held each geometry and expect that to work:
+
+{% highlight python %}
+sr3.geometry_l.head(5).distance(sr3.geometry_r.head(5))
+----------------------------------------------------------------------
+AttributeError                       Traceback (most recent call last)
+<ipython-input-211-d6b35ab3ac82> in <module>()
+----> 1 sr3.geometry_l.head(5).distance(sr3.geometry_r.head(5))
+
+/usr/local/lib/python3.6/site-packages/pandas/core/generic.py in __getattr__(self, name)
+   3079             if name in self._info_axis:
+   3080                 return self[name]
+-> 3081             return object.__getattribute__(self, name)
+   3082 
+   3083     def __setattr__(self, name, value):
+
+AttributeError: 'Series' object has no attribute 'distance'
+{% endhighlight %}
+
+Unfortunately, as you can see by the traceback, the result failed as the library thought that each column was a standard series, and not a series with hookups to performing geometric operations.
+
+Recasting each as GeoSeries was sufficient to get the operation rolling again:
+
+{% highlight python %}
+a = gpd.GeoSeries(sr3.geometry_l.head(5))
+b = gpd.GeoSeries(sr3.geometry_r.head(5))
+a.distance(b)
+{% endhighlight %}
+
+Now that I had it working, I wanted to see what the performance was like if I did it on the whole set of geometries. To do this, I performed the same steps as above but, instead of generating a new GeoSeries just for the head of each, I did it for the entire column for each.
+
+The resulting script, with some timing logs, looks like this:
+
+{% highlight python %}
+start_time = time.time()
+
+a = gpd.GeoSeries(sr3.geometry_l)
+b = gpd.GeoSeries(sr3.geometry_r)
+
+all_ds = a.distance(b)
+print(len(all_ds))  # make sure output is n x n tall
+    
+end_time = time.time()
+
+time_diff = round(end_time - start_time, 2)
+print(f'Run time: {time_diff} sec’)
+{% endhighlight %}
+
+Run times were, on average, 48.6 seconds. Run times were comparable with the performance seen in the for loop method that was used earlier - there appeared to be no significant gain over the looped variation. An advantage of the looped variation is that an `n x n` sized table can become quite large very quickly. Run times were observed to fluctuate a bit more in this method than in the for loop method. I recorded highs of as much as 112 seconds (and frequently saw 95 seconds) to perform this distance calculation. I was unable to isolate what caused the slower performance times during this effort.
+
+I wanted to see if this method was even feasible given the fact that a joined table that is so long can easily be a no go just because of its size in memory. The thought was that, because the geometry column is now just pointers, I could allow for `n x n` tall tables because they would not be as expensive, especially if I just trimmed down their column to only the join column and the geometry column: `stl_reproj2[['geometry', ‘join_col']]`.
+
+{% highlight python %}
+sys.getsizeof(stl_reproj2)
+# 0.06 MB
+
+sys.getsizeof(sr3)
+# 128.00 MB
+
+sys.getsizeof(a)
+# 48.000024 MB
+{% endhighlight %}
+
+Unfortunately, the large size of the inner joined matrix suggests to me that this remains a costly method. That, combined with the inconsistent performance, suggests that this remains a risky strategy for performing distance calculations from all points to all other points.
+
 # Hiccups
 
 This Cythonized branch of Geopandas is still quite new. As a result, not everything is ready for primetime. Thus, working with the library on this branch can be a bit tricky. I just wanted to post some of the hiccups I encountered, here, for reference should they be of interest to others working through the new branch:
@@ -294,9 +393,11 @@ stl_gdf = gpd.GeoDataFrame(stl_df, geometry=stl_gs)
 
 In the main branch of GeoPandas, this would work. The geometry series provide via the kwarg would override the one existing in the stl_df (type string).
 
-### Head Does Not Work
+### Some Common Pandas Methods Do Not Work
 
 Asking for the `.head()` of the GeoDataFrame results in a `TypeError` which likely is the result of a Pandas trying to interpret the geometry column. Either way, you’ll need to make sure to sub select out the geometry column if you want to use head.
+
+Similar methods for printing information run into TypeErrors for the same reason as well. For the time being, it’s hard to visualize the geometry column data alongside the other non-geometry data as one is working (a common workflow pattern when, say, working in Notebooks). This is something actively being resolved and may not be an issue by the time you read this.
 
 
 # Final Thoughts
