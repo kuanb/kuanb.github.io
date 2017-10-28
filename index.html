@@ -36,21 +36,51 @@ layout: default
 
     <div class="strong-btn">
       <b>Latest Posts</b>
-      <br><a href="2017/10/27/cython-geopandas-notes/">Exploring variable buffers with early Cythonized Geopandas</a>
-      <br><a href="2017/10/21/spectral-cluster-berkeley/">Identifying urban zones with spectral clustering</a>
-      <br><a href="2017/10/12/transitland-boxes/">Visualizing Transit.Land API Exploration</a>
-      <br><a href="2017/09/13/bogota-analysis-gtfs/">Tethering Schedules to Routes via Trace Data</a>
-      <br><a href="2017/09/12/bogota-analysis/">Programmatic Geometry Manipulation to Auto-generate Route Splines</a>
-      <br><a href="2017/08/18/triangulate-spline/">Synthesizing Multiple Route Trace Point Clouds</a>
-      <br><a href="2017/08/17/delaunay-triangulation/">Abstracting Complex Geometries as Points</a>
-      <br><a href="/2017/08/12/flocktracker-bogota-data-clean/">Summary Notes on Flocktracker Bogota Dataset</a>
-      <br><a href="/2017/08/08/how-to-pdna/">Point of Interest Accessibility Analysis</a>
-      <br><a href="/2017/08/03/mean-median-headways/">Examining Bus Headway Distribution</a>
-      <br><a href="/2017/07/29/transit-straightness/">Calculating Route Straightness</a>
-      <br><a href="/2017/07/25/cleaning-network-graphs/">Trimming Disconnected Network Subgraphs</a>
-      <br><a href="/2017/07/12/spatial-index-benchmarks/">Bounds Vectorization vs. R-Tree</a>
-      <br><a href="/2017/07/11/easy-accessibility/">Accessibility Analyses on a Custom Network</a>
-      <br><a href="/2017/06/18/dask-geoprocessing/">Parallelizing Geoprocesses</a>
+      <div class="blog-post">
+        <a href="2017/10/27/cython-geopandas-notes/">Exploring variable buffers with early Cythonized Geopandas</a>
+      </div>
+      <div class="blog-post">
+        <a href="2017/10/21/spectral-cluster-berkeley/">Identifying urban zones with spectral clustering</a>
+      </div>
+      <div class="blog-post">
+        <a href="2017/10/12/transitland-boxes/">Visualizing Transit.Land API Exploration</a>
+      </div>
+      <div class="blog-post">
+        <a href="2017/09/13/bogota-analysis-gtfs/">Tethering Schedules to Routes via Trace Data</a>
+      </div>
+      <div class="blog-post">
+        <a href="2017/09/12/bogota-analysis/">Programmatic Geometry Manipulation to Auto-generate Route Splines</a>
+      </div>
+      <div class="blog-post">
+        <a href="2017/08/18/triangulate-spline/">Synthesizing Multiple Route Trace Point Clouds</a>
+      </div>
+      <div class="blog-post">
+        <a href="2017/08/17/delaunay-triangulation/">Abstracting Complex Geometries as Points</a>
+      </div>
+      <div class="blog-post">
+        <a href="/2017/08/12/flocktracker-bogota-data-clean/">Summary Notes on Flocktracker Bogota Dataset</a>
+      </div>
+      <div class="blog-post">
+        <a href="/2017/08/08/how-to-pdna/">Point of Interest Accessibility Analysis</a>
+      </div>
+      <div class="blog-post">
+        <a href="/2017/08/03/mean-median-headways/">Examining Bus Headway Distribution</a>
+      </div>
+      <div class="blog-post">
+        <a href="/2017/07/29/transit-straightness/">Calculating Route Straightness</a>
+      </div>
+      <div class="blog-post">
+        <a href="/2017/07/25/cleaning-network-graphs/">Trimming Disconnected Network Subgraphs</a>
+      </div>
+      <div class="blog-post">
+        <a href="/2017/07/12/spatial-index-benchmarks/">Bounds Vectorization vs. R-Tree</a>
+      </div>
+      <div class="blog-post">
+        <a href="/2017/07/11/easy-accessibility/">Accessibility Analyses on a Custom Network</a>
+      </div>
+      <div class="blog-post">
+        <a href="/2017/06/18/dask-geoprocessing/">Parallelizing Geoprocesses</a>
+      </div>
     </div>
   </div>
 
@@ -156,8 +186,9 @@ layout: default
         if (data[index + 3] > 0) this.kill();
 
         // remove if getting drawn off screen
-        if (this.x < 0 || this.x > width) this.kill();            
-        if (this.y < 0 || this.y > height) this.kill();
+        if (this.x < 0 || this.x > width) this.kill();
+        // make the bottom edge randomly jagged
+        if (this.y < 0 || this.y > (height - (Math.random() * 100))) this.kill();
 
       };
 
