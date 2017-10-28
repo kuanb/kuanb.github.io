@@ -1,0 +1,304 @@
+---
+published: true
+title: Notes on Geopandas Cythonization Effort
+layout: post
+summary: Exploratory results from variable buffer operations on a Cythonized GeoDataFrame
+comments: true
+---
+
+# Introduction
+
+There’s been a great deal of work lately on GeoPandas, specifically with the intent of getting significant performance increases out of it by “vectorizing” the geometry column such that spatial operations were performed at in C and not on an object-by-object bases through Shapely’s API.
+
+This work has primarily been helmed by two individuals, Matthew Rocklin and Joris Van den Bossche. They have each written about the work in blog posts, you can read Matthew’s [here](http://matthewrocklin.com/blog/work/2017/09/21/accelerating-geopandas-1) and Joris’s [here](https://jorisvandenbossche.github.io/blog/2017/09/19/geopandas-cython/). In either post, you can see how the current structure of GeoPandas limits performance when performing geometric operations on a large set of geometries.
+
+Truly, a huge thank you to these two individuals for the crazy amount of work they have put into making these Geopandas improvement a reality - they will no doubt be appreciated by all who use the tool in the future.
+
+### Purpose
+
+The purpose of this post is to not introduce the improvements to the Geopandas library in any depth. For that, you should check out the aforementioned posts. Instead, this post is simply mean to hold notes on how the new library provides performance increases over Geopandas main/master branch.
+
+# Use Case
+ I will be focusing on a single use case that I found to be a pain point in Geopandas. That is performing “variable buffer aggregations” on a given geo-dataset. What needs to happen is this:
+
+For each geometry in the dataset, determine a buffer distance that varies
+Identify all other geometries in the dataset that are within that distance
+For all those geometries, return the result o some operation on that subset’s attributes
+
+### An Example
+
+It may be easier to see this as an example. Let’s say we create the below heuristic to determine the amount a given area should be buffered. We need two attribute values, employment and household count. From those two, a series of operations are performed that returns a meter distance that we should use as our “variable distance.”
+
+{% highlight python %}
+def _generate_range(emp_count, hh_count):
+    # Default ratio
+    ratio = 0.1  # miles
+    if hh_count > 0:
+        ratio = emp_count/hh_count
+    calc_range = max([2, (ratio * 20)])
+
+    # Add a top level threshold
+    max_range = 75.0  # miles
+    adj_range = min([max_range, calc_range])
+    
+    # Convert miles to meters
+    return 1609 * adj_range
+{% endhighlight %}
+
+For each row in the data frame, we will use the above function to determine a meter distance and then use that as a mask threshold to subset the whole data frame.
+
+{% highlight python %}
+distances = gdf.distance(row.geometry)
+mask = (distances <= adj_range)
+all_gdf[mask].employees.sum()
+{% endhighlight %}
+
+The `sum` result for each will be the output that we are looking for as a result of this variable buffer operation. Hopefully this should help illustrative roughly the kind of process that I often need to perform.
+
+### Example Dataset
+
+I’ll use an example dataset composed of census blocks from St. Louis, Missouri. Another aide: Check out this sweet plot of all the Census blocks in St. Louis, Missouri, below. I plotted it to just sanity check my import of Census data.  Attached to each block are two values: employee count and household count. The only other information I have is the shapes of each block as a WKT. Each of these are converted to Shapely geometries during the import process.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Pointless+pretty Friday plot: All census blocks in <a href="https://twitter.com/hashtag/StLouis?src=hash&amp;ref_src=twsrc%5Etfw">#StLouis</a> converted to bounding boxes. <a href="https://t.co/e9sCo4vCZ0">pic.twitter.com/e9sCo4vCZ0</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/924009849876127744?ref_src=twsrc%5Etfw">October 27, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+# Current performance
+
+The current Geopandas main branch uses Shapely’s API to calculate the distance on a per geometry case. As a result, the operation is not “vectorized.” That is, Geopandas does not itself utilize pointers to allow the geometry operations to be performed all within C. Instead, each distance calculation is performed on a Shapely object. This means there are `n` round trips to and from C for a GeoDataFrame of length `n`. 
+
+This method is slow. To help visualize it, you can imagine the distance calculations being performed one by one:
+
+{% highlight python %}
+# Get all distances via euclidean distance measure
+distances = []
+# This roughly mimics why the old GeoPandas way was slow
+for g in all_gdf.geometry.values:
+    # Pull out and calculate the distance from each Shapely
+    # geometry one by one...
+    d = g.distance(row.geometry)
+    distances.append(d)
+{% endhighlight %}
+
+# Workaround
+
+Frequently, when dealing with these types of problems, the geometries in question are small enough (or the scale such that) converting all geometries in the data frame to their composite centroid values (the `x` and `y`). With these values held as Numpy float values, we can completely vectorize the operation such that the calculations (using Euclidean distance), can be performed without any geometric operations involved.
+
+{% highlight python %}
+x1 = row.geometry.centroid.x
+y1 = row.geometry.centroid.y
+
+# Get all distances via euclidean distance measure
+distances = np.sqrt((x1 - all_gdf.x) ** 2 + (y1 - all_gdf.y) ** 2)
+{% endhighlight %}
+
+As you can see form the above snippet, this operation could run without Geopandas entirely. That is, this operation could be performed just within Pandas.
+
+Here, we can create the whole operation to be performed with each geometry like so:
+
+{% highlight python %}
+def variable_buffer_summary(row, all_gdf):
+    emp_count = float(row['employees'])
+    hh_count = float(row['households'])
+    adj_range = _generate_range(emp_count, hh_count)
+    
+    # Note that iterrows returns just Series
+    # so we need to directly access the geometry
+    x1 = row.geometry.centroid.x
+    y1 = row.geometry.centroid.y
+
+    # Get all distances via euclidean distance measure
+    distances = np.sqrt((x1 - all_gdf.x) ** 2 + (y1 - all_gdf.y) ** 2)
+    
+    # Now we want a subset of those in the dynamically calcualted distance
+    mask = (distances <= adj_range)
+    
+    # Now we want cumulative stats for this area
+    # and return this as the result
+    return all_gdf[mask].employees.sum()
+{% endhighlight %}
+
+To prepare for that operation, we would need to prepare the dataset by extracting the `x` and `y` values:
+
+{% highlight python %}
+all_xs = [c.x for c in stl_reproj.centroid]
+all_ys = [c.y for c in stl_reproj.centroid]
+
+# Go ahead and add these values to the dataframe
+stl_reproj['x'] = all_xs
+stl_reproj['y'] = all_ys
+{% endhighlight %}
+
+Once the dataset has been prepared, we can iterate through the dataset and apply the operation:
+
+{% highlight python %}
+start_time = time.time()
+
+cumulative_res_1 = []
+for i, row in stl_reproj.iterrows():
+    r = variable_buffer_summary(row, stl_reproj)
+    cumulative_res_1.append(r)
+    
+end_time = time.time()
+
+time_diff = round(end_time - start_time, 2)
+print(f'Run time: {time_diff} sec’)
+# Run time: 23.36 sec
+{% endhighlight %}
+
+As you can see from the above output, this operation takes about 24 seconds. I’ll peg this as the target performance I’d like (hope/wish?) the Cythonized version of Geopandas will be able to approach.
+
+When run with a GeoDataFrame of only 1000 geometries (the original dataset used in these examples has  9,749 geometries), instead, the operation runs in 2.3 seconds. I mention this because it will be relevant in the next section.  As an aside, you’ll note that this for loop is easily parallelized. One [can do so easily](http://kuanbutts.com/2017/06/18/dask-geoprocessing/) in Python with tools such as Dask and Dask Distributed.
+
+# Cythonized Performance
+
+We modify the same operation from before but instead use the Geopandas API. Since the version of Geopandas I am using right now is Cythonized, I will use the API and rely on the library to vectorize the operation.
+
+We can modify the earlier function like so:
+
+{% highlight python %}
+def variable_buffer_summary_with_shapes(row, all_gdf):
+    emp_count = float(row['employees'])
+    hh_count = float(row['households'])
+    adj_range = _generate_range(emp_count, hh_count)
+
+    # Get all distances via euclidean distance measure
+    distances = all_gdf.distance(row.geometry)
+    
+    # Now we want a subset of those in the dynamically calcualted distance
+    mask = (distances <= adj_range)
+    
+    # Now we want cumulative stats for this area
+    # and return this as the result
+    return all_gdf[mask].employees.sum()
+{% endhighlight %}
+
+So how does this new method perform? Unfortunately it was running quite slowly. I did not want to wait for it to run all the way through the 9,749 geometries because the performance was taking quite a while so I went ahead and chose to subset the GeoDataFrame to 1000 geometries.
+
+For reference, I reran the centroid-only variation and determine an average run time of 2.3 seconds (see comment from last section about this).
+
+Once we reduce the GeoDataFrame to only 1000 rows instead of its previous nearly 10,000 rows, it completes much more quickly.
+
+{% highlight python %}
+start_time = time.time()
+
+cumulative_res_2 = []
+for i, row in stl_reproj.iterrows():
+    r = variable_buffer_summary_with_shapes(row, stl_reproj)
+    cumulative_res_2.append(r)
+    
+end_time = time.time()
+
+time_diff = round(end_time - start_time, 2)
+print(f'Run time: {time_diff} sec’)
+# Run time: 45.56 sec
+{% endhighlight %}
+
+As you can see, the run time tends to take about 45 seconds. This is about 20 times the length of the centroid-based, non-spatial vectorized method.
+
+As an aside
+
+{% highlight python %}
+diff = np.array(cumulative_res_1) - np.array(cumulative_res_2)
+
+print(np.array(cumulative_res_1).mean()) # 6201.707
+print(np.median(cumulative_res_1))       # 1651.0
+
+print(diff.mean())     # -328.222
+print(np.median(diff)) # -120.5
+{% endhighlight %}
+
+The results indicate help to illustrate the coarseness of the centroid method in this example case. Depending on the work you are doing, you may be able to easily imagine situations where centroid to centroid distances would not be enough and the error margin would be sufficient to measurably reduce model reliability.
+
+# Shapely-based Method
+
+Let’s swing back over to the Shapely-based “one by one” method that the main Geopandas branch employs.
+
+We can model that performance right now by forcing that loop of comparing geometries one by one to occur, even though I happen to be checked out to the Cythonized branch right now:
+
+{% highlight python %}
+def variable_buffer_summary_with_shapes_slow(row, all_gdf):
+    emp_count = float(row['employees'])
+    hh_count = float(row['households'])
+    adj_range = _generate_range(emp_count, hh_count)
+
+    # Get all distances via euclidean distance measure
+    distances = []
+    # This roughly mimics why the old GeoPandas way was slow
+    for g in all_gdf.geometry.values:
+        # Pull out and calculate the distance from each Shapely
+        # geometry one by one...
+        d = g.distance(row.geometry)
+        distances.append(d)
+    
+    # Now we want a subset of those in the dynamically calcualted distance
+    mask = (np.array(distances) <= adj_range)
+    
+    # Now we want cumulative stats for this area
+    # and return this as the result
+    return all_gdf[mask].employees.sum()
+{% endhighlight %}
+
+Just like before, we can run this method on the 1000 row subset of the GeoDataFrame, like so:
+
+{% highlight python %}
+start_time = time.time()
+
+cumulative_res_3 = []
+for i, row in stl_reproj.iterrows():
+    r = variable_buffer_summary_with_shapes_slow(row, stl_reproj)
+    cumulative_res_3.append(r)
+    
+end_time = time.time()
+
+time_diff = round(end_time - start_time, 2)
+print(f'Run time: {time_diff} sec’)
+# Run time: 104.89 sec
+{% endhighlight %}
+
+The results of this method suggest a roughly 4.5x increase in time cost over the Cythonized variation and a 45.6x increase in cost over the centroid-only method.
+
+# Thoughts on Performance
+
+Unfortunately, the costly loop operation over each geometry and the comparison of it to the entire GeoDataFrame is not abstracted. Perhaps there is a way to push this loop down to C as well. If so, I would be interested to hear propositions as to how this might occur.
+
+In the end, the Cythonization method does make significant improvements to the performance of the distance operation but, in the end, effective parallelization techniques will be most critical to getting faster performance times when running this calculation.
+
+That said, I really don’t want this to come across at all as me be down on the efforts on the project. It has, hands down, been amazing and I do not intend for my comments to be construed in a negative way. I've enjoyed following along - it's been my first significant exposure to Cython and I've found that a valuable opportunity - even though I have just been a fly on the wall during all of this (I wish I had more time - in general!).
+
+The issue I am dealing with has to do particularly with the operation I am performing, which is effectively the calculation of a distance matrix wherein values are tossed on a row-by-row bases and the distances are used in a one-off summary operation. This calculation has a cost that grows exponentially as the number of rows `n` rises (Big O: O(N2)).
+
+# Hiccups
+
+This Cythonized branch of Geopandas is still quite new. As a result, not everything is ready for primetime. Thus, working with the library on this branch can be a bit tricky. I just wanted to post some of the hiccups I encountered, here, for reference should they be of interest to others working through the new branch:
+
+### Geometry Column TypeError
+
+If you try to create a GeoDataFrame with a column named geometry, you can run into trouble. I made an [issue](https://github.com/geopandas/geopandas/issues/602) on Github about this. 
+
+{% highlight python %}
+stl_gdf = gpd.GeoDataFrame(stl_df, geometry=stl_gs)
+{% endhighlight %}
+
+I convert the geometry column to Shapely objects like so:
+
+{% highlight python %}
+stl_geoms = [loads(s) for s in stl_df.geometry.values]
+stl_gp_geoms = gpd.GeoSeries(stl_geoms)
+{% endhighlight %}
+
+I then attempt to create a GeoDataFrame in the cython branch of GeoPandas like so:
+
+{% highlight python %}
+stl_gdf = gpd.GeoDataFrame(stl_df, geometry=stl_gs)
+{% endhighlight %}
+
+In the main branch of GeoPandas, this would work. The geometry series provide via the kwarg would override the one existing in the stl_df (type string).
+
+### Head Does Not Work
+
+Asking for the `.head()` of the GeoDataFrame results in a `TypeError` which likely is the result of a Pandas trying to interpret the geometry column. Either way, you’ll need to make sure to sub select out the geometry column if you want to use head.
+
+
+# Final Thoughts
+
+This is just my first evening really diving into the latest with Cythonized Geopandas, so hope these notes were of interest. They may not be relevant in a few weeks, so there’s that as well. The commit I was working off of was `ff3677c`. Thanks again to [Matt Rocklin](https://twitter.com/mrocklin/status/883068637313212416) and [Joris](https://twitter.com/jorisvdbossche) for all their work this year on Geopandas.
