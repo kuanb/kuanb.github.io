@@ -16,14 +16,14 @@ Truly, a huge thank you to these two individuals for the crazy amount of work th
 
 ### Purpose
 
-The purpose of this post is to not introduce the improvements to the Geopandas library in any depth. For that, you should check out the aforementioned posts. Instead, this post is simply mean to hold notes on how the new library provides performance increases over Geopandas main/master branch.
+The purpose of this post is to not introduce the improvements to the Geopandas library in any depth. For that, you should check out the aforementioned posts. Instead, this post is simply meant to hold notes on how the new library provides performance increases over Geopandas main/master branch.
 
 # Use Case
  I will be focusing on a single use case that I found to be a pain point in Geopandas. That is performing “variable buffer aggregations” on a given geo-dataset. What needs to happen is this:
 
 For each geometry in the dataset, determine a buffer distance that varies
 Identify all other geometries in the dataset that are within that distance
-For all those geometries, return the result o some operation on that subset’s attributes
+For all those geometries, return the result of some operation on that subset’s attributes
 
 ### An Example
 
@@ -55,6 +55,8 @@ all_gdf[mask].employees.sum()
 
 The `sum` result for each will be the output that we are looking for as a result of this variable buffer operation. Hopefully this should help illustrative roughly the kind of process that I often need to perform.
 
+For the purposes of the below work, I'll be using a dataset of census blocks from St. Louis, Missouri. I've made a subset example dataset of this available as a Gist, [online here](https://gist.github.com/kuanb/e0efc261b45fe9b1dca6c3e340acf1e1). It's got the first thousand rows and will be sufficient for repeating the work below.
+
 ### Example Dataset
 
 I’ll use an example dataset composed of census blocks from St. Louis, Missouri. Another aide: Check out this sweet plot of all the Census blocks in St. Louis, Missouri, below. I plotted it to just sanity check my import of Census data.  Attached to each block are two values: employee count and household count. The only other information I have is the shapes of each block as a WKT. Each of these are converted to Shapely geometries during the import process.
@@ -81,7 +83,7 @@ for g in all_gdf.geometry.values:
 
 # Workaround
 
-Frequently, when dealing with these types of problems, the geometries in question are small enough (or the scale such that) converting all geometries in the data frame to their composite centroid values (the `x` and `y`). With these values held as Numpy float values, we can completely vectorize the operation such that the calculations (using Euclidean distance), can be performed without any geometric operations involved.
+Frequently, when dealing with these types of problems, the geometries in question are small enough (or the scale of the analysis is such that) converting all geometries in the data frame to their composite centroid values (the `x` and `y` values of the centroid coordinates) is acceptable. With these values held as Numpy float values, we can completely vectorize the operation such that the calculations (using Euclidean distance), can be performed without any geometric operations involved. The below method should help illustrate what I mean:
 
 {% highlight python %}
 x1 = row.geometry.centroid.x
@@ -91,7 +93,7 @@ y1 = row.geometry.centroid.y
 distances = np.sqrt((x1 - all_gdf.x) ** 2 + (y1 - all_gdf.y) ** 2)
 {% endhighlight %}
 
-As you can see form the above snippet, this operation could run without Geopandas entirely. That is, this operation could be performed just within Pandas.
+As you can see form the above snippet, this operation could run without Geopandas or its underlying Shapely objects. That is, this operation could be performed just within Pandas. All "spatial" operations would just be numerical operations that could be performed on Numpy vectorized columns within the Pandas DataFrame.
 
 Here, we can create the whole operation to be performed with each geometry like so:
 
