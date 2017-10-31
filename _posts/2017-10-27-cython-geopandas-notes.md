@@ -402,6 +402,40 @@ Asking for the `.head()` of the GeoDataFrame results in a `TypeError` which like
 Similar methods for printing information run into TypeErrors for the same reason as well. For the time being, it’s hard to visualize the geometry column data alongside the other non-geometry data as one is working (a common workflow pattern when, say, working in Notebooks). This is something actively being resolved and may not be an issue by the time you read this.
 
 
+# Naive Comparison: Julia
+
+I was curious how the Cythonized performance would stack up against a language with more rigoroud typing. For no reason other than curiosity in the Julia language, I thought it might be interesting to compare to it. Thanks to the LibGEOS library in Julia, GEOS bindings are possible through the language, similar to how Shapely works.
+
+Reading in the table allowed me to extract all the WKT strings and create an array of geometries.
+
+{% highlight julia %}
+stl = readtable("stl.csv")
+
+geometries = []
+
+# Read table column w/ Geoms in and convert each WKT string
+# to a geometry (using a 1000 long example dataset)
+for (index, value) in enumerate(Array(stl[:geometry]))
+    # Add it to the list of geometry objects
+    push!(geometries,parseWKT(value))
+end
+{% endhighlight %}
+
+With the resulting list, I created a simple nested for loop to mimic the operations necessary to calculate all distances from all geometries to all others in the array. The loop is shown, below:
+
+{% highlight julia %}
+# Have a nested for loop that pairs each geometry with
+# all others in the list
+for (index, g1) in enumerate(geometries)
+    for (index, g2) in enumerate(geometries)
+        # Calculate the distance then do something
+        distance(g1,g2)
+    end
+end
+{% endhighlight %}
+
+With the results, I was able to observe an average performance time of 50-55 seconds. This appears to be slightly slower than the Cythonized Geopandas. I concede that, due to my limited familiarity with Julia, it is quite likely that I incorrectly designed the operation and I could have done more to specify the type of the geometry array so as to enable the compiler to vectorize that operation correctly (assuming it was not). If anyone reading this has familiarity with Julia, I would be curious to hear their input.
+
 # Final Thoughts
 
 This is just my first evening really diving into the latest with Cythonized Geopandas, so hope these notes were of interest. They may not be relevant in a few weeks, so there’s that as well. The commit I was working off of was `ff3677c`. Thanks again to [Matt Rocklin](https://twitter.com/mrocklin/status/883068637313212416) and [Joris](https://twitter.com/jorisvdbossche) for all their work this year on Geopandas.
