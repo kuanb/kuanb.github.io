@@ -6,7 +6,7 @@ summary: Exploring how grade limits walk access in suburban North San Diego
 comments: true
 ---
 
-![animation](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sd-walk-access/animation.gif)
+![animation_negate](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sd-walk-access/animation_negate.gif)
 
 # Introduction
 
@@ -95,9 +95,6 @@ The above image shows the results (before on the left, after on the right). Acce
 
 {% highlight python %}
 def impedance(length, grade):
-    global tossed_edges
-    global kept_edges
-    
     travel_speed = 4.5
     meters_per_minute = travel_speed * 1000 / 60 #km per hour to m per minute
     ada_sidewalk_grade_max = 0.05
