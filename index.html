@@ -95,6 +95,52 @@ layout: default
 
 
 <script type="text/javascript">
+  // Zoinked this from https://observablehq.com/
+  // page source as I enjoyed the effect
+  (function() {
+    var then,
+        texts = [],
+        characters = [],
+        duration = 250,
+        interval = 20,
+        sub = {"‘": "'", "’": "'", "“": '"', "”": '"'};
+
+    function visitAll(node, visit) {
+      var child = node.firstChild;
+      while (child) visitAll(child, visit), child = child.nextSibling;
+      visit(node);
+    }
+
+    function tick() {
+      for (var k = 0, now = Date.now() - then, t, x; k < texts.length; ++k) {
+        var text = texts[k], index = text.index;
+        text.node.textContent = text.value.replace(/\w/g, function(c) {
+          t = Math.max(0, (now - Math.sqrt(index++) * interval) / duration), x = Math.random();
+          return x <= t ? c : characters[(x - t) / (1 - t) * characters.length | 0];
+        });
+        if (t >= 1) texts.splice(k--, 1);
+      }
+      if (texts.length) requestAnimationFrame(tick);
+    }
+
+    visitAll(document.querySelector(".blurb"), function(node) {
+      if (node.nodeType === 3) {
+        var text = node.textContent;
+        if (!/\w/.test(text)) return;
+        texts.push({node: node, value: text, index: characters.length});
+        text.replace(/\w/g, function(c) { characters.push(c); });
+      }
+    });
+
+    then = Date.now() + 100;
+
+    tick();
+  })();
+
+  // ----------------------------------------------
+  // Generative road network rendering script below
+  // ----------------------------------------------
+
   var metas = document.getElementsByTagName('meta');
   var i;
 
@@ -257,5 +303,5 @@ layout: default
       }
   }, drawRate);
 
-  setTimeout(function () {clearInterval(drawInterval)}, 7000);
+  setTimeout(function () {clearInterval(drawInterval)}, 10000);
 </script>

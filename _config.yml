@@ -10,7 +10,7 @@ url:         "http://kuanbutts.com"
 google_analytics: UA-47292035-1
 
 # Optional features
-animated:           true
+animated:           false
 show_related_posts: false
 show_post_footers:  true
 
