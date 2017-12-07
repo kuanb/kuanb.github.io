@@ -6,9 +6,9 @@ summary: Running a scenario comparison against alignment alternatives
 comments: true
 ---
 
-# Introduction
-
 ![zoom](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sdmtc/zoom.png) 
+
+# Introduction
 
 The purpose of this post is to document the generation of a comparative analysis (and plot) of the currently under construction alignment of the San Diego MTS’s MidCoast Trolley light rail expansion into North San Diego. The alignment is being built along the I-5 freeway corridor, through the low-lying canyons from Old Town, just north of downtown San Diego, to University City. This alignment connects UCSD, the VA, and UTC, a major mall in University City, with the Blue Line of San Diego’s trolley system (“trolley” being a misnomer; it’s a light rail system).
 
