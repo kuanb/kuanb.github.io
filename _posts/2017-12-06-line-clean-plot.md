@@ -12,19 +12,23 @@ comments: true
 
 Recently, my roommate Ben and I have been on a plotting binge. We’ve got our hands on an old, beat up Roland DPX-2000 pen plotter - it’s totally rad! Here’s a [video](https://www.youtube.com/watch?v=VjnWFl3kLDw) of the same model as ours in action, from about 5 years ago.
 
-[Ben](https://twitter.com/bgolder) has developed a script that takes point array data and converts it to HPGL ([Hewlett-Packard Graphics Language](https://en.wikipedia.org/wiki/HP-GL)), which is then packaged up and streamed to the plotter, which executes the commands. Through this conversion script, we’ve been able to make some interesting plots. Naturally, I wanted to take down OpenStreetMap data and plot that, as well.
+[Ben](https://twitter.com/bgolder) has developed a script that takes point array data and converts it to HPGL ([Hewlett-Packard Graphics Language](https://en.wikipedia.org/wiki/HP-GL)), which is then packaged up and streamed to the plotter, which executes the commands. If you are interested in how this is done, feel free to check out [Chiplotle](http://cmc.music.columbia.edu/chiplotle/). This tool created Python extensions to HPGL plotter control language. Critically, "Chiplotle also provides direct control of your HPGL-aware hardware via a standard usb<->serial port interface" (source: [PyPI](https://pypi.python.org/pypi/Chiplotle))
+
+Through this conversion script, we’ve been able to make some interesting plots. Naturally, I wanted to take down OpenStreetMap data and plot that, as well.
 
 Below is video footage from this summer, when I attempted to plot Bogota, Colombia:
 
 <blockquote class="twitter-video" data-lang="en"><p lang="en" dir="ltr">1/3 done pen plotting a map of the informal transit route splines of Bogota from last weekend. ~8 hrs to go! <a href="https://t.co/KAgjDSVBnm">pic.twitter.com/KAgjDSVBnm</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/907040835471941632?ref_src=twsrc%5Etfw">September 11, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+(Note: You may have noticed a grid like nature to the above plot. This was achieved by running custom joins in Rhino before feeding out the geometries. This was inefficient and I want to not have to do any manual post process of the geometry data for future runs.)
+
 # Problem
 
 The result was great, as you can see below. The only problem was that this print operation took the better part of a day to execute
 
 <blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">Base done, red transit routes up next (when red pens arrive in mail!). Total time: ~15 hrs. <a href="https://t.co/gyRzMVHVJA">pic.twitter.com/gyRzMVHVJA</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/907258784883417094?ref_src=twsrc%5Etfw">September 11, 2017</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset=“utf-8"></script>
+
 
 Naturally, this is not acceptable: First, our machine is crazy old, so any additional run time by the machine puts it that much closer to death. Second, longer operations are typically the cause of lots of back and forth and repeated lines being drawn over themselves. These damage the pens we are using and risk us running out of ink during a run. Because our machine is very much jerry rigged, we are unable to stop it mid process or otherwise do anything that would be able to account for having to swap pens mid-run. Third, it just takes too long! It’d be better if the prints were done faster.
 
@@ -33,7 +37,7 @@ Naturally, this is not acceptable: First, our machine is crazy old, so any addit
 Why do we end up drawing repeated lines? For a number of reasons. There are many edges between any two nodes in OSM and, not only could they be close and, therefore, similar, but they could also multidirectional. As a result, we end up creating edge lines that represent the path for both directions, thus creating the need to draw the same line twice. Removing this alone would, approximately, reduce the run time in half. 
 
 <blockquote class="twitter-video" data-lang="en"><p lang="en" dir="ltr">Action shot <a href="https://t.co/nNwcDRRSES">pic.twitter.com/nNwcDRRSES</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/938162346056343553?ref_src=twsrc%5Etfw">December 5, 2017</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 
 This thought came to mind earlier this week when we were running plots of vector terrain data from San Francisco’s [open data  portal](https://datasf.org/opendata/) (as seen above). 
 
