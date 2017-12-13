@@ -1,6 +1,6 @@
 ---
 published: true
-title: Calculating Betweenness Centrality of a GTFS Feed
+title: Calculating Betweenness Centrality with GTFS
 layout: post
 summary: Brief walkthrough of how Peartree enables graph algorithms to be performed on GTFS data
 comments: true
@@ -140,8 +140,6 @@ ps = []
 for nid, buff_dist in zip(nids, vals_adj):
     n = G.node[nid]
     if buff_dist > 0:
-        if buff_dist > 0.11:
-            print(buff_dist)
         p = Point(n['x'], n['y']).buffer(buff_dist)
         ps.append(p)
     
