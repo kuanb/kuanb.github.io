@@ -110,7 +110,6 @@ hr {
       padding: 10px;
       background-color: #FFF;
       font-weight: 300;
-      font-size: 1rem;
       line-height: 1.5;
       margin-bottom: 5px;
     }
@@ -119,6 +118,14 @@ hr {
   ul, li {
     list-style: none;
     list-style-type: none;
+
+    br {
+      line-height: 1.25rem;
+    }
+
+    .splash {
+      font-size: 0.9rem;
+    }
   }
 
   .strong-btn {
@@ -132,13 +139,10 @@ hr {
     max-width: 500px;
 
     .blog-post {
-      border-bottom: 0.5px #c0ebf7 solid;
-      border-left: 0.5px #c0ebf7 solid;
       margin-top: 5px;
       margin-bottom: 10px;
       padding-left: 5px;
-      border-bottom: 0.5px #c0ebf7 solid;
-      border-left: 0.5px #c0ebf7 solid;
+      border-bottom: 0.5px #c0ebf7 solid;;
       border-bottom-left-radius: 3px;
 
       &:hover {
