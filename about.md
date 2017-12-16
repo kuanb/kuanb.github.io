@@ -38,7 +38,7 @@ Above, an image of how the applicationw as used in Mexico City, Mexico to track 
 <hr>
 
 ### [CoAXs](http://coaxs.scripts.mit.edu/home/)
-<video  style="width: 100%; max-width: 768px" src="http://web.mit.edu/ansons/www/Detail-SK-mute.mp4"></video>
+<iframe width="100%" max-width="768" height="315" src="https://www.youtube.com/embed/H3LJX0QJWI0?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 A tool that integrates with bus routing output from tools such as TransitMix (now called [Remix](https://www.remix.com/)) and plugs into scenario isochrone modelling software developed by the folks at Conveyal (a software consultancy located in DC). I led the (rapid) development of the prototype application within a team at MIT's Media Lab. You can explore a preserved build of the app, [here](http://coaxs-boston.herokuapp.com/#/maps).
 
 <hr>
