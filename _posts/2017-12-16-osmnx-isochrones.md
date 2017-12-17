@@ -12,6 +12,8 @@ comments: true
 
 The purpose of this post is to document a better method of generating isochrones from a network accessibility operation. OSMnx has a suggested method, outlined [here](https://github.com/gboeing/osmnx-examples/blob/master/notebooks/13-isolines-isochrones.ipynb). This method is effective at quickly generating an isochrone, but lacks the ability to effectively render nuanced accessibility patterns as it relies on the generation of a convex hull around the resultant nodes of a given ego graph output.
 
+This is intended to help elaborate on a proposal being submitted under the issues section of the [OSMnx examples repo](https://github.com/gboeing/osmnx-examples). You can review the proposal [here](https://github.com/gboeing/osmnx-examples/issues/4).
+
 ### Proposal
 
 I propose a more intensive method that uses both the nodes and edges to create a geometry skeleton of the accessible area. I then allow for a parameterized buffer radius that is then applied to the constructed skeleton. Doing so ensures that a single, complex Polygon object is generated. This prevents downstream issues that would otherwise be caused by merely buffering the nodes, while preserving the nuance that is possible with the buffered nodes option (as opposed to the convex hull geometry).
