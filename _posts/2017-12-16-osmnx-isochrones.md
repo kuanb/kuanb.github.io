@@ -159,7 +159,7 @@ edges_gdf.buffer(buffer_val).unary_union
 Wrapping this all up into a single function, we can write:
 
 {% highlight python %}
-def make_iso_polys(G, edge_buff=25, node_buff=50):
+def make_iso_polys(G, edge_buff=25, node_buff=50, infill=False):
     isochrone_polys = []
     for trip_time in sorted(trip_times, reverse=True):
         subgraph = nx.ego_graph(G, center_node, radius=trip_time, distance='time')
@@ -178,6 +178,12 @@ def make_iso_polys(G, edge_buff=25, node_buff=50):
         e = gpd.GeoSeries(edge_lines).buffer(edge_buff).geometry
         all_gs = list(n) + list(e)
         new_iso = gpd.GeoSeries(all_gs).unary_union
+        
+        # If desired, try and "fill in" surrounded
+        # areas so that shapes will appear solid and blocks
+        # won't have white space inside of them
+        if infill:
+            new_iso = Polygon(new_iso.exterior)
         isochrone_polys.append(new_iso)
     return isochrone_polys
 {% endhighlight %}
@@ -192,7 +198,22 @@ Similarly, “thicker” buffers will allow for a more filled in, but also more 
 
 ![filled](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/isochrones/filled.png)
 
+Note that in the above, I set `infill` to `True` so that blocks that are surrounded on all sides by edges that are accessible become, themselves, filled in.
+
 And one more, this time with pronounced nodes:
 
 ![filled2](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/isochrones/filled2.png)
 
+Again, each plot above can be produced by simply tweaking the parameters in the `make_iso_polys` method and rerun, like so:
+
+{% highlight python %}
+# First, run our new method
+isochrone_polys = make_iso_polys(G, 50, 50, True)
+
+# And use the results in the plot, just as we were performing these steps originally
+fig, ax = ox.plot_graph(G, fig_height=8, show=False, close=False, edge_color='k', edge_alpha=0.2, node_color='none')
+for polygon, fc in zip(isochrone_polys, iso_colors):
+    patch = PolygonPatch(polygon, fc=fc, ec='none', alpha=0.6, zorder=-1)
+    ax.add_patch(patch)
+plt.show()
+{% endhighlight %}
