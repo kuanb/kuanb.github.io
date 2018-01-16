@@ -51,3 +51,14 @@ Bringing the first map of Dhaka’s bus network to life for its millions of dail
 ![dhaka2](/images/about/dhaka2.png)
 
 And, above, the first map generated and distributed throughout the city, as a result of the field research perfromed in the Spring of 2013.
+
+<hr>
+
+### [DataKind](http://www.datakind.org/)
+Volunteer assisting with processing and assembly of various spatial data and visualization tools. Some screenshotted (and hyper-linked) examples, below.
+
+##### [California Civic Engagement Project voting facility siting tools](https://datakind.github.io/ccep-new-year)
+![ccep](/images/about/ccep.png)
+
+##### [Immigrant Legal Resource Center national naturalization eligibility profiler](https://ilrc-demo.herokuapp.com/index.html)
+![ilrc](/images/about/ilrc.png)
