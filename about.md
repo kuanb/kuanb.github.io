@@ -57,8 +57,8 @@ And, above, the first map generated and distributed throughout the city, as a re
 ### [DataKind](http://www.datakind.org/)
 Volunteer assisting with processing and assembly of various spatial data and visualization tools. Some screenshotted (and hyper-linked) examples, below.
 
-##### [California Civic Engagement Project voting facility siting tools](https://datakind.github.io/ccep-new-year)
-![ccep](/images/about/ccep.png)
+![datakind](/images/about/datakind.gif)
 
-##### [Immigrant Legal Resource Center national naturalization eligibility profiler](https://ilrc-demo.herokuapp.com/index.html)
-![ilrc](/images/about/ilrc.png)
+Some example projects listed (screenshots in gif above):
+- [California Civic Engagement Project voting facility siting tools](https://datakind.github.io/ccep-new-year)
+- [Immigrant Legal Resource Center national naturalization eligibility profiler](https://ilrc-demo.herokuapp.com/index.html)
