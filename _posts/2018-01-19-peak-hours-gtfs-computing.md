@@ -163,6 +163,50 @@ for i, key in enumerate(all_keys):
         continue
 {% endhighlight %}
 
+We can observe the results of the optimization step via the following two plots:
+
+![all_windows_unsorted](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peak-hours-gtfs-computing/all_windows_unsorted.png)
+
+Or, if we were to sort all those windows in order of ascending start time:
+
+![all_windows](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peak-hours-gtfs-computing/all_windows.png)
+
+The first shows all valid windows for a given stop. As you can see, there is a significant amount of overlap as many arrival times are associated with valid window periods that satisfy the set costraints supplied.
+
+![kept_windows](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peak-hours-gtfs-computing/kept_windows.png)
+
+Via the recusive job sorting optimization function, I am able to perform a modified "bin-packing-esque" operation that acheives the goal of applying (or, rather, fitting) the maximum number of valid hours into the set 24 hour period.
+
+Note, the above plots are generated simply:
+
+{% highlight python %}
+valid_periods = get_valid_periods_for_stop(
+    stop_pairs_xwalk, key, feed)
+
+all_windows = []
+for w in valid_periods:
+    all_windows.append([w.start, w.end])
+
+df = pd.DataFrame(all_windows, columns=['start', 'end'])
+
+minv = df.start.min()
+maxv = df.start.max()
+
+color_vals = []
+cmap = plt.get_cmap('viridis')
+for s in df.start:
+    pct = ((s - minv) / (maxv - minv))
+    color_vals.append(cmap(pct))
+
+plt.figure(figsize=(15,6))
+plt.hlines(df.index,
+           df.start,
+           df.end,
+           colors=color_vals)
+{% endhighlight %}
+
+Similarly, the optimal hour windows plot is generate be replacing the `valid_periods` object instead with the `optimal_hours` iterable object.
+
 Finally, I export the results as a GeoJSON:
 
 {% highlight python %}
