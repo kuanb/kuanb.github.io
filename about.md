@@ -60,5 +60,5 @@ Volunteer assisting with processing and assembly of various spatial data and vis
 ![datakind](/images/about/datakind.gif)
 
 Some example projects listed (screenshots in gif above):
-- [California Civic Engagement Project voting facility siting tools](https://datakind.github.io/ccep-new-year)
+- [California Civic Engagement Project voting facility siting tools](http://kuanbutts.com/about)
 - [Immigrant Legal Resource Center national naturalization eligibility profiler](https://ilrc-demo.herokuapp.com/index.html)
