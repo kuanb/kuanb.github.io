@@ -213,6 +213,12 @@ Finally, I export the results as a GeoJSON:
 convert_to_geojson(stop_peak_times_lookup)
 {% endhighlight %}
 
+Here's another plot, this time with a more typical stop, that has a clear AM and PM peak:
+
+![all_windows_small](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peak-hours-gtfs-computing/all_windows_small.png)
+
+![all_windows_small_sorted](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peak-hours-gtfs-computing/all_windows_small_sorted.png)
+
 # Details on function
 
 All functions are included below, fully fleshed out. Details are added beneath each as applicable.
