@@ -116,6 +116,27 @@ gs_block_buffered_200 = gs_blocks_sub.buffer(feet_to_meter(200))
 gs_block_buffered_200 = gpd.GeoSeries([g.simplify(5) for g in gs_block_buffered_200])
 {% endhighlight %}
 
+Because we will be performing a number of spatial intersections on these GeoDataFrames as a whole, it is worthwhile to produce spatial indices for each:
+
+{% highlight python %}
+# Make spatial indices for all
+gs_blocks_sub_sindex = gs_blocks_sub.sindex
+gs_block_buffered_45_sindex = gs_block_buffered_45.sindex
+gs_block_buffered_200_sindex = gs_block_buffered_200.sindex
+{% endhighlight %}
+
+These will be used in conjunction with the following function:
+
+{% highlight python %}
+def indexed_intersection(spatial_index, polygon, gdf):
+    possible_matches_index = list(spatial_index.intersection(polygon.bounds))
+    possible_matches = gdf.iloc[possible_matches_index]
+    precise_matches = possible_matches[possible_matches.intersects(polygon)]
+    return precise_matches
+{% endhighlight %}
+
+This allows us to perform the intersections while leveraging Rtree which will enable faster intersections on these larger parcel datasets. Note: Thanks to Twitter user [@sidkap_](https://twitter.com/sidkap_/status/967086412028891136) for reminding me to use spatial indexes here.
+
 At this point, we are ready to enter the main analysis logic.
 
 # Core algorithm introduction
@@ -142,13 +163,21 @@ Against the target parcel to find all other parcels that fall within this defini
 {% highlight python %}
 # First find all the buildings closer than 45 feet
 buffered_block_45 = gs_block_buffered_45.geometry.values[i]
-mask_45 = gs_blocks_sub.intersects(buffered_block_45)
-blocks_too_close = gs_blocks_sub[mask_45]
+blocks_too_close = indexed_intersection(gs_block_buffered_45_sindex, buffered_block_45, gs_blocks_sub)
 {% endhighlight %}
 
 ![buffer_45](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/street_widths/buffer_45.png)
 
 We do the same with the 200’ buffered dataset. 200’ is an arbitrary value. I use it as a distance that I assume most street widths will not exceed and thus, as a result, I feel safe omitting all parcels that fall outside of that distance when trying to find street area.
+
+{% highlight python %}
+# Now pull all "potential" buildings in as well (I'd define these
+# all buildings within 150 feet or so)
+buffered_block_200 = gs_block_buffered_200.geometry.values[i]
+all_nearby = indexed_intersection(gs_block_buffered_200_sindex, buffered_block_200, gs_blocks_sub)
+{% endhighlight %}
+
+Note: Prior to the update to include spatial indexing, the above 2 intersection operations looked like this:
 
 {% highlight python %}
 # Now pull all "potential" buildings in as well (I'd define these
@@ -279,3 +308,7 @@ Once we have generated the final variation of the `uus_diffed` variable, we simp
 ![streets_highlighted](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/street_widths/streets_highlighted.png)
 
 As you can see in the resulting image, most of San Francisco is likely to be upzoned at the wide street height, due to the size of its roads. This is an observation that was echoed in the [SF Planning Department’s memo](http://commissions.sfplanning.org/cpcpackets/SB%20827.pdf) from last week.
+
+# A note on the addition of spatial indexing
+
+Thanks to Twitter user [@sidkap_](https://twitter.com/sidkap_/status/967086412028891136) for reminding me to use spatial indexing to speed up the intersection checks. Originally the Dogpatch operation shown above took about 35 minutes to complete. With the implementation of spatial indexing, the runtime was improved, to under 15 minutes.
