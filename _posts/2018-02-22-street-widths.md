@@ -220,6 +220,8 @@ block_orig_buff = block_orig.buffer(meter_dist)
 
 ![point_to_point](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/street_widths/point_to_point.png)
 
+Note: The above image an example showing the operation that is being performed. The site used in this example is a different location that the Dogpatch subset. This is for explanatory purposes only.
+
 Then I do something janky: I buffer the other parcel by 1 meter and check what the intersection size is.
 
 {% highlight python %}
@@ -241,6 +243,8 @@ if intersection.area > 1.5:
 
 ![example_double_intersection](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/street_widths/example_double_intersection.png)
 
+Note: The above image an example showing the operation that is being performed. The site used in this example is a different location that the Dogpatch subset. This is for explanatory purposes only.
+
 Once the loop is done, I can union all the intersection areas and create a single geometry for that parcels adjoining street shapes:
 
 {% highlight python %}
@@ -249,6 +253,8 @@ all_uus.append(uu)
 {% endhighlight %}
 
 ![intersections_unioned](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/street_widths/intersections_unioned.png)
+
+Note: The above image an example showing the operation that is being performed. The site used in this example is a different location that the Dogpatch subset. This is for explanatory purposes only.
 
 # Processing intersection shapes of nearby streets
 
