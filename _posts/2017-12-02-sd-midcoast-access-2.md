@@ -124,7 +124,83 @@ G = ox.add_edge_grades(G)
 
 Here’s my method for impedance, below. We toss those points that exceed our grade threshold by making them very expensive. This is similar (albeit far more rudimentary) to the same costing adjustments that is used in Valhalla’s Thor (Mapzen’s routing engine’s costing engine).
 
+{% highlight python %}
+def impedance(length, grade):
+    travel_speed = 4.5
+    meters_per_minute = travel_speed * 1000 / 60 #km per hour to m per minute
+
+    ada_sidewalk_grade_max = 0.1
+    
+    if grade >= ada_sidewalk_grade_max:
+        return 999999
+    else:
+        return data['length'] / meters_per_minute
+
+# Run updates to the edges to capture grade aspects in costing
+for u, v, k, data in G.edges(keys=True, data=True):
+    data['impedance'] = impedance(data['length'], data['grade_abs'])
+    data['rise'] = data['length'] * data['grade']
+{% endhighlight %}
+
 Now we need to run NetworkX’s built in `ego_graph` algorithm to generate a subgraph of accessible points for each node along the alignment shapes. Both alignment shapes are sufficiently complex that just iterating over the points in them will be sufficient for this analysis. If they weren’t we could just subdivide each linear segment to sub-segments of satisfactory (smaller) distances.
+
+{% highlight python %}
+def project_point(pt):
+    a = gpd.GeoDataFrame(geometry=[pt])
+    a.crs = {'init': 'epsg:4326'}
+    a = a.to_crs({'init': 'epsg:3857'})
+    return a.geometry.values[0]
+
+trip_times = [5, 10, 15, 20, 25, 30] #in minutes
+sorted_tt = sorted(trip_times, reverse=True)
+
+skip_list = []
+def generate_iso_node_arrays(shape,
+                       sorted_tt=sorted_tt):
+    # Cumulative results
+    isochrone_polys = {}
+    for tt in sorted_tt:
+        isochrone_polys[tt] = []
+
+    xys = shape.coords.xy
+    xs = xys[0]
+    ys = xys[1]
+    xys = list(zip(xs, ys))
+
+    count = 0
+    for xy in xys:
+        count += 1
+        ap = Point(*xy)
+        pp = project_point(ap)
+
+        nn, dist = ox.get_nearest_node(G,
+                                       (pp.y, pp.x),
+                                       method='euclidean',
+                                       return_dist=True)
+
+        if dist > 150:
+            skip_list.append({'node': nn,
+                              'xy': xy,
+                              'dist': round(dist)})
+            continue
+
+        for trip_time in sorted_tt:
+            subgraph = nx.ego_graph(G,
+                                    nn,
+                                    radius=trip_time,
+                                    distance='impedance')
+            
+            # Note we will be creating many duplicates in this step
+            for n in subgraph.node:
+                isochrone_polys[trip_time].append(n)
+    
+    # Once we finish running through all nodes along spine
+    # we can remove duplicates in each of the trip time lists
+    for trip_time in sorted_tt:
+        deduped = list(set(isochrone_polys[trip_time]))
+        isochrone_polys[trip_time] = deduped
+    return isochrone_polys
+{% endhighlight %}
 
 In this process, I toss any nearest nodes on the network that are more than 150 meters away from the alignment. When the ego graph is run, I utilize the precalculated impedance values to understand total accessible nodes within a given time radius (increments of 5 minutes, up to 30 minutes).
 
