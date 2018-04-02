@@ -4,7 +4,7 @@ title: Coalescing Networks for Performant Graph Analysis
 layout: post
 summary: Performant spectral clustering leveraging raster like graph clustering
 comments: true
-—
+---
 
 ![act](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/spectral-transit/act.gif)
 
@@ -12,11 +12,11 @@ Above: Coalesce operation, a new feature in peartree, running on the AC Transit 
 
 # Introduction
 
-Last year, I played with converting processed OpenStreetMap graph data to a network graph that allowed for the running of spectral clustering algorithms to see if I could use network component analyses to impute discrete neighborhoods. You can read about the results of my tooling around with these concepts [here](http://kuanbutts.com/2017/10/21/spectral-cluster-berkeley/).
+Late last year, I played with converting processed OpenStreetMap graph data to a network graph that allowed for the running of spectral clustering algorithms to see if I could use network component analyses to impute discrete neighborhoods. You can read about the results of my tooling around with these concepts [here](http://kuanbutts.com/2017/10/21/spectral-cluster-berkeley/). In this post, I will discuss how I achieved performant spectral clustering by leveraging raster like graph clustering with some new functions available in `v0.3.0` of the [peartree](https://github.com/kuanb/peartree) library.
 
 # Motivation
 
-Naturally, as I have been working a good deal on [peartree](https://github.com/kuanb/peartree) in my spare time, I wanted to develop methods to do the same on transit network data. This post covers the work I have done to make these sorts of analyses on transit data far more performant. Primarily, this post covers two new significant features in peartree (released April 1, 2018 with version 0.3.0): (1) the introduction of multiprocessing to make reading in GTFS feed data faster )when possible), and (2) the development of a `coalesce()` operation that enables for a raster-like summary of a complex network representing a complete parsing of a target transit service feed period into a summary directed network graph.
+Naturally, as I have been working a good deal on [peartree](https://github.com/kuanb/peartree) in my spare time, I wanted to develop methods to do the same sorts of network analysis I have previously performed on OSM network data on transit network data, as well. This post covers the work I have done to make these sorts of analyses on transit data far more performant. Primarily, this post covers two new significant features in peartree (released April 1, 2018 with version 0.3.0): (1) the introduction of multiprocessing to make reading in GTFS feed data faster )when possible), and (2) the development of a `coalesce()` operation that enables for a raster-like summary of a complex network representing a complete parsing of a target transit service feed period into a summary directed network graph.
 
 The first improvement is largely just so that you don’t have to wait as long (depending on your environment) for networks to be built. For more complex systems, the delay can take minutes, and I’ve been actively trying to reduce this for the past few months. There is an issue tracking these efforts on the repo, [here](https://github.com/kuanb/peartree/issues/12).
 
