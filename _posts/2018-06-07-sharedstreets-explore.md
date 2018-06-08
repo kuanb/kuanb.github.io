@@ -425,6 +425,20 @@ for accessible_edges_key, red in zip(reversed(DEFAULT_WALKSHED_MINUTES_BINS),
         ax = sub.plot(figsize=(14,14), linewidth=lw, alpha=a, color=red)
 {% endhighlight %}
 
+Looking in more detail (I plotted in black this time), we can explore certain parts of the city and see how transit + walk service exhibits itself. 
+
+For example, downtown Oakland is well serviced, and, to the west, downtown San Francisco is similarly well captured:
+
+![detail-1](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sharedstreets-explore/detail-1.png)
+
+Looking north, we can see the core of Richmond is well serviced, but the suburban developments up the hill, as well as the areas around the large shopping mall, all have poorer levels of accessibility (20+ minutes to the nearest bus stop - any bus stop - is pretty bad).
+
+![detail-2](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sharedstreets-explore/detail-2.png)
+
+Finally, down south, we can see connections across the Bay to the peninsula. We can also see how suburban development and large swaths of freeway create greater inconsistency in transit coverage, with a tendency for “pockets” of access to transit nodes, surrounded by lower access areas that tend to be limited by the network components primarily designed to service vehicles.
+
+![detail-3](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sharedstreets-explore/detail-3.png)
+
 # Appending the transit network edges to the SharedStreets network
 
 Now that we can neatly calculate walk shed from each edge that the transit network serves, we can also go ahead and add in the transit network itself. Below is a large blob of code but all it does is create a list of new edges to add that connect the network to the point on the edge in between the SS intersections and then also creates walk networks from that point to each of the intersections on the SS network (in both directions).
