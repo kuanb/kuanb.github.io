@@ -1,12 +1,12 @@
 ---
 published: true
-title: Complete network analysis for Peartree via SharedStreets 
+title: Complete network analysis for Peartree via SharedStreets
 layout: post
 summary: Notes from exploring SharedStreets integration with Peartree network graph
 comments: true
 ---
 
-![connector-edges-highlighted-segs-stops-rotate](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sharedstreets-explore/connector-edges-highlighted-segs-stops-rotate.png)
+![connector-edges-highlighted-segs-stops](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sharedstreets-explore/connector-edges-highlighted-segs-stops.png)
 
 Above: SharedStreets (SS) segments tethered to transit stops in blue, analyzed transit stops from AC Transit in red, all OSM geometries associated with selected SS tiles in grey.
 
@@ -150,9 +150,11 @@ for r in ssgj['references']:
 {% endhighlight %}
 
 By doing this, we can improve the quality of the visualization of the network from straight edge connections, such as this detail:
+
 ![before-edge-geoms](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sharedstreets-explore/before-edge-geoms.png)
 
 To plots that look like this, with this level of detail:
+
 ![after-edge-geoms](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sharedstreets-explore/after-edge-geoms.png)
 
 Now, this is not important for the analysis of the network except for the fact that we can calculate the real length of the edge, instead of the straight line distance. This will make calculating walk times along edges more accurate. It will also help for the initial step of identifying which network node is assigned to which SharedStreets edge.
@@ -393,6 +395,7 @@ for walkshed_time in DEFAULT_WALKSHED_MINUTES_BINS:
 Again, this is something that would be far more performant outside of NetworkX, but my intent is to just show this as a demonstration of potential - not something that would be used outside of a one-off.
 
 With these results we can plot the output, with darker areas being closer to node points and those that are lighter being farther away. I found the results rather “pretty:”
+
 ![proximity-gradient](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sharedstreets-explore/proximity-gradient.png)
 
 To plot this, I wrote the following:
@@ -551,9 +554,11 @@ for fr, to, edge in list(subgraph.edges(data=True)):
 {% endhighlight %}
 
 First, we have results for 20 minutes, where walk is in green and walk plus transit is in purple:
+
 ![dt-oak-walk-shed-20](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sharedstreets-explore/dt-oak-walk-shed-20.png)
 
 First, we have results for 40 minutes, where walk is in green and walk plus transit is in purple:
+
 ![dt-oak-walk-shed-40](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/sharedstreets-explore/dt-oak-walk-shed-40.png)
 
 In both of these examples, we can see how AC Transit actually provides pretty decent coverage of the overall network. In spite of what I imagine would be a hard task (getting good coverage along the width of the East Bay instead of the length, where the longer main corridors of bus and Bart are), there appears to be good accessibility and high coverage (on weekdays, during peak hour, that is).
