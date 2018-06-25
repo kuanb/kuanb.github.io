@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/kuanb
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://kuanbutts.com
+  * I am kuanb (https://keybase.io/kuanb) on keybase.
+  * I have a public key ASCAQQap559VYO74MgYSkIL24Qi0_B7ZqhKtcTLhjHKQTwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120804106a9e79f5560eef83206129082f6e108b4fc1ed9aa12ad7132e18c72904f0a",
+      "host": "keybase.io",
+      "kid": "0120804106a9e79f5560eef83206129082f6e108b4fc1ed9aa12ad7132e18c72904f0a",
+      "uid": "036631193d6b2457402da8f723d62419",
+      "username": "kuanb"
+    },
+    "merkle_root": {
+      "ctime": 1529964031,
+      "hash": "414e055c40536d371185631c7f87b0efd8f5e3811d9d830b5dd31e07deb74229839535ccfe5f9e33c91eafdf5f15cee25c4f34567e056a67f8bdb1014757fc9f",
+      "hash_meta": "c06d5b7388c29d737a012cb7fa55b80f3d6983b1ebbedc2933ba76ef55ac6d7a",
+      "seqno": 3141942
+    },
+    "service": {
+      "entropy": "TGD57sh9KfeMgwxk3ZkXp3BM",
+      "hostname": "kuanbutts.com",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "2.1.2"
+  },
+  "ctime": 1529964061,
+  "expire_in": 504576000,
+  "prev": "e7651da118f89cf836041d0a1a93c909a6bac862de5eb0dbfb797e5681274908",
+  "seqno": 11,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEggEEGqeefVWDu+DIGEpCC9uEItPwe2aoSrXEy4YxykE8Kp3BheWxvYWTESpcCC8Qg52UdoRj4nPg2BB0KGpPJCaa6yGLeXrDb+3l+VoEnSQjEIMAo4ud7e+m1lWXU73/G18Ci+w+yanslKVm+nOAXx6yWAgHCo3NpZ8RAS/zcDETPHWD1XY1yz9LUJtTg2PyHPjJrwXXnFC9zl0G4+HJij0mxQGQxxyPtAXnzOY31ulCMha6wAi6CwytzAKhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIGqAOiCC8KRCe4qk/44mM9kFlzLc5opt6ITVAFy4bjz1o3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/kuanb
+
+==================================================================
