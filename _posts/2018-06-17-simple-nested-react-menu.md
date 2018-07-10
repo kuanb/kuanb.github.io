@@ -2,7 +2,7 @@
 published: true
 title: Simple Nested Menu with React
 layout: post
-summary: Notes from exploring SharedStreets integration with Peartree network graph
+summary: Notes on an example pattern for generating a dynamic nested menu
 comments: true
 ---
 
