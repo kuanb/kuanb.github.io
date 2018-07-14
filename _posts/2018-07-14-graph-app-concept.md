@@ -1,8 +1,8 @@
 ---
 published: true
-title: Transit Network Sketch Analysis Interface Concept
+title: Transit Network Sketch Analysis Interface Prototype
 layout: post
-summary: Rough design outline of a interactive network sketch interface
+summary: Rough concept design outline of a interactive network sketch interface
 comments: true
 ---
 
