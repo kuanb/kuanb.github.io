@@ -6,8 +6,6 @@ summary: Rough concept design outline of a interactive network sketch interface
 comments: true
 ---
 
-<meta property="og:image" content=“https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/graph-app-concept/snap_of_interface.png">
-
 ![original_gif](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/graph-app-concept/original_sketch_view.gif)
 
 Above: Short animation I originally tweeted from last weekend when I started sketching out what an interactive network building tool might look like/feel like.
