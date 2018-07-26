@@ -6,6 +6,11 @@ summary: Recording summary findings and methods involved in cleaning Flocktracke
 comments: true
 ---
 
+Visiting this post from the Flocktracker blog post? Make sure to also check out the follow up posts where I dive in deeper to the Flocktracker Bogota output data:
+[Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
+[Synthesizing Multiple Route Trace Point Clouds](http://kuanbutts.com/2017/08/18/triangulate-spline/)
+[Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+
 ![scatter_trip_colors](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/bogota-flocktracker/scatter_trip_colors.png)
 
 I recently got my hands on some pretty exciting data from a researcher in New York who’s been working on mapping informal transit in Bogota, Colombia. I discovered this [tweet](https://twitter.com/ericgoldwyn/status/891079370168836096) which had some neat images of the transit mapping results plotted in GIS. I've also included a snippet of the Twitter post below.
@@ -176,7 +181,7 @@ from shapely.geometry import Point
 day_points = []
 for coords in zip(day_subset.lon, day_subset.lat):
     day_points.append(Point(*coords))
-    
+
 day_gdf = gpd.GeoDataFrame(day_subset, geometry=day_points, crs={'init': 'epsg:4326'})
 {% endhighlight %}
 
@@ -191,6 +196,10 @@ Some things I would like to try, now that the data is cleaned:
 - point buffer overlays to identify route area-of-service and route spline flexibility/convergence
 
 A notebook of my work so far is available here: [Gist](https://gist.github.com/kuanb/4f5b1af5082ea0d60ee07722226ad9fb).
+
+Make sure to also check out the follow up posts where I dive in deeper to the Flocktracker Bogota output data:
+[Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
+[Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
 
 ## Some Updates From the Exploration Post-Data Cleaning
 
