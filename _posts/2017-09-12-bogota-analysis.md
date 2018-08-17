@@ -10,6 +10,13 @@ comments: true
 
 Note: This is the first part in a two-part series. The second section is located here: [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/).
 
+This is part of a 4 part series, realted to deep diving into Flocktracker Bogota data. All 4 parts in the series are:
+
+- [Cleaning and Analysis of Bogota Flocktracker Data](http://kuanbutts.com/2017/08/12/flocktracker-bogota-data-clean/)
+- [Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+- [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
+- [Synthesizing Multiple Route Trace Point Clouds](http://kuanbutts.com/2017/08/18/triangulate-spline/)
+
 ## Introduction to Part 1
 
 The intent of this post is to outline how previous explorations into converting unsorted points into single route splines has been organized into a workflow that would enable one to generate a GTFS schedule and paired route shape files dataset given minimal trace data. It will also go into where the current algorithms are overly brittle and how such limitations would be remedied in a more robust implementation (or refactor).
@@ -343,3 +350,10 @@ In the next post, I will outline how we can then take that original trace data a
 ## Continue to the second section
 
 This concludes the first part in a two-part series. The second section is located here: [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/).
+
+This is part of a 4 part series, realted to deep diving into Flocktracker Bogota data. All 4 parts in the series are:
+
+- [Cleaning and Analysis of Bogota Flocktracker Data](http://kuanbutts.com/2017/08/12/flocktracker-bogota-data-clean/)
+- [Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+- [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
+- [Synthesizing Multiple Route Trace Point Clouds](http://kuanbutts.com/2017/08/18/triangulate-spline/)

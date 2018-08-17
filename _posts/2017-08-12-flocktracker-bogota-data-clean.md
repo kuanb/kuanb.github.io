@@ -7,9 +7,11 @@ comments: true
 ---
 
 Visiting this post from the Flocktracker blog post? Make sure to also check out the follow up posts where I dive in deeper to the Flocktracker Bogota output data:
-[Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
-[Synthesizing Multiple Route Trace Point Clouds](http://kuanbutts.com/2017/08/18/triangulate-spline/)
-[Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+
+- [Cleaning and Analysis of Bogota Flocktracker Data](http://kuanbutts.com/2017/08/12/flocktracker-bogota-data-clean/)
+- [Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+- [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
+- [Synthesizing Multiple Route Trace Point Clouds](http://kuanbutts.com/2017/08/18/triangulate-spline/)
 
 ![scatter_trip_colors](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/bogota-flocktracker/scatter_trip_colors.png)
 
@@ -198,8 +200,11 @@ Some things I would like to try, now that the data is cleaned:
 A notebook of my work so far is available here: [Gist](https://gist.github.com/kuanb/4f5b1af5082ea0d60ee07722226ad9fb).
 
 Make sure to also check out the follow up posts where I dive in deeper to the Flocktracker Bogota output data:
-[Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
-[Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+
+- [Cleaning and Analysis of Bogota Flocktracker Data](http://kuanbutts.com/2017/08/12/flocktracker-bogota-data-clean/)
+- [Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+- [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
+- [Synthesizing Multiple Route Trace Point Clouds](http://kuanbutts.com/2017/08/18/triangulate-spline/)
 
 ## Some Updates From the Exploration Post-Data Cleaning
 

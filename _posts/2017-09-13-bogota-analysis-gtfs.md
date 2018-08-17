@@ -8,6 +8,13 @@ comments: true
 
 Note: This is the second part in a two-part series. The first section is located here: [Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/).
 
+This is part of a 4 part series, realted to deep diving into Flocktracker Bogota data. All 4 parts in the series are:
+
+- [Cleaning and Analysis of Bogota Flocktracker Data](http://kuanbutts.com/2017/08/12/flocktracker-bogota-data-clean/)
+- [Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+- [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
+- [Synthesizing Multiple Route Trace Point Clouds](http://kuanbutts.com/2017/08/18/triangulate-spline/)
+
 ## Introduction to Part 2
 
 In this post, we will be working with the same data from the previous post on converting trip trace data to route splines and paired GTFS schedule data. The intent of this post is to sketch out the logic behind how I’ve used the outputs from the route spline generation to auto-generate speed zones along discrete routes and use those to infer time cost which can then be used to generate GTFS for a given route.
@@ -433,3 +440,10 @@ for tid in list(set(routes_gdf.id.values)):
 The GTFS generation is still rickety but, as I hope is clear from this post, is pretty straightforward once we have the route data. I’d say that it is the route shape data that is most critical. Once we know where the routes are, getting and refining a schedule for these shapes is more a matter of data than a technical challenge generating discrete references from an assemblage of partial data.
 
 If you made it this far, thanks for reading!
+
+This is part of a 4 part series, realted to deep diving into Flocktracker Bogota data. All 4 parts in the series are:
+
+- [Cleaning and Analysis of Bogota Flocktracker Data](http://kuanbutts.com/2017/08/12/flocktracker-bogota-data-clean/)
+- [Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+- [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
+- [Synthesizing Multiple Route Trace Point Clouds](http://kuanbutts.com/2017/08/18/triangulate-spline/)

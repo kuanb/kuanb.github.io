@@ -6,7 +6,16 @@ summary: Merging multiple trip traces to impute a single route spline
 comments: true
 ---
 
+## Introduction
+
 In the following post I describe a quick and dirty method for taking the traces from multiple trips and imputing a likely spline from the point cloud. The advantage of this method is that no order is needed for the original trace points. This means that we can combine multiple trips together that ran along the same route, as well as include trips that did not run the entire segment of the other trips.
+
+This is part of a 4 part series, realted to deep diving into Flocktracker Bogota data. All 4 parts in the series are:
+
+- [Cleaning and Analysis of Bogota Flocktracker Data](http://kuanbutts.com/2017/08/12/flocktracker-bogota-data-clean/)
+- [Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+- [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
+- [Synthesizing Multiple Route Trace Point Clouds](http://kuanbutts.com/2017/08/18/triangulate-spline/)
 
 ## Example use case
 
@@ -311,3 +320,10 @@ Just as with the prior example, here is the triangulated path, simplified, and c
 ## Next steps
 
 In addition to finishing up this `flocktracker.py` utility library, I will need to figure out a way to programmatically determine the start and end nodes for the routes. This is extra tricky as I have noticed that some riders would start in the middle of a route and not at one of its extermities. This makes it hard to be sure that the earliest traces  from a trip are at the start or end of the trip. As a result, I will need to devise an alternative strategy for determining route start and end points.
+
+This is part of a 4 part series, realted to deep diving into Flocktracker Bogota data. All 4 parts in the series are:
+
+- [Cleaning and Analysis of Bogota Flocktracker Data](http://kuanbutts.com/2017/08/12/flocktracker-bogota-data-clean/)
+- [Programmatic Geometry Manipulation to Auto-generate Route Splines](http://kuanbutts.com/2017/09/12/bogota-analysis/)
+- [Tethering Schedules to Routes via Trace Data](http://kuanbutts.com/2017/09/13/bogota-analysis-gtfs/)
+- [Synthesizing Multiple Route Trace Point Clouds](http://kuanbutts.com/2017/08/18/triangulate-spline/)
