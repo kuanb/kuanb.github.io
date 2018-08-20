@@ -16,6 +16,24 @@ The purpose of this post is to describe how to take a peartree network and conve
 
 While this post is a great (the author back then also acknowledged what a PIA it was to set up, stating: "It's a bear to get setup, but once you do things get pretty nice. Moving my network viz over to it now!" - [link to Tweet](https://twitter.com/bbengfort/status/746398688197623808)), it's in Python 2 and some aspects of graph-tool have changed slightly.
 
+## Advantage of peartree on graph-tool
+
+graph-tool is much faster than NetworkX at evaluation. NetworkX implements graph-algorithms in pure Python and thus trades perforamnce for ease of use. On more complex networks, performance hits can make iterative development difficult or impossible. graph-tool frees up operations to take advantage of parallelization, as well as the traditional advantages of lower level code to perform computation-intensive operations more quickly and efficiently than pure Python approaches.
+
+Let's look at an example. A common measure of a graph that I perform is the evaluation of betweenness centrality. Here are the results of performing this operation on an identical graph, once in NetworkX and once in graph-tool:
+
+Stats for network graph being evaluated:
+
+- Nodes: 4,969
+- Edges: 5,554
+
+Performance on NetworkX: 2min 34s
+Performance on graph-tool: 756 ms
+
+Relative performance gain for this graph: 203,703.7% faster.
+
+Clearly, graph-tool is the winner in this comparison. For more details on graph-tool's performance, be sure to check out the project's own documentation on this, [here](https://graph-tool.skewed.de/performance).
+
 ## Acknowledging original authorship
 
 In this post, I seek to update the original post's method and make comments on those changes. In addition, I will be using a peartree network instead of a simple, arbitrary NetworkX graph. That said, thanks to the author, [Benjamin Bengfort](https://bbengfort.github.io/) for his work, which I am merely regurgitating with slight modification here.
