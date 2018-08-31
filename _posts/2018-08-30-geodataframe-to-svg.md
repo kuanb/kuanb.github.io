@@ -118,9 +118,9 @@ for i, row in gdf.iterrows():
     processed_rows.append(p)
 {% endhighlight %}
 
-In this method, we use the Shapely SVG method to get a string of the SVG, then we add the other row values in the top level `<g>` tag.
+In this method, we use the Shapely SVG method to get a string of the SVG, then we add the other row values in the top level `<g>` tag. Note that the returned SVG is defaulted to a green color if it is valid in Shapely and a red color if it is not. We can parse the returned string if we want to and change the color to whatever we want. For example, we could extract the viridis color scheme for the Geopandas plot and use that color result to apply the same colors to the geometries contained in each row and pulled out, here. I won't go through the hassle in this post, but it is about as simple as adding in the data tags.
 
-Next, we can insert those processed rows of the GDF into an SVG element, along with a bunch of standard default SVG tags. I also am going to set the width and height to a 100% so that the SVG will just scale to its parent `div`.
+Speaking of data tages, we can insert those processed rows of the GDF into an SVG element, along with a bunch of standard default SVG tags. I also am going to set the width and height to a 100% so that the SVG will just scale to its parent `div`.
 
 {% highlight python %}
 import textwrap
@@ -165,4 +165,7 @@ Without simplification, the output file was 4.1 MB. With the 5 or 10 meter simpl
 
 To close out, here's the SVG, embedded for download/to oogle at/etc.
 
-![test](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/gdf-to-svg/test.svg)
+![test](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/gdf-to-svg/test.svg?sanitize=true)
+
+Or as a Gist:
+<script src="https://gist.github.com/kuanb/023db660cdc41de08ad6d2d3f980d899.js"></script>
