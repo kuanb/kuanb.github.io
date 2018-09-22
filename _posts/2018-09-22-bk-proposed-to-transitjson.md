@@ -202,7 +202,8 @@ for i, row in routes_reproj.iterrows():
         'properties': {
             'average_speed': 15, # mph
             'headway': row.frequency * 60,  # in seconds
-            'stops': stops}
+            'stops': stops,
+            'bidirectional': True}
     })
 {% endhighlight %}
 
