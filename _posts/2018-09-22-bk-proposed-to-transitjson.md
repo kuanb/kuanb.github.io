@@ -8,7 +8,7 @@ comments: true
 
 ## Introduction
 
-Alon Levy recently published the [this blog post](https://pedestrianobservations.com/2018/09/19/our-brooklyn-bus-redesign/) on Eric Goldwyn and his proposed Brooklyn bus system redesign. The two authors are both prominent researchers in public transit. I particularly enjoy Alon Levy's blog's series on tracking how much more urban public transit infrastructure development costs in the US versus everywhere else in the world. You can find that body of work, [here](https://pedestrianobservations.com/construction-costs/).
+Alon Levy recently published the [this blog post](https://pedestrianobservations.com/2018/09/19/our-brooklyn-bus-redesign/) on Eric Goldwyn and Alon Levy's proposed Brooklyn bus system redesign. The two authors are both prominent researchers in public transit. I particularly enjoy Alon Levy's blog's series on tracking how much more urban public transit infrastructure development costs in the US versus everywhere else in the world. You can find that body of work, [here](https://pedestrianobservations.com/construction-costs/).
 
 This post will be notes on taking the proposed network they outlined and converting to a graph representation. With this representation, it will be easy to perform comparative analyses on it compared to, say, the current transit network in Brooklyn and see how it increases of decreases transit accessibility.
 
