@@ -80,10 +80,10 @@ We can view the full performance table in the below:
 
 ![perf_table](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/dask_dist_mtx/perf_table.png)
 
-Similarly, we can see how much further we were able to push out the performance curve, by using better resourced VMs:
+Similarly, we can see how much further we were able to push out the performance curve, by using better resourced VMs (x axis is count of coordinates `N` and y axis is time in seconds):
 
 ![perf_all](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/dask_dist_mtx/perf_all.png)
 
-Zooming in on the x-axis, we can see where the divergence occurs, lower along the y-axis:
+Zooming in on the x-axis, we can see where the divergence occurs, lower along the y-axis (x axis is count of coordinates `N` and y axis is time in seconds):
 
 ![perf_sub](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/dask_dist_mtx/perf_sub.png)
