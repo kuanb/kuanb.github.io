@@ -116,6 +116,8 @@ for target_trip in unique_tripids:
 
 ![initial_22_times](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/vta_bus_init/initial_22_times.png)
 
+Note about above image: Right click to open in own window to zoom in/view enhanced image.
+
 Once I had that information, I was able to plot the results, with the above output. The x axis represents time while the y axis represents distance (in meters I believe) along the route. In general it appears that there are 2 types of 22 routes - one that goes about 1/4 of the total distance that the other does. We can see this because there appear to be more recorded trips (thus more lines) in the bottom left that terminate about a quarter of the distance along the y axis.
 
 Note that because all times of day are considered, there appear to be two clear patterns in the upper right, this is related to the two different route directions.
@@ -168,6 +170,8 @@ sid_ref = pd.DataFrame({'sids': sids, 'dists': sid_dists, 'names': sid_names})
 We can now plot the results with the stop names associated and highlighted at each part of the route:
 
 ![times_22_with_names](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/vta_bus_init/times_22_with_names.png)
+
+Note about above image: Right click to open in own window to zoom in/view enhanced image.
 
 With this result, we can explore what stops are contributing to "break points" or bottlenecks in the network. We can also look at stop names to see if certain streets contribute to performance degradation or where breakdown of schedule adherence or consistency really starts to happen along the corridor.
 
