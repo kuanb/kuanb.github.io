@@ -1,6 +1,6 @@
 ---
 published: true
-title: Exploring San Jose/VTA's Swiftly Bus Data
+title: Exploring San Jose VTA Swiftly Bus Data
 layout: post
 summary: Exploratory notes on bus performance data dump
 comments: true
