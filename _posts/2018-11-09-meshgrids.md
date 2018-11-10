@@ -6,7 +6,7 @@ summary: Utilizing numpy mesh grids to vectorize polygon sorting
 comments: true
 ---
 
-![sf_as_meshgrid](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/vta_bus_init/sf_as_meshgrid.png)
+![sf_as_meshgrid](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/meshgrids/sf_as_meshgrid.png)
 
 ## Introduction
 
@@ -128,7 +128,7 @@ for all_vars in zip(cxs_adj, cys_adj, gdf.districtna):
 
 The resulting output shows a reasonable resolution, and neighborhoods are clear from the plot:
 
-![grid_150_output](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/vta_bus_init/grid_150_output.png)
+![grid_150_output](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/meshgrids/grid_150_output.png)
 
 # Varying grid width
 
@@ -164,7 +164,7 @@ for grid_width in grid_widths:
 
 Iterating through this 4 times took me about 0.6 seconds. As you can see, reaching fairly high resolutions is fairly trivial and allows for modeling reasonable large areas with a fairly minimal memory overhead. Ultimately, it becomes more a matter of determining the best grid width (perhaps more an art than a science) based off heuristics associated with the typical profile of the geometries you are dealing with (e.g. parcels, vs. Census blocks, vs. TAZs, etc.).
 
-![four_gws](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/vta_bus_init/four_gws.png)
+![four_gws](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/meshgrids/four_gws.png)
 
 Script to generate the plots looks like this:
 
