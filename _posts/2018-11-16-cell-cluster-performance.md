@@ -1,6 +1,6 @@
 ---
 published: true
-title: Performant relative window scoping on meshgrids
+title: Dynamically costing window scoping and cell grid sizing
 layout: post
 summary: Benchmarking variable window scales on clustered cell matrices
 comments: true
