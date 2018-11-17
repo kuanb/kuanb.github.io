@@ -215,6 +215,12 @@ Awareness of this can help determine cell size - window radius balance before in
 
 ![est_runtimes](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/cell_grid_viz/est_runtimes.png)
 
+The relationship that we computed for the polynomial can be revealed from this function, such that the method defined prior, `pf`, is a polynomial comprised of:
+
+{% highlight python %}
+poly1d([3.08936507e-14, 1.42656915e-07, 9.32530383e-03])
+{% endhighlight %}
+
 What we see here are estimated runtimes, with each separate slope representing a larger and larger cell size. The larger the cell size, the less number of cells are needed to create a satisfactory window. Thus, the rate of increase is dampened.
 
 From these results, setting a balancer that is triggered when encountering a time threshold (say, 2 or 3 seconds), may be sufficient for addressing performance concerns regarding model execution runtime.
