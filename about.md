@@ -7,7 +7,18 @@ permalink: /about/
 
 My interests lie in the implementation of digital solutions in engaging spatial (usually transportation related) issues; combining programming, urban planning, and geospatial analytics. I've taken on a number of technical roles executing research, digital development, and deployment in a wide variety of settings. This has provided me with extensive international experience from Mexico City to Dhaka, Bangladesh.
 
-## Projects List
+## Personal projects List
+
+### [peartree](https://github.com/kuanb/peartree)
+![peartree_example](https://raw.githubusercontent.com/kuanb/peartree/master/examples/example.gif)
+
+[peartree](https://github.com/kuanb/peartree) is a library for converting GTFS feed schedules into a representative directed network graph. The tool is actively used within the transit accessibility and transportation modeling algorithms implemented within [UrbanFootprint](http://urbanfootprint.com), and has been utilized in a number of academic and professional research contexts, as well.
+
+More information on this work, as well as its broader application (both within and without UrbanFootprint), is available from this talk I delivered back in October of 2018, at OpenStreetMap's State of the Map conference in Detroit, Michigan.
+
+<iframe width="100%" max-width="768" height="315" src="https://www.youtube.com/embed/dqIuFIbtmVY?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+<hr>
 
 ### [ClientComm](http://clientcomm.org/)
 <iframe width="100%" max-width="768" height="315" src="https://www.youtube.com/embed/kfUf6WeVJ7E?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
