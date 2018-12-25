@@ -47,7 +47,7 @@ pt.plot.generate_plot(G)
 
 This will generate the following graphic:
 
-![header](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walk/transit.png)
+![transit_network](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walk/transit.png)
 
 ## Generating the walk network
 
@@ -80,7 +80,7 @@ Once again, let's plot our new graph. We can use OSM to help us do this:
 ox.plot_graph(Gwalk)
 {% endhighlight %}
 
-![header](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walk/walk.png)
+![walk_network](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walk/walk.png)
 
 ## Merging the two graphs
 
@@ -200,4 +200,4 @@ And there you have it - following those simple steps should be sufficient to gen
 pt.plot.generate_plot(G2)
 {% endhighlight %}
 
-![header](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walkt/joint.png)
+![joint_networks](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walk/joint.png)
