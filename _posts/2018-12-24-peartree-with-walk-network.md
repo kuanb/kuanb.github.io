@@ -6,7 +6,7 @@ summary: Combining walk and transit graphs together with peartree and OSMnx
 comments: true
 ---
 
-![header](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walkt/header.png)
+![header](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walk/header.png)
 
 ## Introduction
 
@@ -47,7 +47,7 @@ pt.plot.generate_plot(G)
 
 This will generate the following graphic:
 
-![header](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walkt/transit.png)
+![header](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walk/transit.png)
 
 ## Generating the walk network
 
@@ -80,7 +80,7 @@ Once again, let's plot our new graph. We can use OSM to help us do this:
 ox.plot_graph(Gwalk)
 {% endhighlight %}
 
-![header](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walkt/walk.png)
+![header](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/peartree-with-walk/walk.png)
 
 ## Merging the two graphs
 
