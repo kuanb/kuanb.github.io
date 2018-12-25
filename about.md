@@ -10,7 +10,7 @@ My interests lie in the implementation of digital solutions in engaging spatial 
 ## Personal projects List
 
 ### [peartree](https://github.com/kuanb/peartree)
-![peartree_example](/images/about/peartree_example.gif)
+![peartree_example](/images/about/peartree_example.png)
 
 [peartree](https://github.com/kuanb/peartree) is a library for converting GTFS feed schedules into a representative directed network graph. The tool is actively used within the transit accessibility and transportation modeling algorithms implemented within [UrbanFootprint](http://urbanfootprint.com), and has been utilized in a number of academic and professional research contexts, as well.
 
