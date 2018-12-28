@@ -14,9 +14,9 @@ My interests lie in the implementation of digital solutions in engaging spatial 
 
 [peartree](https://github.com/kuanb/peartree) is a library for converting GTFS feed schedules into a representative directed network graph. The tool is actively used within the transit accessibility and transportation modeling algorithms implemented within [UrbanFootprint](http://urbanfootprint.com), and has been utilized in a number of academic and professional research contexts, as well.
 
-More information on this work, as well as its broader application (both within and without UrbanFootprint), is available from this talk I delivered back in October of 2018, at OpenStreetMap's State of the Map conference in Detroit, Michigan.
-
 <iframe width="100%" max-width="768" height="315" src="https://www.youtube.com/embed/dqIuFIbtmVY?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+More information on this work, as well as its broader application (both within and without UrbanFootprint), is available from this talk I delivered back in October of 2018, at OpenStreetMap's State of the Map conference in Detroit, Michigan.
 
 <hr>
 
