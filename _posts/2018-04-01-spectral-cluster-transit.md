@@ -14,6 +14,10 @@ Above: Coalesce operation, a new feature in peartree, running on the AC Transit 
 
 Late last year, I played with converting processed OpenStreetMap graph data to a network graph that allowed for the running of spectral clustering algorithms to see if I could use network component analyses to impute discrete neighborhoods. You can read about the results of my tooling around with these concepts [here](http://kuanbutts.com/2017/10/21/spectral-cluster-berkeley/). In this post, I will discuss how I achieved performant spectral clustering by leveraging raster like graph clustering with some new functions available in `v0.3.0` of the [peartree](https://github.com/kuanb/peartree) library.
 
+### Update (01/23/2019)
+
+Warning! Coalesce operations are risky. Coalescing transit networks can cause significant loss of fidelity to transit network graphs. For example, costly transfers could become coalesced in such a way that the edge no longer exists, allow a connection to exist or become cheap where there prior was not such a connection. Use coalesce with caution. On the other hand, coalesce may be far safer on simpler networks, such as walk networks. For issue tracking related to risks of this method associated with transit networks in peartree, see [this issue](https://github.com/kuanb/peartree/issues/126) in peartree's Github repo.
+
 # Motivation
 
 Naturally, as I have been working a good deal on [peartree](https://github.com/kuanb/peartree) in my spare time, I wanted to develop methods to do the same sorts of network analysis I have previously performed on OSM network data on transit network data, as well. This post covers the work I have done to make these sorts of analyses on transit data far more performant. Primarily, this post covers two new significant features in peartree (released April 1, 2018 with version 0.3.0): (1) the introduction of multiprocessing to make reading in GTFS feed data faster )when possible), and (2) the development of a `coalesce()` operation that enables for a raster-like summary of a complex network representing a complete parsing of a target transit service feed period into a summary directed network graph.
