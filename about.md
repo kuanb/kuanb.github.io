@@ -7,7 +7,13 @@ permalink: /about/
 
 My interests lie in the implementation of digital solutions in engaging spatial (usually transportation related) issues; combining programming, urban planning, and geospatial analytics. I've taken on a number of technical roles executing research, digital development, and deployment in a wide variety of settings. This has provided me with extensive international experience from Mexico City to Dhaka, Bangladesh.
 
-## Personal projects List
+## Current employment
+![silver_line_la](/images/about/silver_line_la.png)
+
+[UrbanFootprint](https://urbanfootprint.com/) is a scenario modeling platform for analyzing and comparing the impacts of land use and transportation network modifications. At UrbanFootprint, I focus on development and optimization of spatial analytics models as well as application of network graph methodologies on mobility/accessibility-themed data (eg OSM, GTFS).
+
+
+## Personal projects
 
 ### [peartree](https://github.com/kuanb/peartree)
 ![peartree_example](/images/about/peartree_example.png)
