@@ -357,8 +357,8 @@ for walkshed_time in DEFAULT_WALKSHED_MINUTES_BINS:
         full_dist = distance_along / percentage_along
         remaining_dist = full_dist - distance_along
 
-        time_first = WALK_SPEED_KMPH * (distance_along / 1000)
-        time_second = WALK_SPEED_KMPH * (remaining_dist / 1000)
+        time_first = ((distance_along / 1000) / WALK_SPEED_KMPH) * 60
+        time_second = ((remaining_dist / 1000) / WALK_SPEED_KMPH) * 60
 
         # We need to iterate through two combinations - one is where the
         # agent walks to the start of the edge, and other to the end of the edge
@@ -482,8 +482,8 @@ for i, row in sub_asg.iterrows():
     full_dist = distance_along / percentage_along
     remaining_dist = full_dist - distance_along
 
-    time_first = WALK_SPEED_KMPH * (distance_along / 1000)
-    time_second = WALK_SPEED_KMPH * (remaining_dist / 1000)
+    time_first = ((distance_along / 1000) / WALK_SPEED_KMPH) * 60
+    time_second = ((remaining_dist / 1000) / WALK_SPEED_KMPH) * 60
 
     # We need to iterate through two combinations - one is where the
     # agent walks to the start of the edge, and other to the end of the edge
@@ -591,3 +591,7 @@ sub.plot(ax=ax, linewidth=0.25, alpha=0.25, color='green')
 # Conclusion
 
 Shared streets is exciting because of its potential to be a “one and done” solution. That is, once I pair my network to SharedStreets and save that lookup table, I can potentially circumvent any future expensive geometric operations (so long as that other dataset has also been paired with SharedStreets). This helps create a “Rosetta Stone” of sorts where all metadata about segments can be stored and shared amongst disparate geospatial datasets.
+
+### Notes
+
+Adding a thank you to Disqus user [Pablo](https://disqus.com/by/disqus_Xcu4IP5gBm/) who noticed that time in minutes was being calculated incorrectly in the code snippets. An edit was made to address that on April 23, 2019.
