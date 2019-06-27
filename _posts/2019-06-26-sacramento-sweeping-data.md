@@ -1,6 +1,6 @@
 ---
 published: true
-title: Sacramento On-street Open Parking Data
+title: On-street Open Parking Data
 layout: post
 summary: Exploring Sacramento curb data and map matching with SharedStreets
 comments: true
