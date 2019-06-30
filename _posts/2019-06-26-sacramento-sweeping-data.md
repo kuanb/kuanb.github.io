@@ -98,7 +98,7 @@ assert set(list(rename_dict.keys()) + ['geometry']) == set(keep_cols)
 sp_gdf = sp_gdf[keep_cols].rename(columns=rename_dict)
 {% endhighlight %}
 
-# Pruning the spatial data
+## Pruning the spatial data
 
 At this point there appear to be some stray points that fall well outside of the central business district.
 
@@ -129,7 +129,7 @@ Above: We can see how this portion (circled in black above) is most of the point
 
 Above: This is the subset alone shown of just the points in the central business district in Sacramento.
 
-# Exploring street sweeping data
+## Exploring street sweeping data
 
 I set up the following filters to just limit to data points that have street sweeping attributes:
 
@@ -149,7 +149,7 @@ print(f'trimmed from {len(sp2_gdf)} to {len(sweep_gdf)} geometries')
 
 Above: This removes about 80% of all the points. Plotting the points with street sweeping data in red shows that it appears that this data is only available in the north east portion of the city. I doubt that street sweeping is only available in that portion of the city and would like to know why that information appears to be incomplete.
 
-# Testing map matching with SharedStreets
+## Testing map matching with SharedStreets
 
 At this point I wanted to simply observe how SharedStreets handled this point data. Since the blog post example from Calgary included segment data published by the city, matching that to segments to see coverage areas "made sense." In this case, I just have points. What will SharedStreets do?
 
@@ -183,7 +183,7 @@ So, what happened to the street sides as they were represented in the original p
 
 Above: Coloring the map matched data where yellow is left and green is right. This shows how the different sides of the road are represented while the map matched points fall in the centerline.
 
-# Next steps
+## Next steps
 
 This was just the earliest work on finding some data, cleaning it, and map matching the geometries. Next up; I'll need to learn more about the CurbLR specification (which it sounds like is still in flux) and figure out how to link points together that have the same attributes to create actual segments that can be paired with SharedStreets to show what portions of a curb are designated for certain uses.
 
