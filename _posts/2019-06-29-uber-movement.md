@@ -6,6 +6,8 @@ summary: Navigating extraction issues with CLI tool
 comments: true
 ---
 
+TL;DR The `mdt` CLI utility that Uber Movement released alongside their new speeds dataset shows extraction examples that will typically error (`JavaScript heap out of memory`) when run on a machine with even substantial (32 GB memory) resources available. To circumvent this issue, use the `bbox` to ensure that the scope the extraction area.
+
 ## Introduction
 
 Uber has recently begun updating some of its cities that it has available on its Movement platform with speed data. There are a few US cities that have speed data available. At the time of this writing, there were 2 I noted - Cincinnati and New York City. Since NYC is tired and Cinci is a cool place that often gets overlooked, I wanted to extract data from there.
