@@ -6,7 +6,7 @@ summary: Steps in evaluating fid drop pattern during GeoPackage IO
 comments: true
 ---
 
-TL;DR There's a bug with GeoPandas that results in GeoPackage files losing their FID, as captured in (this issue)[https://github.com/geopandas/geopandas/issues/1035]. The issue lies in the read step, which fails to capture that the `fid` value has been shifted from a property in the `index` value held by the `id` key.
+TL;DR There's a bug with GeoPandas that results in GeoPackage files losing their FID, as captured in [this issue](https://github.com/geopandas/geopandas/issues/1035). The issue lies in the read step, which fails to capture that the `fid` value has been shifted from a property in the `index` value held by the `id` key.
 
 ## Introduction
 
@@ -139,13 +139,13 @@ assert 'fid' in gdf_alt.columns
 When GeoPandas writes to a file, it's pretty straightforward in terms of how it just wraps fiona operations:
 
 {% highlight python %}
-    if schema is None:
-        schema = infer_schema(df)
-    filename = os.path.abspath(os.path.expanduser(filename))
-    with fiona_env():
-        with fiona.open(filename, 'w', driver=driver, crs=df.crs,
-                        schema=schema, **kwargs) as colxn:
-            colxn.writerecords(df.iterfeatures())
+if schema is None:
+    schema = infer_schema(df)
+filename = os.path.abspath(os.path.expanduser(filename))
+with fiona_env():
+    with fiona.open(filename, 'w', driver=driver, crs=df.crs,
+                    schema=schema, **kwargs) as colxn:
+        colxn.writerecords(df.iterfeatures())
 {% endhighlight %}
 
 It's iterating through each record and writing the record generated for that row via the driver specified. Per the GDAL GeoPackage documentation (see it [here](https://gdal.org/drivers/vector/gpkg.html)), the FID layer includes an FID designation for layer creation described as follows: "Column name to use for the OGR FID (primary key in the SQLite database). Default to 'fid.'"
@@ -170,7 +170,7 @@ gdf2 = gpd.read_file('test')
 The resulting operation would error like so:
 
 {% highlight bash %}
-CPLE_AppDefinedError                      Traceback (most recent call last)
+CPLE_AppDefinedError  Traceback (most recent call last)
 fiona/ogrext.pyx in fiona.ogrext.WritingSession.start()
 
 fiona/_err.pyx in fiona._err.exc_wrap_int()
