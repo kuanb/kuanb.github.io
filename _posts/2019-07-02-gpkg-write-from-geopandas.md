@@ -1,8 +1,8 @@
 ---
 published: true
-title: Debugging GeoPandas GeoPackage read/write
+title: Debugging GeoPandas GeoPackage IO
 layout: post
-summary: Steps in evaluating fid drop pattern during GeoPackage IO
+summary: Steps in evaluating fid drop pattern during GeoPackage read/write
 comments: true
 ---
 
