@@ -1,6 +1,6 @@
 ---
 published: true
-titlez Conveyal custom transit conversion
+title: Conveyal custom transit conversion
 layout: post
 summary: Representing custom transit in summary graph form
 comments: true
