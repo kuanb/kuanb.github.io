@@ -8,7 +8,7 @@ comments: true
 
 ## Introduction
 
-Conveyal offers an open source GTFS editing tool. You can read about it [here](https://blog.conveyal.com/conveyal-gtfs-editing-management-690061669be9). The tool allows for new lines to be drawn and described as a collection of stops and a line (shape) with operational characteristics held as metadata.
+Conveyal offers an open source GTFS editing tool. You can read about it [here](https://blog.conveyal.com/conveyal-gtfs-editing-management-690061669be9). The tool allows for new lines to be drawn and described as a collection of stops and a line (shape) with operational characteristics held as metadata. (Note: This information is out of date - see comments at the bottom of this post for details.)
 
 ![01](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/conveyal_transit_json/01.png)
 
@@ -185,3 +185,7 @@ You can see how these are used in the peartree library by viewing the `synthetic
 [Here is nodes data frame generation.](https://github.com/kuanb/peartree/blob/fbd32f1d971558f7f32530c99d43e7891b185b00/peartree/synthetic.py#L223-L245)
 
 [Here is edges data frame generation.](https://github.com/kuanb/peartree/blob/fbd32f1d971558f7f32530c99d43e7891b185b00/peartree/synthetic.py#L248-L289)
+
+#### Update
+
+* An update was requested by Anson at Conveyal. Per Anson: "For clarity, it might be good to specify that [I was] using the scenario editing features of [Conveyal Analysis](http://docs.analysis.conveyal.com/en/latest/edit-scenario/index.html). The "data tools ui" [that was referenced] is actually a separate codebase now under IBI's control." More on that can be found, [here](https://github.com/ibi-group/datatools-ui).
