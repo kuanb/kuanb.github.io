@@ -43,7 +43,7 @@ G_orig = G.copy()
 
 Drawing the graph will result in something like the following:
 
-![graph](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/conveyal_transit_json/graph.png)
+![graph](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/node-edge-addition/graph.png)
 
 ## Summarize existing network
 
