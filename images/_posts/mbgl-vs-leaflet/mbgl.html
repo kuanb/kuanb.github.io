@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Draw GeoJSON points</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id="count" style="position: fixed; top: 10px; left: 310px; background-color: #000; color: #fff; z-index: 1000; padding: 5px;">5</div>
+<div id='map'></div>
+<script>
+  const center = [-122.253, 37.823];
+  mapboxgl.accessToken = 'pk.eyJ1Ijoia3VhbmIiLCJhIjoidXdWUVZ2USJ9.qNKXXP6z9_fKA8qrmpOi6Q';
+  var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/light-v10',
+      center: center,
+      zoom: 13
+  });
+
+  const refData = {
+      "type": "FeatureCollection",
+      "features": [{
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "MultiPoint",
+          "coordinates": [center]
+        }
+      }]
+  };
+
+  const thetas = [Math.random()];
+
+  map.on('load', function () {
+
+    map.addSource('circlesSet', { type: 'geojson', data: refData });
+
+    map.addLayer({
+        "id": "circlesSet",
+        "type": "circle",
+        "source": 'circlesSet'
+    });
+
+    // Let's add or update all circles on map every N seconds
+    const circlesUpdater = setInterval(() => {
+
+      for (let i=0; i<thetas.length; i++) {
+        let ll = refData.features[0].geometry.coordinates[i];
+        let theta = thetas[i];
+
+        const radEarth = 6378;  // km
+        const dy = 0.01 * theta;
+        const dx = 0.01 * theta;
+        const degFactor = theta * 180;
+        const newLng = ll[0]  + (dy / radEarth) * (degFactor / Math.PI);
+        const newLat = ll[1] + (dx / radEarth) * (degFactor / Math.PI) / Math.cos(ll[0] * Math.PI/degFactor);
+
+        const newPos = [newLat, newLng];
+        if (inBounds(map, newPos)) {
+          refData.features[0].geometry.coordinates[i] = newPos;
+        } else {
+          refData.features[0].geometry.coordinates[i] = getRandomLatLng(map);
+        }
+      }
+
+      document.getElementById('count').textContent = `${thetas.length} dots`;
+      if (thetas.length > 2000) {
+        clearInterval(circlesUpdater);
+      }
+
+      // Add another circle with random direction
+      thetas.push(Math.random());
+      refData.features[0].geometry.coordinates.push(getRandomLatLng(map));
+
+      // Update the map
+      map.getSource('circlesSet').setData(refData);
+
+    }, 5);
+
+  });
+
+  function inBounds(map, lnglat) {
+    const bounds = map.getBounds();
+    const lng = (lnglat[0] - bounds['_ne']['lng']) * (lnglat[0] - bounds['_sw']['lng']) < 0;
+    const lat = (lnglat[1] - bounds['_ne']['lat']) * (lnglat[1] - bounds['_sw']['lat']) < 0;
+    return lng && lat;
+  }
+
+  function getRandomLatLng(map) {
+    var bounds = map.getBounds(),
+      southWest = bounds.getSouthWest(),
+      northEast = bounds.getNorthEast(),
+      lngSpan = northEast.lng - southWest.lng,
+      latSpan = northEast.lat - southWest.lat;
+
+    return [
+      southWest.lat + latSpan * Math.random(),
+      southWest.lng + lngSpan * Math.random()];
+  }
+</script>
+
+</body>
+</html>
