@@ -174,7 +174,7 @@ Ultimately, Mapbox GL has had far more time and effort invested in it to allow f
 
 ## Real World Reference Points
 
-I was then wondered: "Well, how many systems actually have a few hundred vehicles per hour in them that are being monitored? When and where would this be a real problem?"
+I then wondered to myself: "Well, how many systems actually have a few hundred vehicles per hour in them that are being monitored? When and where would this be a real problem?"
 
 I quickly wrote an extraction script to just evaluate the schedule of a given GTFS feed and see how many buses were supposed to be running at each hour of the day. I based this count of unique trip ids and separated based on stop times scheduled for each hour of the day. I filtered for just the busiest days schedule so as to generate a representative example of a "busy day" for a given operator.
 
