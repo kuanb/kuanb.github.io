@@ -129,6 +129,7 @@ layout: default
   var height = Math.max(window.innerHeight, 725);
 
   var oneDegree = Math.PI / 180;
+  var borderDrawDropWidth = 15;
   var shouldCreateSpurOdds = 0.5;
 
   var Boid = function (x, y, angle) {
@@ -189,8 +190,9 @@ layout: default
         if (this.lifeLeft <= 0) this.kill();
 
         // Remove if being drawn off screen
-        if (this.x < (Math.random() * 0.05) * width || this.x > width * (1 - Math.random() * 0.05)) this.kill();
-        if (this.y < (Math.random() * 0.05) * height || this.y > height * (1 - Math.random() * 0.05)) this.kill();
+        var tempSensitivity = Math.random() * borderDrawDropWidth;
+        if (this.x < tempSensitivity || this.x > width - tempSensitivity) this.kill();
+        if (this.y < tempSensitivity || this.y > height - tempSensitivity) this.kill();
 
       };
 
@@ -265,7 +267,7 @@ layout: default
       return false;
     } else if (boids.length < 2000) {
       if (runGreaterThanOdds(shouldCreateSpurOdds)) {
-        shouldCreateSpurOdds = Math.min(1, shouldCreateSpurOdds * (1.00005))
+        shouldCreateSpurOdds = Math.min(1, shouldCreateSpurOdds * (1.000025))
         return true;
       } else {
         return false;
