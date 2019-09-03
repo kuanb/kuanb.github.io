@@ -107,27 +107,6 @@ layout: default
   var metas = document.getElementsByTagName('meta');
   var i;
 
-  // this allows us to generate a color range and is borrowed
-  // from this JSFiddle: http://jsfiddle.net/snoapps/krzy3jwm/
-  function GColor(r, g, b) {
-    r = (typeof r === 'undefined')?0:r;
-    g = (typeof g === 'undefined')?0:g;
-    b = (typeof b === 'undefined')?0:b;
-    return {r:r, g:g, b:b};
-  }
-
-  function createColorRange(c1, c2) {
-    var colorList = [], tmpColor;
-    for (var i = 0; i < 255; i++) {
-      tmpColor = new GColor();
-      tmpColor.r = Math.round(c1.r + ((i*(c2.r-c1.r))/255));
-      tmpColor.g = Math.round(c1.g + ((i*(c2.g-c1.g))/255));
-      tmpColor.b = Math.round(c1.b + ((i*(c2.b-c1.b))/255));
-      colorList.push(tmpColor);
-    }
-    return colorList;
-  }
-
   // shim for iPhones...
   if (navigator.userAgent.match(/iPhone/i)) {
     for (i=0; i<metas.length; i++) {
@@ -145,81 +124,87 @@ layout: default
       }
     }
   }
+  // Update context canvas
+  var width = window.innerWidth;
+  var height = Math.max(window.innerHeight, 725);
 
-  // before we begin, we need a color range for the nodes
-  var lightBlue = new GColor(232, 134, 188);
-  var blue = new GColor(204, 0, 112);
-  var colorRange = createColorRange(lightBlue, blue);
-  var currentPointInRange = 0;
+  var oneDegree = Math.PI / 180;
+  var shouldCreateSpurOdds = 0.5;
 
-  // attribution: this is adapted from the
-  // work of: http://codepen.io/piksl/pen/EaxJxX
   var Boid = function (x, y, angle) {
       this.x = x;
       this.y = y;
+      this.angle = angle;
+      this.segments = []
 
-      this.angle = Math.pow(Math.random(), 90) + angle;
-      this.dx = Math.cos(this.angle);
-      this.dy = Math.sin(this.angle);
+      this.girth = 1;
 
       this.lifeFactor = Math.random();
-      this.life = this.lifeFactor * 100 + 100;
-      this.age = 0;
-      this.projectedAge = this.life;
+      this.lifeLeft = Math.ceil((this.lifeFactor * 100)) + 100;
+
+      this.projectedAge = this.lifeLeft;
       this.dead = false;
 
-      // stroke with determines by lifespan
-      this.girth = this.lifeFactor * 3;
-
       this.update = function () {
-        if (this.girth < 1.0) {
-          context.strokeStyle = '#29acd1';
-        } else if (this.girth < 2.0) {
-          context.strokeStyle = '#69c9e5';
-        } else {
-          context.strokeStyle = '#d0ecf4';
+        var oldX = this.x;
+        var oldY = this.y;
+
+        if (runGreaterThanOdds(0.5)) {
+          if (runGreaterThanOdds(0.5)) {
+            this.angle = this.angle * 1.05;
+          } else {
+            this.angle = this.angle * 0.95;
+          }
         }
+
+        var dx = Math.cos(this.angle);
+        var dy = Math.sin(this.angle);
+
+        context.strokeStyle = 'rgba(173,216,230,0.75)';
         
         context.beginPath();
         context.moveTo(this.x, this.y);
 
-        this.x += this.dx * 3;
-        this.y += this.dy * 3;
-        this.life -= 1;
-        this.age += 1;
+        this.x += dx * 3;
+        this.y += dy * 3;
+        this.lifeLeft -= 1;
 
         context.lineTo(this.x, this.y);
         context.lineWidth = this.girth;
         context.stroke();
 
-        var index = (Math.floor(this.x) + width * Math.floor(this.y)) * 4;
+        var newX = this.x;
+        var newY = this.y;
 
-        if (this.life <= 0) this.kill();
+        this.segments.push([
+          [oldX, oldY],
+          [newX, newY]])
+
+        var xFloorAdj = Math.floor(this.x);
+        var yFloorAdj = width * Math.floor(this.y);
+        var index = (xFloorAdj + yFloorAdj) * 4;
         if (data[index + 3] > 0) this.kill();
 
-        // remove if getting drawn off screen
-        if (this.x < 0 || this.x > width) this.kill();
-        // make the bottom edge randomly jagged
-        if (this.y < 0 || this.y > (height - (Math.random() * 100))) this.kill();
+        // Kill if lifespan reached
+        if (this.lifeLeft <= 0) this.kill();
+
+        // Remove if being drawn off screen
+        if (this.x < (Math.random() * 0.05) * width || this.x > width * (1 - Math.random() * 0.05)) this.kill();
+        if (this.y < (Math.random() * 0.05) * height || this.y > height * (1 - Math.random() * 0.05)) this.kill();
 
       };
 
       this.kill = function () {
-        boids.splice(boids.indexOf(this), 1);
         this.dead = true;
+
+        // Remove from reference list
+        boids.splice(boids.indexOf(this), 1);
 
         // sometimes, draw a dot like a transit stop
         if (Math.random() < 0.01) {
-          // we draw each circle a little darker than the last
-          if (currentPointInRange + 1 < colorRange.length) {
-            currentPointInRange += 1;
-          }
-          var rc = colorRange[currentPointInRange];
-          var fillColor = `rgba(${rc.r}, ${rc.g}, ${rc.b}, 0.25)`;
-
-          context.fillStyle = fillColor;
+          context.fillStyle = 'rgb(0, 51, 102, 0.75)';
           context.beginPath();
-          var radius = Math.max(this.lifeFactor * 5, 1);
+          var radius = Math.max(this.lifeFactor * 4, 1);
           context.arc(this.x, this.y, radius, 0, (2 * Math.PI));
           context.fill();
         }
@@ -227,44 +212,88 @@ layout: default
 
   };
 
-  var width = window.innerWidth;
-  var baseHeight = 725; // just some min pixel height
-  var height = Math.max(window.innerHeight, baseHeight) + 150;
-  if (height < baseHeight) height = baseHeight;
-
-  var heightStyleString = 'height:' + height + 'px';
-  var divToDrawIn = document.getElementById('whowhatwhere');
-  divToDrawIn.setAttribute('style', heightStyleString);
-
   var canvas = document.getElementById('world');
   canvas.width = width;
   canvas.height = height;
 
   var context = canvas.getContext('2d');
-  var image, data;
 
+  // Populate an initial boid set
   var boids = [];
-  boids.push(new Boid((width/2),
-                      (height/2),
-                      (Math.random() * 180 * Math.PI / 180)));
+  boids.push(new Boid(
+    width/2,
+    height/2,
+    90 * oneDegree));
 
-  var drawRate = (5 / 60.0); // 10 steps per 60 milliseconds?
+
+  // Interval operation to prune monitored data
+  var data;
   var drawInterval = setInterval(function () {
-      image = context.getImageData(0, 0, width, height);
-      data = image.data;
+    data = context.getImageData(0, 0, width, height).data;
 
-      for ( var i = 0; i < boids.length; i ++ ) {
-        var boid = boids[ i ];
-        boid.update();
+    // For each boid, we should run their update operation
+    for (var i = 0; i < boids.length; i++) {
+      var boid = boids[i];
+      boid.update();
 
-        // occasionally make a new spur off a branch
-        if (!boid.dead && Math.random() > 0.5 && boids.length < 500) {
-          var newBoidAngle = ((Math.random() > 0.5 ? 90 : - 90) * Math.PI/180 + boid.angle);
-          boids.push(new Boid(boid.x, boid.y, newBoidAngle));
+      // And, stochastically, generate new spurs
+      if (shouldCreateSpur(boid, boids)) {
+        var leftOrRightTurn = runGreaterThanOdds(0.5) ? 90 : -90;
+        var angleVarianceBase = 0.975
+        var angleVariance = angleVarianceBase + (Math.random() * (1 - angleVarianceBase));
+        var newBoidAngle = (
+          angleVariance *  leftOrRightTurn * oneDegree + boid.angle);
 
-        }
+        boids.push(new Boid(boid.x, boid.y, newBoidAngle));
       }
-  }, drawRate);
+    }
 
-  setTimeout(function () {clearInterval(drawInterval)}, 10000);
+  }, 1);
+
+  setTimeout(function () {clearInterval(drawInterval)}, 3000);
+
+
+  ////
+  // Utilities
+
+  function runGreaterThanOdds(odds) {
+    return Math.random() > odds;
+  }
+
+  function shouldCreateSpur(boid, boids) {
+    if (boid.dead) {
+      return false;
+    } else if (boids.length < 2000) {
+      if (runGreaterThanOdds(shouldCreateSpurOdds)) {
+        shouldCreateSpurOdds = Math.min(1, shouldCreateSpurOdds * (1.00005))
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  function isDrawnOn(context, width, height) {
+    var imageData = context.getImageData(0, 0, width, height);
+    var data = imageData.data;
+    var result = null;
+    var counter = 0;
+    var last = data.length - 1;
+    for (var i = 0; i < data.length; i++) {
+      if (i === last && counter !== 0 && counter === last) {
+        result = false;
+        break;
+      } else if (data[i] !== 0 && data[i] > 0) {
+        result = true;
+        break;
+      } else {
+        counter++;
+        continue;
+      }
+    }
+    return result;
+  }
+
 </script>
