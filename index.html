@@ -149,7 +149,7 @@ layout: default
         var a = this.path[i - 1];
         var b = this.path[i];
 
-        context.strokeStyle = 'rgba(0, 51, 102, 0.5)';
+        context.strokeStyle = 'rgba(0, 51, 102, 0.2)';
         context.beginPath();
 
         context.moveTo(a[0], a[1]);
@@ -173,7 +173,7 @@ layout: default
         var lastX = last[0];
         var lastY = last[1];
 
-        context.fillStyle = 'rgba(0, 51, 102, 0.3)';
+        context.fillStyle = 'rgba(0, 51, 102, 0.1)';
         context.beginPath();
         var radius = Math.random() * 3 + 1;
         context.arc(lastX, lastY, radius, 0, (2 * Math.PI));
