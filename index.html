@@ -124,6 +124,8 @@ layout: default
       }
     }
   }
+
+  // Update context canvas
   // Update context canvas
   var width = window.innerWidth;
   var height = Math.max(window.innerHeight, 725);
@@ -132,13 +134,59 @@ layout: default
   var borderDrawDropWidth = 15;
   var shouldCreateSpurOdds = 0.5;
 
+  var Agent = function (path) {
+    this.path = path;
+    this.increment = 1;
+    this.finished = false;
+
+    this.updateDrawnPath = function () {
+      var i = this.increment;
+
+      if (this.finished) {
+        return;
+
+      } else if (this.path[i]) {
+        var a = this.path[i - 1];
+        var b = this.path[i];
+
+        context.strokeStyle = 'rgba(0, 51, 102, 0.5)';
+        context.beginPath();
+
+        context.moveTo(a[0], a[1]);
+        context.lineTo(b[0], b[1]);
+
+        context.lineWidth = 1;
+        context.stroke();
+
+        context.fillStyle = 'rgba(0, 51, 102, 0.1)';
+        context.beginPath();
+        var radius = Math.random() * 4;
+        context.arc(b[0], b[1], radius, 0, (2 * Math.PI));
+        context.fill();
+
+        this.increment += 1;
+
+      } else {
+        this.finished = true;
+
+        var last = this.path[this.path.length - 1]
+        var lastX = last[0];
+        var lastY = last[1];
+
+        context.fillStyle = 'rgba(0, 51, 102, 0.3)';
+        context.beginPath();
+        var radius = Math.random() * 3 + 1;
+        context.arc(lastX, lastY, radius, 0, (2 * Math.PI));
+        context.fill();
+      }
+    }
+  };
+
   var Boid = function (x, y, angle) {
       this.x = x;
       this.y = y;
       this.angle = angle;
-      this.segments = []
-
-      this.girth = 1;
+      this.breadCrumbs = [[x,y]]
 
       this.lifeFactor = Math.random();
       this.lifeLeft = Math.ceil((this.lifeFactor * 100)) + 100;
@@ -150,36 +198,35 @@ layout: default
         var oldX = this.x;
         var oldY = this.y;
 
+        // Odds of turning decrease as path is longer
+        var oddsOfHardTurn = shouldCreateSpurOdds;
+
+
         if (runGreaterThanOdds(0.5)) {
           if (runGreaterThanOdds(0.5)) {
-            this.angle = this.angle * 1.05;
+            this.angle = this.angle + (Math.PI / 12);
           } else {
-            this.angle = this.angle * 0.95;
+            this.angle = this.angle - (Math.PI / 12);
+          }
+        } else if (runGreaterThanOdds(0.8)) {
+          if (runGreaterThanOdds(0.5)) {
+            this.angle = this.angle + (Math.PI / 2);
+          } else {
+            this.angle = this.angle - (Math.PI / 2);
           }
         }
 
         var dx = Math.cos(this.angle);
         var dy = Math.sin(this.angle);
 
-        context.strokeStyle = 'rgba(173,216,230,0.75)';
-        
-        context.beginPath();
-        context.moveTo(this.x, this.y);
-
         this.x += dx * 3;
         this.y += dy * 3;
         this.lifeLeft -= 1;
 
-        context.lineTo(this.x, this.y);
-        context.lineWidth = this.girth;
-        context.stroke();
-
         var newX = this.x;
         var newY = this.y;
 
-        this.segments.push([
-          [oldX, oldY],
-          [newX, newY]])
+        this.breadCrumbs.push([newX, newY]);
 
         var xFloorAdj = Math.floor(this.x);
         var yFloorAdj = width * Math.floor(this.y);
@@ -196,19 +243,41 @@ layout: default
 
       };
 
+      this.drawLastPath = function () {
+
+        var bcl = this.breadCrumbs.length;
+        if (bcl > 1) {
+
+          context.strokeStyle = 'rgba(173,216,230,0.75)';
+          context.beginPath();
+
+          var s1 = this.breadCrumbs[bcl - 2];
+          context.moveTo(s1[0], s1[1]);
+
+          var segment = this.breadCrumbs[bcl - 1];
+          var nextX = segment[0];
+          var nextY = segment[1];
+
+          context.lineTo(nextX, nextY);
+
+          context.lineWidth = 1;
+          context.stroke();
+        }
+
+      }
+
       this.kill = function () {
         this.dead = true;
 
         // Remove from reference list
-        boids.splice(boids.indexOf(this), 1);
-
-        // sometimes, draw a dot like a transit stop
-        if (Math.random() < 0.01) {
-          context.fillStyle = 'rgb(0, 51, 102, 0.75)';
-          context.beginPath();
-          var radius = Math.max(this.lifeFactor * 4, 1);
-          context.arc(this.x, this.y, radius, 0, (2 * Math.PI));
-          context.fill();
+        var removed = boids.splice(boids.indexOf(this), 1)[0];
+        if (removed.breadCrumbs.length > 25 &&
+            runGreaterThanOdds(0.5)) {
+          if (runGreaterThanOdds(0.5)) {
+            agents.push(new Agent(removed.breadCrumbs));
+          } else {
+            agents.push(new Agent(removed.breadCrumbs.reverse()));
+          }
         }
       };
 
@@ -227,6 +296,8 @@ layout: default
     height/2,
     90 * oneDegree));
 
+  var agents = [];
+
 
   // Interval operation to prune monitored data
   var data;
@@ -237,6 +308,7 @@ layout: default
     for (var i = 0; i < boids.length; i++) {
       var boid = boids[i];
       boid.update();
+      boid.drawLastPath();
 
       // And, stochastically, generate new spurs
       if (shouldCreateSpur(boid, boids)) {
@@ -250,9 +322,15 @@ layout: default
       }
     }
 
+    agents.forEach(function (agent) {
+      agent.updateDrawnPath();
+    });
+
   }, 1);
 
-  setTimeout(function () {clearInterval(drawInterval)}, 3000);
+  setTimeout(function () {
+    clearInterval(drawInterval);
+  }, 3000);
 
 
   ////
