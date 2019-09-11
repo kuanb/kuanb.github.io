@@ -190,11 +190,12 @@ layout: default
       this.x = x;
       this.y = y;
       this.angle = angle;
-      this.breadCrumbs = [[x,y]]
 
+      this.breadCrumbs = [];
       if (breadCrumbs && breadCrumbs.length) {
         this.breadCrumbs = this.breadCrumbs.concat(breadCrumbs);
       }
+      this.breadCrumbs = this.breadCrumbs.concat([x,y]);
 
       this.lifeFactor = Math.random();
       this.lifeLeft = Math.ceil((this.lifeFactor * 100)) + 100;
