@@ -328,7 +328,7 @@ layout: default
           angleVariance *  leftOrRightTurn * oneDegree + boid.angle);
 
         var carryOverCrumbs = [];
-        if (runGreaterThanOdds(0.5)) {
+        if (runGreaterThanOdds(shouldCreateSpurOdds - 0.25)) {
           carryOverCrumbs = boid.breadCrumbs;
         }
         boids.push(new Boid(boid.x, boid.y, newBoidAngle, carryOverCrumbs));
