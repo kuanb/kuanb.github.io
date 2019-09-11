@@ -153,7 +153,7 @@ layout: default
         var a = this.path[i - 1];
         var b = this.path[i];
 
-        context.strokeStyle = 'rgba(0, 51, 102, 0.2)';
+        context.strokeStyle = 'rgba(0, 51, 102, 0.1)';
         context.beginPath();
 
         context.moveTo(a[0], a[1]);
@@ -162,7 +162,7 @@ layout: default
         context.lineWidth = 1;
         context.stroke();
 
-        context.fillStyle = 'rgba(0, 51, 102, 0.1)';
+        context.fillStyle = 'rgba(0, 51, 102, 0.05)';
         context.beginPath();
         var radius = Math.random() * 4;
         context.arc(b[0], b[1], radius, 0, (2 * Math.PI));
@@ -177,7 +177,7 @@ layout: default
         var lastX = last[0];
         var lastY = last[1];
 
-        context.fillStyle = 'rgba(0, 51, 102, 0.1)';
+        context.fillStyle = 'rgba(0, 51, 102, 0.05)';
         context.beginPath();
         var radius = Math.random() * 3 + 1;
         context.arc(lastX, lastY, radius, 0, (2 * Math.PI));
@@ -186,11 +186,15 @@ layout: default
     }
   };
 
-  var Boid = function (x, y, angle) {
+  var Boid = function (x, y, angle, breadCrumbs) {
       this.x = x;
       this.y = y;
       this.angle = angle;
       this.breadCrumbs = [[x,y]]
+
+      if (breadCrumbs && breadCrumbs.length) {
+        this.breadCrumbs = this.breadCrumbs.concat(breadCrumbs);
+      }
 
       this.lifeFactor = Math.random();
       this.lifeLeft = Math.ceil((this.lifeFactor * 100)) + 100;
@@ -275,8 +279,8 @@ layout: default
 
         // Remove from reference list
         var removed = boids.splice(boids.indexOf(this), 1)[0];
-        if (removed.breadCrumbs.length > 25 &&
-            runGreaterThanOdds(0.5)) {
+        if (removed.breadCrumbs.length > 50 &&
+            runGreaterThanOdds(0.25)) {
           if (runGreaterThanOdds(0.5)) {
             agents.push(new Agent(removed.breadCrumbs));
           } else {
@@ -322,19 +326,30 @@ layout: default
         var newBoidAngle = (
           angleVariance *  leftOrRightTurn * oneDegree + boid.angle);
 
-        boids.push(new Boid(boid.x, boid.y, newBoidAngle));
+        var carryOverCrumbs = [];
+        if (runGreaterThanOdds(0.5)) {
+          carryOverCrumbs = boid.breadCrumbs;
+        }
+        boids.push(new Boid(boid.x, boid.y, newBoidAngle, carryOverCrumbs));
       }
     }
-
-    agents.forEach(function (agent) {
-      agent.updateDrawnPath();
-    });
 
   }, 1);
 
   setTimeout(function () {
     clearInterval(drawInterval);
+
+    var agentDrawInterval = setInterval(function () {
+      agents.forEach(function (agent) {
+        agent.updateDrawnPath();
+      });
+    }, 75);
+
   }, 3000);
+
+  setTimeout(function () {
+    clearInterval(agentDrawInterval);
+  });
 
 
   ////
