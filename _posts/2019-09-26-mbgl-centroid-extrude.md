@@ -94,4 +94,4 @@ map.on('moveend', event => {
 });
 {% endhighlight %}
 
-You can explore the full result of this example on [this gh-pages](http://kuanbutts.com/vector_centroids_example/).
+You can explore the full result of this example on [this static page](http://kuanbutts.com/vector_centroids_example/).
