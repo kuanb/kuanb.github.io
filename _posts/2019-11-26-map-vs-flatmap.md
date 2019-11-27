@@ -9,7 +9,7 @@ comments: true
 
 ## Introduction
 
-I recently encountered a "lightweight" implementation of Monads and Options implemented in Python. The point of this post is not to introduce those ideas, but to cover and try to explain (to myself, as well) the difference between two types of function programming methods: Map and FlatMap. These patterns are tied with the use of Options (which I will briefly introduce). I found [this](https://www.baeldung.com/java-difference-map-and-flatmap) site helpful but wanted to write an even higher level version that is not tied to existing APIs in languages with stronger support for function programming patterns. So, in this post, I will draw attempt to illustrate the difference in the pattern between Map and FlatMap (and why you would use one versus the other) without diving into the details of specific APIs in such languages.
+I recently encountered a "lightweight" implementation of Monads and Options implemented in Python. The point of this post is not to deep dive into those two, but rather to "zoom out" and try to explain (to myself, as well) the difference between two types of functional programming methods frequently associated with them: Map and FlatMap. These patterns are tied with the use of Options (which I will briefly introduce). I found [this](https://www.baeldung.com/java-difference-map-and-flatmap) site helpful but wanted to write an even higher level version that is not tied to existing APIs in languages with stronger support for function programming patterns. So, in this post, I will draw attempt to illustrate the difference in the pattern between Map and FlatMap (and why you would use one versus the other) without diving into the details of specific APIs in such languages.
 
 
 ### Map explanation
