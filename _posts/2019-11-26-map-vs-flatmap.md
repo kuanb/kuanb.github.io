@@ -18,7 +18,7 @@ First, let's consider an array of integers.
 
 {% highlight python %}
 # A list where each val is an int in array
-list_1 = [1, 2, a3]
+list_1 = [1, 2, 3]
 {% endhighlight %}
 
 Let's consider each item in the list. Each item can be an "Option." A key aspect of the option that is leveraged by these mapping operations is the fact that an option has a state. That is, it can either be something or nothing (2 states). If it is something, it has a value. If it is not something (`nil`), then it's value is `None`, effectively. We can represent an Option in this example post as an array of length 0 or 1. If the array has a value in it, it is "something." Otherwise, it is an empty array and has nothing, no value in it (a `None`).
