@@ -87,7 +87,7 @@ list_4 = map_ex(list_opt, lambda x: [map_ex(y, lambda z: z + 100) for y in x])
 
 ### FlatMap explanation
 
-FlatMap differs from Map in that it returns a raw value. That is, while Map returns an Option, FlatMap returns a value (or `None` value) for each option, regardless of whether it is a "something" or a "nothing." We can now write a FlatMap example operation that demonstrates how this method differs from Map.
+FlatMap differs from Map in a key way. Instead of the Map operation returning an Option automatically, it instead requires that the function passed to it return an Option type result itself. That is, while Map returns an Option, FlatMap returns a value (or `None` value) for each option, regardless of whether it is a "something" or a "nothing" and requires that the input method applied return an Option type response. We can now write a FlatMap example operation that demonstrates how this method differs from Map.
 
 {% highlight python %}
 from functools import reduce
@@ -100,7 +100,7 @@ def get_val(o):
 # values instead? FlatMap can help here
 def flatmap_ex(o, f):
     v = get_val(o)
-    return None if v is None else f(v)
+    return [None] if v is None else f(v)
 {% endhighlight %}
 
 Just as before, we can watch this play out with single examples of options that have a value (are something) and do not (are nothing).
@@ -111,14 +111,14 @@ Just as before, we can watch this play out with single examples of options that 
 # whether or not the value exists (using
 # a None to represent values that are not
 # something)
-flatmap_ex([6], lambda x: x**2)
-# 36
+flatmap_ex([6], lambda x: [x**2])
+# [36]
 
-flatmap_ex([], lambda x: x**2)
-# None
+flatmap_ex([], lambda x: [x**2])
+# []
 {% endhighlight %}
 
-Just like we did with the Map, we can also cast the list of options as an option itself and design a method that processes all options in the list via the FlatMap method. In this case, the result will be a list of "raw" values (just the `int` values) and no options anymore.
+Now, the power of a FlatMap becomes more apparent when more types of Options are introduced. Right now, the pattern will look similar to a Map operation as the requirement to cast as an Option type has now just moved into the parameterized lambda.
 
 {% highlight python %}
 # And, again, we can consider the parent array of options
@@ -126,11 +126,13 @@ Just like we did with the Map, we can also cast the list of options as an option
 # on that as we did with map before
 list_opt = [list_3]
 
-list_5 = flatmap_ex(list_opt, lambda x: [flatmap_ex(y, lambda z: z + 100) for y in x])
-# [101, 102, None, 104]
+list_5 = flatmap_ex(list_opt, lambda x: [flatmap_ex(y, lambda z: [z + 100]) for y in x])
+# [[101], [102], [None], [104]]
 {% endhighlight %}
+
+In a more functional pattern, the Option itself would have various subclasses and you would want to potentially recast the option type. In this example, we just have one Option type represented by the bracketed integer value, but in a more complete implementation, this FlatMap would allow you to control what type of Option is returned such that Option type A would not just return another Option type A but could be converted in a FlatMap operation to return an alternative Option, say Option type B.
 
 
 ### Conclusion
 
-I hope this simple example helps explain the difference between Map and FlatMap. In some instances, relying on "raw" outputs (outputs based on the values associated with the processed Options rather than an Option representation of that) can be desired whereas, in other instances, it might be more useful to rely on the mapped output's Option result.
+I hope this simple example helps explain the difference between Map and FlatMap. In some instances, controlling Option type on outputs can be desired whereas, in other instances, it might be more useful to rely on the mapped output's preceding, default Option type.
