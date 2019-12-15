@@ -123,7 +123,7 @@ We can now view this file in browser, as shown in the below screen shot:
 
 ![routes](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/gtfs_tippecanoe/routes.png)
 
-To quickly view the lines, there's an `nom` package called `mbview` that will quickly serve the data up locally:
+To quickly view the lines, there's an `npm` package called `mbview` (package [details here](https://www.npmjs.com/package/mbview)) that will quickly serve the data up locally:
 
 {% highlight bash %}
 mbview --port 9000 ./transit_lines.mbtiles
