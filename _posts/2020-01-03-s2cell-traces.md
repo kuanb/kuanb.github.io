@@ -11,6 +11,8 @@ comments: true
 
 The intent of this post is to demonstrate how one might use a hierarchical system (in this case, [S2 cells](https://s2geometry.io/devguide/s2cell_hierarchy.html)) to summarize discrete agent trips in a summary fashion that attempts to address privacy concerns by agglomerating sparse trace patterns at higher levels of aggregation.
 
+![example_black](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/s2cell-traces/example_black.png)
+
 That is, by reducing the accuracy with more coarse approximations where a plurality of location data is lacking, trace attributes can be preserved and summarized over larger areas where data volume is deemed sufficient for representation.
 
 ### Details
