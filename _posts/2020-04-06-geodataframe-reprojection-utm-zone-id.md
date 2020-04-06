@@ -66,9 +66,9 @@ dtype: float64
 
 As a result, we can find the average and use this as a reference value:
 
+{% highlight python %}
 import numpy as np
 
-{% highlight python %}
 # create a representative longitudinal value
 representative_longitude = round(np.mean(all_longitudes), 10)
 representative_longitude
