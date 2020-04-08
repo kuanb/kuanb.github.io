@@ -11,7 +11,7 @@ comments: true
 
 It is common to deal with data coming in a format where `x` values are represented by longitudinal coordinates and `y` values are represented by latitudinal coordinates. This format, known as WGS 84 or EPSG 4326, is outlined in greater detail [here](https://en.wikipedia.org/wiki/World_Geodetic_System).
 
-Often, in a Python workroom, this data will be read into a GeoDataFrame where the geometric shapes are paired with other metadata (in other columns). Subsequent manipulations may require distance calculations.
+Often, in a Python workflow, this data will be read into a GeoDataFrame where the geometric shapes are paired with other metadata (in other columns). Subsequent manipulations may require distance calculations.
 
 Because a system might be used to process data from one part of the world and then, later, from another; it helps to calculate the projection on the fly. This blog post documents how to do this quickly.
 
