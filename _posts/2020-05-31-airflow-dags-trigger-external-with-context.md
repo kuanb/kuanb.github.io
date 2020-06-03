@@ -78,9 +78,15 @@ def trigger_dag_b(context):
         task_id='unique_dag_run_operator_id',
         trigger_dag_id='dag_b_id',
         python_callable=update_payload,
-        params={ 'ds': "{{ dag_run.conf['ds'] }}" },
+        params={ 'ds': "< see below >" },
     ).execute(context)
 {% endhighlight %}
+
+Note due to issues with templating for this blog, the params is called out separately in the below code snippet:
+
+{% raw %}
+params={ 'ds': "{{ dag_run.conf['ds'] }}" },
+{% endraw %}
 
 Now, `dag_b` needs to be able to access this variable not from the typical context key-value location for the `ds` string, but instead from the DAG run configuration. So, originally, `dag_b` might have accessed the dete string in a Python callable via `context["ds"]` - but now it would need to access it through the DAG run configuration: `context["dag_run"].conf["ds"]`.
 
