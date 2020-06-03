@@ -78,7 +78,7 @@ def trigger_dag_b(context):
         task_id='unique_dag_run_operator_id',
         trigger_dag_id='dag_b_id',
         python_callable=update_payload,
-        params={ 'ds': '{{ dag_run.conf[\'ds\'] }}' },
+        params={ 'ds': "{{ dag_run.conf['ds'] }}" },
     ).execute(context)
 {% endhighlight %}
 
