@@ -83,3 +83,24 @@ def trigger_dag_b(context):
 {% endhighlight %}
 
 Now, `dag_b` needs to be able to access this variable not from the typical context key-value location for the `ds` string, but instead from the DAG run configuration. So, originally, `dag_b` might have accessed the dete string in a Python callable via `context["ds"]` - but now it would need to access it through the DAG run configuration: `context["dag_run"].conf["ds"]`.
+
+{% highlight python %}
+dag_b = DAG(
+    'dag_b_id',
+    default_args={ ... },
+    schedule_interval=None,
+    catchup=False,
+)
+
+def call_with_desired_context(**context):
+	ds = context["dag_run"].conf["ds"]
+	# trigger lambda, do whatever you want with this ds
+	# which will now be the same as the one from dag_a
+
+PythonOperator(
+    dag=dag_b,
+    task_id='some_task_id',
+    python_callable=call_with_desired_context,
+    provide_context=True,
+)
+{% endhighlight %}
