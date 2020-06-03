@@ -110,3 +110,15 @@ PythonOperator(
     provide_context=True,
 )
 {% endhighlight %}
+
+Finally, as an aside, note that in the case of passing through the `ds` from `context`, it is also an option to use execution date. So, if all you need is date, then the date for the subsequent execution can be passed through via:
+
+{% highlight python %}
+def trigger_dag_b(context):
+    TriggerDagRunOperator(
+        task_id='unique_dag_run_operator_id',
+        trigger_dag_id='dag_b_id',
+        python_callable=None,
+	execution_date=context['ds'],
+    ).execute(context)
+{% endhighlight %}
