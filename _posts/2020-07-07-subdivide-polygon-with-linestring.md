@@ -6,6 +6,7 @@ summary: Adapting split strategies from Shapely to TurfJS
 comments: true
 ---
 
+<source src="https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/divide_poly_by_line/site.mp4" type="video/mp4">
 
 ## Introduction
 
