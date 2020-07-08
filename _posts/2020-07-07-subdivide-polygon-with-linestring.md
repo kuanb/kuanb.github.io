@@ -6,8 +6,6 @@ summary: Adapting split strategies from Shapely to TurfJS
 comments: true
 ---
 
-<source src="https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/divide_poly_by_line/site.mp4" type="video/mp4">
-
 ## Introduction
 
 I recently wanted to explore if it was possible to divide a polygon into two parts by slicing it with a line. My initial exploration involved triangulating the polygon based on all intersecting points on the polygon exterior with the line string and then re-assembling from there.
@@ -21,6 +19,16 @@ In response to this proposal, a Twitter user pointed out that Shapely in fact al
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Oh wow that&#39;s embarrassing! Thanks for pointing that out. For some reason, I&#39;d always been under the impression it did (multi)linestrings split by points, but not polygons. 😐 <a href="https://t.co/nUTIiCkNpi">pic.twitter.com/nUTIiCkNpi</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/1267127906330763266?ref_src=twsrc%5Etfw">May 31, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Above: A Twitter user pointing out the `split()` functionality that is available in Shapely now.
+
+Learning about this method lead me to want to do two things:
+1. Learn how the method worked in Shapely (what was the underlying algorithm).
+2. There did not appear to be a method that was the same in TurfJS - so could I learn from the algorithm in Shapely and re-implement the slice method in TurfJS?
+
+<video width="480" height="320" controls="controls">
+<source src="https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/divide_poly_by_line/site.mp4" type="video/mp4">
+</video>
+
+Having it run in TurfJS would be advantageous because I could leverage interactive drawing tools in MapboxGL and allow a user to draw the line string that they wanted to use to cut the polygon. I ended up making a crude site to demonstrate this functionality (as is shown above).
 
 
 ## How Shapely cuts polygons
