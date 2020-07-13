@@ -87,7 +87,7 @@ The logic followed parallels that used in Shapely. Although TurfJS does not have
 
 We can see this logic [applied in the code](https://gist.github.com/kuanb/0cd97a02ea4aefff85f20fb0475d3ec4#file-index-html-L103-L116) as well as extracted and highlighted below:
 
-{% highlight python %}
+{% highlight javascript %}
 const polyAsLine = turf.polygonToLine(poly);
 const unionedLines = turf.union(polyAsLine, line);
 const polygonized = turf.polygonize(unionedLines);
