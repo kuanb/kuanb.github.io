@@ -19,7 +19,6 @@ Below is an example function that I see often in pyspark code (see below). This 
 
 {% highlight python %}
 def method_orig(spark):
-    """Simple example script that runs an ETL“””
     sql_str = "SELECT foo, bar FROM tmp.table_get"
     df = spark.sql(sql_str)
 
