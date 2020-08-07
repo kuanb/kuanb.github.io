@@ -7,13 +7,13 @@ comments: true
 ---
 
 
-# Introduction
+## Introduction
 
 I recently have been working on a pyspark codebase that has been bogged down by long-running tests. One pattern I noticed in the code that I’ve not observed contributes greatly to test runtime is data warehouse queries. These reads and writes from the data warehouse are slow and, when multiplied by the hundreds of tests in a codebase, can begin to impact developer velocity negatively.
 
 This post will demonstrate a typical example function that I’ve been dealing with and how to restructure it to leverage Python’s `unittest.mock` library to isolate and `patch` data warehouse interactions. It will then show how that speeds up test performance.
 
-# Example function
+## Example function
 
 Below is an example function that I see often in pyspark code (see below). This function in fact does 3 things: First, it performs a query and extracts some data, then it performs a set of transformations on that data, and then finally it writes the results. This is a traditional ETL process, of course.
 
@@ -38,7 +38,7 @@ def method_orig(spark):
 
 These types of functions are often the “parent” or `main()` operations that, when triggered, perform some regular scheduled analysis. In “real life” the data warehouse reads, transformations, and writes are all far more complex, but at the end of the day follow this approximate pattern.
 
-# Testing example function
+## Testing example function
 
 We can write a test for the above function, but it will require a great deal of “set up” and “tear down.” Below is an example of what a test might look like for the example function, based on what I’ve encountered with these pyspark codebases:
 
@@ -72,7 +72,7 @@ There are a number of risks with this pattern - namely that tables and databases
 
 Beyond code clarity issues, verbose tests, and potential to create messy test environments - there’s a performance impact of this pattern. Round-trips to and from a “data warehouse” with pyspark is slow. Add enough of these tests and your tests will quickly balloon in runtime.
 
-# A better pattern
+## A better pattern
 
 First we need to ask ourselves what we are really trying to test. With pyspark code, it will be inevitable that there will be a large parent function that ties together a read/transform/write string of steps. But we need to compartmentalize each of these actions with more discrete unit tests and only tie together all the related steps in a very controlled manner with as limited tests as possible. Doing so will drastically improve the tests’ run time.
 
@@ -111,7 +111,7 @@ The main method function now reads as a play script for what steps need to be or
 
 We can now test the key functions that are code we are developing specifically - especially those in the transformation step(s).
 
-# Testing the new pattern
+## Testing the new pattern
 
 In our tests, we can now explicitly test the transformation functions we desire, isolated from the database read/writes.
 
@@ -150,7 +150,7 @@ def raw_df():
     return spark.createDataFrame(rows)
 {% endhighlight %}
 
-# Results
+## Results
 
 Not only is the refactored code cleaner and more readable, but the tests also run significantly faster.
 
