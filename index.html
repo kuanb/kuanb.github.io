@@ -10,7 +10,9 @@ layout: default
       who, what, where
     </span>
 
-    <canvas id='world' style="height: 350px; width: 100%; margin-top: -100px"></canvas>
+    <div id="worldContainer" style="height: 350px; width: 100%; margin-top: -100px">
+      <canvas id='world' style="height: 100%; width: 100%;"></canvas>
+    </div>
 
     <div class="blurb">
       <div class='splash'>
@@ -96,7 +98,15 @@ layout: default
   var metas = document.getElementsByTagName('meta');
   var i;
 
-  // Update context canvas
+  // Update context canvas if vertical screen
+  var check1 = window.innerHeight > window.innerWidth;
+  var check2 = window.innerWidth <= 600;
+  var check12 = check1 && check2;
+  if (check12) {
+    var newHeight = window.innerWidth * .5;
+    document.getElementById("worldContainer").style.height = `${newHeight}px`;
+  }
+
   // Update context canvas
   var width = document.getElementById('world').width * 2;
   var height = document.getElementById('world').height * 3;
