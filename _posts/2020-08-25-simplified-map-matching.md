@@ -174,7 +174,7 @@ class StateNode():
 
 To initialize the state graph, we first need to iterate through each trace coordinate point and get the potential edges that are near it. Then, for each, we create a `StateNode`. Each of these get added to the graph and a link is created from each of the previous state column's state nodes to each of the state
 
-![state_node_trellis_fleshed_out](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/mapmatch_simple/state_node_trellis_fleshed_out)
+![state_node_trellis_fleshed_out](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/mapmatch_simple/state_node_trellis_fleshed_out.png)
 
 Once initialized as shown in the example chart above, we can see how each candidate state node in each state column is connected in one direction to each state node in the state column to the left. Then, on either end, are the start and end node.
 
