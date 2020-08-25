@@ -9,7 +9,7 @@ comments: true
 
 ## Introduction
 
-I recently have been working on a pyspark codebase that has been bogged down by long-running tests. One pattern I noticed in the code that I’ve not observed contributes greatly to test runtime is data warehouse queries. These reads and writes from the data warehouse are slow and, when multiplied by the hundreds of tests in a codebase, can begin to impact developer velocity negatively.
+I recently have been working on a pyspark codebase that has been bogged down by long-running tests. One pattern I noticed in the code that I’ve not observed contributes greatly to test runtime is data warehouse queries. (Note that when I say data warehouse in the testing context, I'm referring to a local "warehouse" held in `tmp/` for testing purposes.) These reads and writes from the data warehouse are slow and, when multiplied by the hundreds of tests in a codebase, can begin to impact developer velocity negatively.
 
 This post will demonstrate a typical example function that I’ve been dealing with and how to restructure it to leverage Python’s `unittest.mock` library to isolate and `patch` data warehouse interactions. It will then show how that speeds up test performance.
 
