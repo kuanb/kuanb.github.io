@@ -202,7 +202,7 @@ def add_footpath_transfers(
 Another optimization is introduced, that you might notice, is that stops that have already been geo-processed with near pairs found are also tracked. This helps save some time performing intersections. Using a spatial r-tree index would help speed this up further. Again, the point still stands that the number of new qualifying stops in later rounds are so great as to far exceed those in earlier transfer counts. The result of this is that the caching/skipping does not produce significant performance speedups.
 
 
-## Discussing of results
+## Discussion of results
 
 As mentioned above, the performance speed up is rather marginal because of the high level of fan-out that occurs on later iterations of transfers. A summary is presented below:
 
