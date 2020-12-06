@@ -1,3 +1,11 @@
+---
+published: true
+title: Regex conditionals and non-capturing groups
+layout: post
+summary: Notes from challenges during parsing of AWS access logs
+comments: true
+---
+
 # Introduction
 
 This post documents notes on parsing access logs for S3 buckets. Specifically, I review how to conditionally evaluate for values that may or may not exist in a string w/ regex.
