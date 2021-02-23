@@ -13,7 +13,7 @@ RAPTOR stands for: “novel RoundbAsed Public Transit Optimized Router.” It’
 
 There are numerous optimizations presented both in this paper and in broader discussion of the algorithm. The goal of this post is to skip all of that discussion and show the most stripped down version of the algorithm possible, to clearly demonstrate it’s fundamental concept. This version is not intended to be performant, but it does work and is hopefully simple enough to be easily digestible.
 
-I’ve included all this work in a [notebook hosted on Github Gists](http://127.0.0.1:9797/notebooks/raptor.ipynb#) for reference as well. In this post, I will take snippets from that code, but you can reference the original for the total set of scripts to run end-to-end. In the future, I’ll follow up on this post with an example that also brings in some of the additional performance optimizations presented.
+I’ve included all this work in a [notebook hosted on Github Gists](https://gist.github.com/kuanb/755ba136ff9ec0bea24ca4962a33168c) for reference as well. In this post, I will take snippets from that code, but you can reference the original for the total set of scripts to run end-to-end. In the future, I’ll follow up on this post with an example that also brings in some of the additional performance optimizations presented.
 
 ## Base data and tools
 
