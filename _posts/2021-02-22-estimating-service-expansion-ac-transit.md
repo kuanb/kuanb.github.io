@@ -24,7 +24,9 @@ The methodology for the above was shared [here](https://transitcenter.org/wp-con
 7) Downloaded lines as “After”
 {% endhighlight %}
 
-We can model this same sort of methdology with just the raw GTFS and (I think) generate a comparable result.
+We can model this same sort of methdology with just the raw GTFS and (I think) generate a comparable result. I've posted the visual results of this effort on Twitter in response as well (shown below). The remainder of this post outlines my version of the stated approach to estimate what the new 15-minute headway map would for a given service provider (in this case, AC Transit) if they were to increase their budget by 40%.
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Saw in <a href="https://twitter.com/TransitRidersEB?ref_src=twsrc%5Etfw">@TransitRidersEB</a> meeting recap email they wanted to see what weekday <a href="https://twitter.com/rideact?ref_src=twsrc%5Etfw">@rideact</a> 15-min headway service would look like w/ a 40% budget increase.<br><br>I took a stab at estimating this myself. Resulting current and projected images below.<br><br>Methodology: <a href="https://t.co/mEUlVVl8ku">https://t.co/mEUlVVl8ku</a> <a href="https://t.co/ciL3vvK2tn">pic.twitter.com/ciL3vvK2tn</a></p>&mdash; Kuan Butts (@buttsmeister) <a href="https://twitter.com/buttsmeister/status/1364109705610629120?ref_src=twsrc%5Etfw">February 23, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 # My version of the workflow
 
