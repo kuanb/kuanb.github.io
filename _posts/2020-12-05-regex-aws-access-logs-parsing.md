@@ -1,8 +1,8 @@
 ---
 published: true
-title: Regex conditionals and non-capturing groups
+title: Notes from challenges during parsing of AWS access logs
 layout: post
-summary: Notes from challenges during parsing of AWS access logs
+summary: Regex conditionals and non-capturing groups
 comments: true
 ---
 
