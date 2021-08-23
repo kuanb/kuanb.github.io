@@ -28,6 +28,7 @@ gpd.GeoSeries([seg1, seg2]).plot(figsize=(3,3), color=["orange", "green"])
 {% endhighlight %}
 
 This will render the following:
+
 ![two_lines](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/calculate-angle/1.png)
 
 ## Calculating angles
