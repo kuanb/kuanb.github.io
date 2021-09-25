@@ -6,6 +6,10 @@ summary: Adapting split strategies from Shapely to TurfJS
 comments: true
 ---
 
+#### Update
+
+Note that the method/solution shown below works with Turf version 5.1.6 and prior. Turf v6 has introduced breaking changes that do not allow the below solution to work. I will update later if I am able to determine a work-around.
+
 ## Introduction
 
 I recently wanted to explore if it was possible to divide a polygon into two parts by slicing it with a line. My initial exploration involved triangulating the polygon based on all intersecting points on the polygon exterior with the line string and then re-assembling from there.
