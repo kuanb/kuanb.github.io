@@ -11,11 +11,11 @@ My interests lie in the implementation of digital solutions in engaging spatial 
 
 ## Work and project highlights
 
-### [Mapbox](https://www.mapbox.com/)
+### [Mapbox Movement Index](https://www.mapbox.com/movement-data)
 
 <iframe width="100%" max-width="768" height="315" src="https://www.youtube.com/embed/qeJ_EXNGDXg?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 
-At [Mapbox](https://www.mapbox.com/) I work on telemetry pipelines converting motion data from the billions of applications running Mapbox's SDK into information like relative global movement indices as well road segment-level traffic speeds. This entails the development and maintaining of large scale data pipelines to produce modality classification models that segment obseved movement by type (e.g. car, walk, bike) as well as pinpointing traffic routing aberations across our global transportation network model.
+At [Mapbox](https://www.mapbox.com/) I work on telemetry pipelines converting motion data from the billions of applications running Mapbox's SDK into information like relative global movement indices as well road segment-level traffic speeds. This entails the development and maintaining of large scale data pipelines to produce modality classification models that segment observed movement by type (e.g. car, walk, bike) as well as pinpointing traffic routing aberrations across our global transportation network model. One output of this is a "Movement" index which allows for calculation of relative change of traffic and activity levels across metropolitan areas, countries, or the world; aggregated to a variety of temporal scales (minutes, hours, days, types of days in months, etc). The above video demonstrates one such application of this index to understand relative segment-level changes in traffic patterns.
 
 <hr>
 
