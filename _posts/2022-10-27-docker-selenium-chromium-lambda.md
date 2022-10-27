@@ -22,6 +22,8 @@ Two key lessons I learned from this effort:
 
 2. Installing the Chrome or Chromium browser via `wget` or `curl` versus `apt-get` seems to cause issues with how the binary is stored and made available in `PATH`. Even when the location of the browser binary was specified, there remained issues with browser initialization or getting the `chromedriver` to play nice with the browser. Ultimately, installing via `apt-get` circumvented these issues and resulted in a clean install and, in conjunction with 1 above, allowed successful headless browser operation within the Lambda infrastructure.
 
+In both of the above cases, the Docker container ran fine with the [AWS Runtime Interface Emulator](https://docs.aws.amazon.com/lambda/latest/dg/images-test.html#images-test-limitations) locally - I was able to simulate Lambda invocations and they would complete successfully within the container. In such cases, I would then deploy to AWS infrastructure only to experience random `chromedriver` initialization failures during invocation. This was a deeply frustrating and time-consuming process.
+
 ## Selenium initialization
 
 The settings I used for Lambda use of Selenium with Chromium via the `options` class are as shown:
