@@ -54,6 +54,18 @@ Note the final line in the above code block. The binary location setting is what
 
 Also note that the `user-data-dir` parameter was set to the `tmp` directory. Because Lambda has a read only file system, we need to ensure that any write activity is scoped specifically to the `tmp` directory which is the sole location that allows intermediate writes during a Lambda's runtime (not preserved). Also keep this in mind when saving your screen captures to local during a Lambda invocation. Saved images can then be moved from `tmp` to S3 for future retrieval or use.
 
+Initialization of the Selenium `WebDriver` occured by incorporating those setting options alongside the driver location:
+```
+# install location as a result of apt-get install
+driver_path = "/usr/lib/chromium-browser/chromedriver"
+
+# return this initialized driver
+webdriver.Chrome(
+    chrome_options=options,
+    executable_path=driver_path,
+)
+```
+
 ## Dockerfile
 
 Without further ado, here's the Dockerfile that I found successfully installed Selenium, Chromium, and the related Chromedriver:
