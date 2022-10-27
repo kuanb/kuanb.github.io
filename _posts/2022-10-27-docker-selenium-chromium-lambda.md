@@ -50,6 +50,8 @@ options.add_argument("--remote-debugging-port=9222")
 
 Note the final line in the above code block. The binary location setting is what could be adjusted if one were to try and install the browser and driver manually as described above. However, I remained unsuccessful at this and ultimately went with `apt-get` to install the driver and browser.
 
+Also note that the `user-data-dir` parameter was set to the `tmp` directory. Because Lambda has a read only file system, we need to ensure that any write activity is scoped specifically to the `tmp` directory which is the sole location that allows intermediate writes during a Lambda's runtime (not preserved). Also keep this in mind when saving your screen captures to local during a Lambda invocation. Saved images can then be moved from `tmp` to S3 for future retrieval or use.
+
 ## Dockerfile
 
 Without further ado, here's the Dockerfile that I found successfully installed Selenium, Chromium, and the related Chromedriver:
