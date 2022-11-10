@@ -1,8 +1,8 @@
 ---
 published: true
-title: Trino/Presto spherical distance measures of WGS84 coordinate data
+title: Trino/Presto spherical distance capabilities
 layout: post
-summary: AWS Engine V3 now supports full Trino geospatial functions
+summary: AWS Engine V3 now supports full Trino geospatial functions from coordinate data
 comments: true
 ---
 
