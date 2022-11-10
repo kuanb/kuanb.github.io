@@ -14,7 +14,7 @@ With version 3, new operators allow for more advanced spatial operations to be p
 
 In this blog post, I will demonstrate a quick example of using these features to calculate attributes from more "complex" spatial types. The [Trino documentation](https://trino.io/docs/current/functions/geospatial.html#ST_GeometryFromText) already describes how to use a `to_spherical_geography` to calculate great circle distance between two points cast as `ST_Point()` objects:
 
-```
+```sql
 ST_Distance(to_spherical_geography(ST_Point(-71.0882, 42.3607)), to_spherical_geography(ST_Point(-74.1197, 40.6976)))
 ```
 
@@ -24,25 +24,25 @@ Let's say your data is stored in the following format with a coordinate array re
 
 First, the start data:
 
-```
+```sql
 select '[[130.266523,33.317762],[130.265568,33.317536],[130.263366,33.317021],[130.262584,33.316808],[130.261858,33.316611]]' as coords
 ```
 
 This data can then be parsed as a JSON string:
 
-```
+```sql
 select cast(json_parse(coords) as array(array(double))) as coords
 ```
 
 From this point, we can use this (extremely handy) `to_spherical_geometry` method to recast each coordinate as a point on a globe, which will allow for spherical distance calculation (as opposed to Euclidean distance):
 
-```
+```sql
 transform(coords, x -> to_spherical_geography(ST_Point(x[1], x[2]))) as points
 ```
 
 Now that we have an array of points that are in spherical projection, we need to pair them with their predecessor to enable a distance calculation:
 
-```
+```sql
 select
     array [element_at(points, 1)] || points as points_fr,
     points || array [element_at(points, -1)] as points_to
@@ -50,7 +50,7 @@ select
 
 Distances can now be defined between each pairing, once zipped together. For each pair, a distance can be measured.
 
-```
+```sql
 select
     reduce(
         zip_with(points_fr, points_to,
@@ -69,7 +69,7 @@ The final step will output, for that single example input, a column `dist_meters
 
 Thanks to the ability to project as a spherical geography, distance measures can now be expressed directly in Athena SQL queries. Wrapping together the above steps into a single defined query outputting the results described above can look like this:
 
-```
+```sql
 with base as (
     select '[[130.266523,33.317762],[130.265568,33.317536],[130.263366,33.317021],[130.262584,33.316808],[130.261858,33.316611]]' as coords
 ),
