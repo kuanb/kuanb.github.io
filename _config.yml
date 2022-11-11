@@ -6,9 +6,6 @@ description: "Personal web page for Kuan Butts."
 baseurl:     ""
 url:         "http://kuanbutts.com"
 
-# Google analytics
-google_analytics: UA-47292035-1
-
 # Optional features
 animated:           false
 show_related_posts: false
