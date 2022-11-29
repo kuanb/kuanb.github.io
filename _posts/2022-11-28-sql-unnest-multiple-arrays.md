@@ -33,8 +33,8 @@ select
 The dataframe for the above selection looks like:
 
 ```sql
-#   ref_id  a1  a2  a3
-1   1   [a, b, c]   [d, e, f]   [g, h, i]
+#   ref_id  a1          a2          a3
+1   1       [a, b, c]   [d, e, f]   [g, h, i]
 ```
 
 The `UNNEST` functin can be applied here to explode all 3 columns in fact, at the same time:
@@ -56,10 +56,10 @@ cross join unnest(
 The resulting dataframe looks like:
 
 ```sql
-#   ref_id  c1  c2  c3
-1   1   a   d   g
-2   1   b   e   h
-3   1   c   f   i
+#   ref_id  c1   c2   c3
+1   1       a    d    g
+2   1       b    e    h
+3   1       c    f    i
 ```
 
 This pattern can be used to explode and pair any number of rolled-up array cells against their adjacent desired column values.
