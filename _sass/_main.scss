@@ -353,8 +353,14 @@ pre, code {
   font-family: Menlo, Monaco, "Courier New", monospace
 }
 
+.highlighter-rouge {
+  background-color: #002b36;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
 code {
-  color: #a0a0a0;
+  color: #c1c1c1;
 }
 
 pre {
