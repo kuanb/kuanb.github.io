@@ -14,13 +14,18 @@ The impetus for this evaluation was the need to serialize an array of numerical 
 
 ## Python array serialization and unpacking
 
-Imagine a condition where you need to pass through an array of values from one service to another. For example, you need to `xadd` some value `scores` which is represented as an array of values: `[1.1, 2.4, 12.2 ... 2.3]`. Attempting to write a list to a Redis cache will fail: `redis.exceptions.DataError: Invalid input of type: 'list'. Convert to a bytes, string, int or float first.`. Instead, it will be necessary to serialize and deserialize it on the comsuming service's end.
+Imagine a condition where you need to pass through an array of values from one service to another. For example, you need to `xadd` some value `scores` to a Redis cache which is represented as an array of values: `[1.1, 2.4, 12.2 ... 2.3]`. Attempting to write a list to a Redis cache will fail: `redis.exceptions.DataError: Invalid input of type: 'list'. Convert to a bytes, string, int or float first.`. Instead, it will be necessary to serialize and deserialize it on the comsuming service's end.
 
-We can first assume some array `a` defined as: `a = [round(random.random() * 100, 2) for _ in range(10)]`. A naive serialization can be to just convert this list to a string. For example: `",".join(map(str, a))`.
+We can first assume some array `a` defined as:
+```python
+a = [round(random.random() * 100, 2) for _ in range(10)]
+```
+
+A naive serialization can be to just convert this list to a string. For example: `",".join(map(str, a))`.
 
 However, Python is quite slow at parsing strings and converting them back to numerical types. We can write a little test of this to explore the time cost of this conversion:
 
-```
+```python
 import random
 
 data = [[round(random.random() * 100, 2) for _ in range(100)] for _ in range(10_000)]
@@ -43,7 +48,7 @@ This will demonstrate that it takes about 0.3 seconds to parse a typical set of 
 
 `numpy` allows for an out-of-the box optimization to address this by allowing arrays of numbers to be serialized with an easy to/from pattern. A given array can be serialized with the `tobytes()` method: `np.array([1.1,2.2,3.3]).tobytes()`. It can then be read back with `frombuffer` such that:
 
-```
+```python
 raw = [1.1,2.2,3.3]
 a = np.array(raw).tobytes()
 parsed = np.frombuffer(a)
@@ -52,7 +57,7 @@ assert parsed.tolist() == raw  # true
 
 We can then redesign our test from earlier but replace the serialization and deserialiation pattern with the `numpy` library's utility:
 
-```
+```python
 import random
 
 data = [[round(random.random() * 100, 2) for _ in range(100)] for _ in range(10_000)]
@@ -79,7 +84,7 @@ Imagine a condition where the service writing new entries to is a NodeJS service
 
 We can utilize built-in libraries in NodeJS (`Buffer`) to create a binary representation of the list, and then convert it to a string using base64 encoding. Redis can store the resulting string as a value associated with a key, which can then be retrieved in Python and deserialized back into a list of floats using the `base64` and `struct` modules.
 
-```
+```JavaScript
 function listAsBinary(arrNums, size) {
     // generate binary
     const b = Buffer.alloc(arrNums.length * size);
@@ -96,7 +101,7 @@ function listAsBinary(arrNums, size) {
 
 Once written to Redis, the Python step can, instead from using `numpy.frombuffer`, deserialize the list using Python's `struct` library:
 
-```
+```python
 def _deserialize_arr(str_arr: str, size: int) -> Tuple[float]:
     decoded = base64.b64decode(str_arr)
     l = len(decoded) // size
