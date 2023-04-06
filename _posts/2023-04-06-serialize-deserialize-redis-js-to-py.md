@@ -84,7 +84,7 @@ Imagine a condition where the service writing new entries to is a NodeJS service
 
 We can utilize built-in libraries in NodeJS (`Buffer`) to create a binary representation of the list, and then convert it to a string using base64 encoding. Redis can store the resulting string as a value associated with a key, which can then be retrieved in Python and deserialized back into a list of floats using the `base64` and `struct` modules.
 
-```JavaScript
+```js
 function listAsBinary(arrNums, size) {
     // generate binary
     const b = Buffer.alloc(arrNums.length * size);
