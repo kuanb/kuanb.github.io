@@ -6,7 +6,7 @@ permalink: /about/
 
 My interests lie in the implementation of digital solutions in engaging spatial (usually transportation related) issues; combining programming, urban and transportation planning, and geospatial analytics. I've taken on a number of technical roles executing research, digital development, and deployment in a wide variety of settings. This has provided me with extensive international experience from Mexico City to Dhaka, Bangladesh.
 
-- [Resume](https://gist.github.com/kuanb/b0e4a9a3d298d7972196d3fd3a594972)
+- [Resume](/resume)
 - [Curriculum Vitae](https://docs.google.com/document/d/e/2PACX-1vR0SoI_lomksCWTLiwjqII36dZAcL8WdSMw-9CLfS2PeK8FbIGMLszMcG3Y16cG0NZaXNjEU1agmFiY/pub)
 
 ## Work and project highlights

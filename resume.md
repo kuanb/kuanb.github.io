@@ -1,1 +1,7 @@
+---
+layout: page
+title: Resume
+permalink: /resume/
+---
+
 <script src="https://gist.github.com/kuanb/b0e4a9a3d298d7972196d3fd3a594972.js"></script>
