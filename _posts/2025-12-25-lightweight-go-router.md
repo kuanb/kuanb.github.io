@@ -135,7 +135,6 @@ For a high-volume service like the one this router is targeting, moderate concur
 
 I added a metrics health-checker to the benchmarking logic to hit a background metrics endpoint to track the following stats:
 
-```
 | Metric | Description |
 |--------|-------------|
 | goroutines | Current number of goroutines |
@@ -143,7 +142,6 @@ I added a metrics health-checker to the benchmarking logic to hit a background m
 | sys_mb | Total memory obtained from OS |
 | heap_objects | Number of allocated heap objects |
 | num_gc | Number of completed GC cycles |
-```
 
 Re-running our benchmarker with this new metrics health-checker and a "sweet-spot" concurrency of 200:
 
