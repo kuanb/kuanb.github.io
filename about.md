@@ -4,7 +4,9 @@ title: Kuan Butts
 permalink: /about/
 ---
 
-My interests lie in the implementation of digital solutions in engaging spatial (usually transportation related) issues; combining programming, urban and transportation planning, and geospatial analytics. I've taken on a number of technical roles executing research, digital development, and deployment in a wide variety of settings. This has provided me with extensive international experience from Mexico City to Dhaka, Bangladesh.
+I’m a staff software engineer building large-scale distributed systems for real-time telemetry and infrastructure data. My work focuses on high-throughput ingestion pipelines, event-driven services, and production inference systems supporting mobility and mapping products at global scale.
+
+I’m particularly interested in systems where correctness, latency, and reliability matter — and where engineering decisions directly shape how physical infrastructure is understood and operated. I value pragmatic design, strong operational hygiene, and code that stays readable as systems grow.
 
 - [Resume](/resume)
 - [Curriculum Vitae](https://docs.google.com/document/d/e/2PACX-1vR0SoI_lomksCWTLiwjqII36dZAcL8WdSMw-9CLfS2PeK8FbIGMLszMcG3Y16cG0NZaXNjEU1agmFiY/pub)
