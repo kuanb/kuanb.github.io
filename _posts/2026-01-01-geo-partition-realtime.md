@@ -242,7 +242,7 @@ Where `QuadkeyCountProcessFn`:
 
 * Emits updated counts on a timer (e.g. every 60s)
 
-## **Partition construction logic (selected excerpts)**
+## **Partition construction**
 
 ### **1\. Start from the hottest locations**
 
