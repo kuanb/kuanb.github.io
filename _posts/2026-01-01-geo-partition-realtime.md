@@ -103,9 +103,7 @@ To make this concrete, we’ll shrink the problem down to a single metro area in
 * The “after” state has:
 
   * \~2× the total points \- and thus higher overall activity
-
-  * More hotspots of dense activity vs. the prior state  
-  * 
+  * More hotspots of dense activity vs. the prior state
 
 Each partition is capped at 2,500 points. The goal is to build *contiguous* geographic partitions that get as close to that limit as possible.
 
