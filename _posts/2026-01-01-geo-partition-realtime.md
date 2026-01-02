@@ -289,15 +289,6 @@ adjacency_score = len(neighbor_neighbors & component)
 
 We then sort by adjacency (favor compact shapes) and point count (fill efficiently). This produces partitions that are both well-packed and geometrically sane.
 
-### **4\. Stop early, not perfectly**
-
-We intentionally stop growth around \~90% capacity, allowing for some headroom/slack:
-
-```python
-if total_points >= self.max_points * 0.9:
-    break
-```
-
 ## **Why this works in practice**
 
 This works because it matches how the system behaves in reality. Instead of predicting a stable future, it responds to current conditions, sizes capacity to what’s actually happening, and keeps geographic complexity confined to a single stage. The cost is a bit of redeploy churn, but the payoff is far less wasted compute.
