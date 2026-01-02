@@ -300,15 +300,7 @@ if total_points >= self.max_points * 0.9:
 
 ## **Why this works in practice**
 
-This approach succeeds because it aligns with real operational constraints:
-
-* You don’t fight entropy — you respond to it
-
-* You size for *current* reality, not historical worst cases
-
-* You keep geo complexity isolated to one stage
-
-* You trade a bit of redeploy churn for massive compute savings
+This works because it matches how the system behaves in reality. Instead of predicting a stable future, it responds to current conditions, sizes capacity to what’s actually happening, and keeps geographic complexity confined to a single stage. The cost is a bit of redeploy churn, but the payoff is far less wasted compute.
 
 Most importantly, it accepts that geo load balancing is not a one-time design problem. It’s a continuous control problem. 
 
