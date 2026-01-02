@@ -12,7 +12,7 @@ One of the more common failure modes in real-time geospatial systems has nothing
 
 This post walks through a practical pattern for handling high-volume, real-time location data where part of your pipeline is *explicitly geo-constrained* (map matching, spatial joins, routing lookups, etc.), while the rest of the system is not. We’ll look at why static geographic partitioning breaks down, and how to use real-time monitoring plus fast redeploys to continuously rebalance work instead of over-allocating forever.
 
-**The canonical pipeline shape**
+The canonical pipeline shape
 
 Most real-time geo pipelines look roughly like this:
 
@@ -32,7 +32,7 @@ Most real-time geo pipelines look roughly like this:
 
 The critical detail is that *only one section of the pipeline* has strict geographic constraints. That section is where everything gets interesting — and unstable.
 
-## **Why geo-partitioning is inherently unstable**
+## Why geo-partitioning is inherently unstable
 
 The issue isn’t poor engineering; it’s that real-world spatial data is non-stationary.
 
@@ -72,7 +72,7 @@ This helps — but it never solves the problem. You still end up with:
 
 At scale, this means systematic over-allocation.
 
-## **Real goal: rebalance, don’t predict**
+## Real goal: rebalance, don’t predict
 
 Instead of trying to design the perfect static partitioning algorithm, the goal shifts: Continuously rebalance the geo-constrained service based on observed load.
 
@@ -94,7 +94,7 @@ This post assumes a few important properties:
 
 Under those assumptions, dynamic rebalancing becomes not only possible, but practical.
 
-## **A miniaturized example**
+## A miniaturized example
 
 To make this concrete, we’ll shrink the problem down to a single metro area instead of the globe. We define:
 
@@ -107,7 +107,7 @@ To make this concrete, we’ll shrink the problem down to a single metro area in
 
 Each partition is capped at 2,500 points. The goal is to build *contiguous* geographic partitions that get as close to that limit as possible.
 
-## **State 1: before**
+## State 1: before
 
 Here’s a representative partitioning outcome:
 
@@ -126,7 +126,7 @@ Partition   6–11: < 200 points each
 
 A few things jump out: First; hot areas pack efficiently. Secondly, cold regions fragment into many tiny partitions that are not contiguous. These tail partitions can safely be merged later. So far, so good.
 
-## **State 2: naive preservation breaks down**
+## State 2: naive preservation breaks down
 
 Now activity doubles and new hotspots appear. If we *try to preserve existing partitions* and only split the ones that overflow, we get something like this:
 
@@ -149,7 +149,7 @@ We’ve avoided redoing everything, but introduced a new problem:
 
 These liminal partitions are artifacts of trying to respect history that no longer matters.
 
-## **Resolution: rebuild from scratch**
+## Resolution: rebuild from scratch
 
 If your deploys are fast, there’s no reason to preserve old partitions at all. Instead:
 
@@ -171,7 +171,7 @@ Median utilization: 90.1%
 
 Cold tail partitions still exist, but they’re smaller in number, they’re easy to group together, they don’t pollute the hot path. This turns partitioning into a stateless optimization problem, not a migration problem.
 
-## **Why this matters: allocation mismatch**
+## Why this matters: allocation mismatch
 
 ![allocation_bar_charts](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/realtime-geo-partition/allocation_bar_charts.png)
 
@@ -186,7 +186,7 @@ Partition 0: 2272 → 4510 points (180% utilized)
 
 You’d need to provision 2–3x the resources just to survive peak load in a single partition — and every other partition would sit idle most of the time. Dynamic rebalancing converts that worst-case sizing problem into a steady-state one.
 
-## **System architecture**
+## System architecture
 
 At a high level, the control plane for this looks like:
 
@@ -214,7 +214,58 @@ Flink’s execution model lines up well with what is needed:
 
 On AWS specifically, this is easiest to run as Kinesis Data Analytics for Apache Flink (fully managed).
 
-### **Example: quadkey aggregation job**
+This leads to a modified pipeline architecture from the canonical one shown originally:
+
+```
+                   ┌────────────────────────┐
+                   │   Managed Flink Job    │
+                   │ (Kinesis → Flink)      │
+                   │                        │
+                   │  • lat/lon → quadkey   │
+                   │  • counts by quadkey   │
+                   │  • checkpointed state  │
+                   └───────────┬────────────┘
+                               │
+                               │ periodic snapshot
+                               ▼
+              ┌──────────────────────────────────┐
+              │   Spatial Control / Partitioner  │
+              │                                  │
+              │  • reads quadkey counts          │
+              │  • builds contiguous partitions  │
+              │  • enforces max load per shard   │
+              └────────────┬─────────────────────┘
+                           │
+            new partition  │ spec
+                           ▼
+              ┌──────────────────────────────────┐
+              │   Geo Processing Service (NEW)   │
+              │   Blue / Green Deployment        │
+              │                                  │
+              │  • one worker per partition      │
+              │  • warmed up off to the side     │
+              └───────────┬──────────────────────┘
+                          │
+                   traffic swap
+                          ▼
+              ┌──────────────────────────────────┐
+              │        Downstream Consumers      │
+              │  (post-geo, no spatial aspect)   │
+              └──────────────────────────────────┘
+
+```
+
+#### Triggering new geo-service versions
+
+Can achieve this in multiple ways:
+
+* CI/CD pipelines (GitHub Actions / CodePipeline) that kick off deployment once new partition specs land in S3/DynamoDB
+
+* Kubernetes operators that watch a config map or annotation and perform a blue-green swap
+
+* AWS ECS / EKS webhook triggers from your partitioner process
+
+### Example: quadkey aggregation job
 
 At a conceptual level, the Flink job does something very simple:
 
@@ -242,9 +293,9 @@ Where `QuadkeyCountProcessFn`:
 
 * Emits updated counts on a timer (e.g. every 60s)
 
-## **Partition construction**
+## Partition construction
 
-### **1\. Start from the hottest locations**
+### 1\. Start from the hottest locations
 
 We always seed new partitions from peak quadkeys first:
 
@@ -258,7 +309,7 @@ This ensures:
 
 * Hotspots don’t get fragmented across partitions
 
-### **2\. Grow partitions by adjacency**
+### 2\. Grow partitions by adjacency
 
 Contiguity matters. We explicitly grow partitions using neighboring quadkeys:
 
@@ -279,7 +330,7 @@ def get_quadkey_neighbors(self, qk: str) -> Set[str]:
 
 This guarantees partitions are spatially contiguous, necessary for map matching (you would use this area plus a buffer to end up with a contiguous region to safely ensure all edges needed to match to the points are present).
 
-### **3\. Prefer “square-ish” growth**
+### 3\. Prefer “square-ish” growth
 
 When expanding a partition, neighbors are ranked by how many edges they share with the current component:
 
@@ -289,7 +340,7 @@ adjacency_score = len(neighbor_neighbors & component)
 
 We then sort by adjacency (favor compact shapes) and point count (fill efficiently). This produces partitions that are both well-packed and geometrically sane.
 
-## **Why this works in practice**
+## Why this works in practice
 
 This works because it matches how the system behaves in reality. Instead of predicting a stable future, it responds to current conditions, sizes capacity to what’s actually happening, and keeps geographic complexity confined to a single stage. The cost is a bit of redeploy churn, but the payoff is far less wasted compute.
 
