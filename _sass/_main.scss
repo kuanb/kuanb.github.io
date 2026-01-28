@@ -185,7 +185,7 @@ table {
   width: 100%;
   max-width: 100%;
   margin-bottom: 1.5;
-  font-size: 1.125rem;
+  font-size: 0.8rem;
   // Cells
   > thead,
   > tbody,
@@ -193,8 +193,8 @@ table {
     > tr {
       > th,
       > td {
-        padding: 12px;
-        line-height: 1.2;
+        padding: 8px 10px;
+        line-height: 1.4;
         vertical-align: top;
         border-top: 1px solid #333;
       }
@@ -350,25 +350,64 @@ abbr {
 }
 
 pre, code {
-  font-family: Menlo, Monaco, "Courier New", monospace
+  font-family: 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
 }
 
-.highlighter-rouge {
-  background-color: #002b36;
-  padding-left: 3px;
-  padding-right: 3px;
-}
-
+/* Inline code styling - light background to match page */
 code {
-  color: #c1c1c1;
+  background-color: #f5f5f5;
+  color: #d63384;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  border: 1px solid #e1e1e1;
 }
 
+/* Code blocks - dark background with syntax highlighting */
 pre {
-  padding: 1.125em;
-  font-size: 0.75rem;
-  line-height: 1.11;
-  overflow-x: scroll;
-  margin-bottom: 0.88em;
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+  padding: 1.25em;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  margin-bottom: 1.25em;
+  border-radius: 8px;
+  border: 1px solid #313244;
+}
+
+/* Reset inline code styling when inside pre blocks */
+pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  border: none;
+}
+
+/* Jekyll highlighter wrapper */
+.highlighter-rouge {
+  margin-bottom: 1.25em;
+}
+
+/* Inline highlighter-rouge (not containing pre) */
+.highlighter-rouge:not(:has(pre)) {
+  background-color: transparent;
+}
+
+/* Block highlighter-rouge containing pre */
+div.highlighter-rouge,
+figure.highlight {
+  background-color: #1e1e2e;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+div.highlighter-rouge pre,
+figure.highlight pre {
+  margin-bottom: 0;
+  border-radius: 0;
 }
 
 blockquote {
@@ -442,22 +481,22 @@ h6,
 
   .h1,
   h1 {
-    font-size: 3.250rem;
+    font-size: 2.5rem;
   }
 
   .h2,
   h2 {
-    font-size: 2.298rem;
+    font-size: 1.875rem;
   }
 
   .h3,
   h3 {
-    font-size: 1.625rem;
+    font-size: 1.5rem;
   }
 
   .h4,
   h4 {
-    font-size: 1.150rem;
+    font-size: 1.125rem;
   }
 
   p,
@@ -471,7 +510,7 @@ h6,
   }
 
   table {
-    font-size: 1.25rem;
+    font-size: 0.9rem;
   }
 
   .post-link .post-title {
@@ -544,22 +583,22 @@ h6,
 @media screen and (min-width: 64em) {
   .h1,
   h1 {
-    font-size: 4.498rem;
+    font-size: 2.75rem;
   }
 
   .h2,
   h2 {
-    font-size: 3.18rem;
+    font-size: 2rem;
   }
 
   .h3,
   h3 {
-    font-size: 2.249rem;
+    font-size: 1.625rem;
   }
 
   .h4,
   h4 {
-    font-size: 1.591rem;
+    font-size: 1.25rem;
   }
 
   .posts .post-meta {
