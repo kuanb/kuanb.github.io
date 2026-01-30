@@ -31,8 +31,33 @@
     <!-- Twitter card -->
     <meta name="twitter:site" content="@buttsmeister">
     <meta name="twitter:creator" content="@buttsmeister">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="og:image" content="https://kuanbutts.com/images/splash.png">
+    
+    {% comment %} Determine the share image: use page.image if set, or extract first image from content, or fall back to splash {% endcomment %}
+    {% assign share_image = nil %}
+    {% if page.image %}
+      {% assign share_image = page.image %}
+    {% else %}
+      {% assign img_split = page.content | split: '<img ' %}
+      {% if img_split.size > 1 %}
+        {% assign img_tag = img_split[1] | split: '>' | first %}
+        {% assign src_split = img_tag | split: 'src="' %}
+        {% if src_split.size > 1 %}
+          {% assign share_image = src_split[1] | split: '"' | first %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    
+    {% comment %} Ensure absolute URL {% endcomment %}
+    {% if share_image %}
+      {% unless share_image contains 'http' %}
+        {% assign share_image = share_image | prepend: site.url %}
+      {% endunless %}
+    {% else %}
+      {% assign share_image = 'https://kuanbutts.com/images/splash.png' %}
+    {% endif %}
+    
+    <meta property="og:image" content="{{ share_image }}">
+    <meta name="twitter:image" content="{{ share_image }}">
 
     <!-- Icons -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
