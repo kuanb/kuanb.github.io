@@ -1,13 +1,15 @@
 <header class="site-header px2 px-responsive">
   <div class="mt2 wrap">
     <div class="measure" style="text-shadow: 0 0 10px #FFF;">
-      
+
       <a href="{{ site.url }}" class="site-title">
         {{ site.title }}
       </a>
       {% include social_links.html %}
       <nav class="site-nav right">
         {% include navigation.html %}
+        <a href="#" class="apps-toggle fa fa-bars" title="Apps" onclick="toggleAppsPanel(event)"></a>
       </nav>
   </div>
 </header>
+{% include apps_panel.html %}

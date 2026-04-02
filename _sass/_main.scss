@@ -711,3 +711,123 @@ Copyright (c) 2014 Daniel Eden
   -webkit-animation-name: fadeInDown;
           animation-name: fadeInDown;
 }
+
+/* Apps panel toggle button */
+.apps-toggle {
+  margin-left: 1em;
+  cursor: pointer;
+  font-size: 1rem;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+    border-bottom: 2px solid #444;
+  }
+}
+
+/* Apps panel overlay */
+.apps-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  &.open {
+    display: block;
+  }
+}
+
+/* Apps slide-out panel — right side on desktop */
+.apps-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100%;
+  background: #fff;
+  z-index: 1000;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  overflow-y: auto;
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+.apps-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 1.25em;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.apps-panel-title {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: 900;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.apps-panel-close {
+  font-size: 1.5rem;
+  color: #333;
+  text-decoration: none;
+  line-height: 1;
+  opacity: 0.6;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.apps-panel-list {
+  padding: 0.5em 0;
+}
+
+.apps-panel-item {
+  display: block;
+  padding: 0.75em 1.25em;
+  text-decoration: none;
+  border-bottom: 1px solid #f3f3f3;
+  transition: background 0.15s ease;
+  &:hover {
+    background: #f0f8ff;
+  }
+}
+
+.apps-panel-item-name {
+  display: block;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #333;
+}
+
+.apps-panel-item-desc {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: #7a7a7a;
+  margin-top: 0.2em;
+  line-height: 1.4;
+}
+
+/* Mobile: slide from top instead of right */
+@media screen and (max-width: 48em) {
+  .apps-panel {
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-100%);
+    &.open {
+      transform: translateY(0);
+    }
+  }
+}

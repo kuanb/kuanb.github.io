@@ -1,0 +1,44 @@
+<div class="apps-overlay" onclick="toggleAppsPanel(event)"></div>
+<div class="apps-panel">
+  <div class="apps-panel-header">
+    <span class="apps-panel-title">Apps</span>
+    <a href="#" class="apps-panel-close" onclick="toggleAppsPanel(event)">&times;</a>
+  </div>
+  <div class="apps-panel-list">
+    <a href="https://kuanbutts.com/planningpoker/" class="apps-panel-item">
+      <span class="apps-panel-item-name">Planning Poker</span>
+      <span class="apps-panel-item-desc">P2P planning poker via WebRTC. No backend.</span>
+    </a>
+    <a href="https://kuanbutts.com/burntotile/" class="apps-panel-item">
+      <span class="apps-panel-item-name">Burn to Tile</span>
+      <span class="apps-panel-item-desc">Drag GeoJSON onto a map, get tile quadkeys at a target zoom.</span>
+    </a>
+    <a href="https://kuanbutts.com/actransit/" class="apps-panel-item">
+      <span class="apps-panel-item-name">AC Transit</span>
+      <span class="apps-panel-item-desc">AC Transit bus locator.</span>
+    </a>
+    <a href="https://kuanbutts.com/openlr/" class="apps-panel-item">
+      <span class="apps-panel-item-name">OpenLR</span>
+      <span class="apps-panel-item-desc">Parse and map OpenLR linear location references.</span>
+    </a>
+    <a href="https://kuanbutts.com/runmap/" class="apps-panel-item">
+      <span class="apps-panel-item-name">Run Map</span>
+      <span class="apps-panel-item-desc">Map and measure running distances.</span>
+    </a>
+    <a href="https://kuanbutts.com/what-the-tile/" class="apps-panel-item">
+      <span class="apps-panel-item-name">What the Tile</span>
+      <span class="apps-panel-item-desc">Visualize map tile boundaries at each zoom level.</span>
+    </a>
+    <a href="https://kuanbutts.com/home_status/" class="apps-panel-item">
+      <span class="apps-panel-item-name">Home Status</span>
+      <span class="apps-panel-item-desc">PurpleAir sensor dashboard for temperature and air quality.</span>
+    </a>
+  </div>
+</div>
+<script>
+function toggleAppsPanel(e) {
+  e.preventDefault();
+  document.querySelector('.apps-panel').classList.toggle('open');
+  document.querySelector('.apps-overlay').classList.toggle('open');
+}
+</script>
