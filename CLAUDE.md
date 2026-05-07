@@ -47,3 +47,4 @@ categories: [category1, category2]
 - Pagination: 8 posts per page at `/blog/`
 - Images referenced from `/images/` directory
 - No CI/CD workflows; relies on GitHub Pages native Jekyll build
+- Apps panel (`_includes/apps_panel.html`): entries must be kept in alphabetical order by app name
