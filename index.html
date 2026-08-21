@@ -10,7 +10,20 @@ layout: default
       who, what, where
     </span>
 
-    <img src="/images/splash.png" width="100%"/>
+    <div
+      id="homepage-map"
+      class="homepage-map"
+      role="img"
+      aria-label="An animated miniature street network with colorful stops and moving vehicles"
+    >
+      <noscript>
+        <img src="/images/splash.png" alt="Stylized map of the San Francisco Bay Area"/>
+      </noscript>
+    </div>
+    <script src="{{ '/js/home-minimap.js' | prepend: site.baseurl }}"></script>
+    <script>
+      HomeMiniMap.mount('#homepage-map');
+    </script>
 
     <div class="blurb">
       <div class='splash'>
@@ -85,6 +98,5 @@ layout: default
   </div>
   
 </div>
-
 
 

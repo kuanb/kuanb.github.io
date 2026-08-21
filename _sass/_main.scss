@@ -98,6 +98,29 @@ hr {
   padding-bottom: 25px;
   margin-bottom: 5px;
 
+  .homepage-map {
+    width: 100%;
+    height: clamp(220px, 50vw, 340px);
+    margin: 0.75rem 0 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    noscript,
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
   .blurb {
     line-height: 1em;
     font-size: 1rem;
