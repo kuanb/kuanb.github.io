@@ -31,6 +31,142 @@ img {
   max-height: 600px;
 }
 
+.project-carousel {
+  margin: 0.75rem 0 1.25rem;
+}
+
+.project-carousel__viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #f4f5f7;
+  border: 1px solid #d9dde3;
+  border-radius: 4px;
+}
+
+.project-carousel__slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.project-carousel__slide[hidden] {
+  display: none;
+}
+
+.project-carousel__slide a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.project-carousel__slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: contain;
+}
+
+.project-carousel__slide figcaption {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  max-width: calc(100% - 1.5rem);
+  padding: 0.35rem 0.55rem;
+  border-radius: 3px;
+  background: rgba(24, 28, 34, 0.82);
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 1.25;
+}
+
+.project-carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.65rem;
+}
+
+.project-carousel__arrow,
+.project-carousel__dot {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #333;
+  cursor: pointer;
+}
+
+.project-carousel__arrow {
+  padding: 0.1rem 0.4rem;
+  font: inherit;
+  line-height: 1;
+}
+
+.project-carousel__arrow:hover,
+.project-carousel__arrow:focus-visible {
+  color: #29acd1;
+}
+
+.project-carousel__dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.project-carousel__dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  padding: 0;
+  border: 1px solid #737b87;
+  border-radius: 50%;
+}
+
+.project-carousel__dot[aria-current="true"] {
+  border-color: #29acd1;
+  background: #29acd1;
+}
+
+.project-carousel__arrow:focus-visible,
+.project-carousel__dot:focus-visible {
+  outline: 2px solid #29acd1;
+  outline-offset: 3px;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin-top: -0.25rem;
+  font-size: 1rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 32rem) {
+  .project-carousel__slide figcaption {
+    right: 0.5rem;
+    bottom: 0.5rem;
+    max-width: calc(100% - 1rem);
+    font-size: 0.65rem;
+  }
+}
+
 .site-wrap {
   min-height: 100%;
   margin-bottom: -120px;

@@ -13,6 +13,63 @@ I’m particularly interested in systems where correctness, latency, and reliabi
 
 ## Work and project highlights
 
+### [AC Transit Real-Time Performance](https://ac-transit.com/)
+
+<div class="project-carousel" data-project-carousel role="region" aria-label="AC Transit performance tracker screenshots">
+  <div class="project-carousel__viewport">
+    <figure class="project-carousel__slide" data-carousel-slide role="group" aria-roledescription="slide" aria-label="1 of 5">
+      <a href="https://ac-transit.com/" aria-label="Open the AC Transit real-time performance tracker">
+        <img src="/images/about/actransit-schedule-adherence-map.png" alt="Map of an AC Transit route between Oakland and San Leandro, with stops colored by schedule adherence" width="1536" height="940" decoding="async">
+      </a>
+      <figcaption>Stop-level schedule adherence</figcaption>
+    </figure>
+    <figure class="project-carousel__slide" data-carousel-slide role="group" aria-roledescription="slide" aria-label="2 of 5" hidden>
+      <a href="https://ac-transit.com/report-card/" aria-label="Open the AC Transit route report card">
+        <img src="/images/about/actransit-report-card-history.png" alt="Charts showing AC Transit's agency-wide score, busiest routes, and reliability score components over time" width="1536" height="1355" loading="lazy" decoding="async">
+      </a>
+      <figcaption>Agency and route score history</figcaption>
+    </figure>
+    <figure class="project-carousel__slide" data-carousel-slide role="group" aria-roledescription="slide" aria-label="3 of 5" hidden>
+      <a href="https://ac-transit.com/weekly/" aria-label="Open the AC Transit weekly performance overview">
+        <img src="/images/about/actransit-weekly-reliability.png" alt="Weekly AC Transit dashboard showing on-time service, delay, service gaps, bus bunching, and rider wait metrics" width="1536" height="1094" loading="lazy" decoding="async">
+      </a>
+      <figcaption>Weekly reliability and rider experience</figcaption>
+    </figure>
+    <figure class="project-carousel__slide" data-carousel-slide role="group" aria-roledescription="slide" aria-label="4 of 5" hidden>
+      <a href="https://ac-transit.com/presentations/" aria-label="Open AC Transit performance presentations and research">
+        <img src="/images/about/actransit-wait-times.png" alt="AC Transit wait-time distributions, hourly median waits, extreme waits, and a rider-arrival wait table" width="1536" height="1249" loading="lazy" decoding="async">
+      </a>
+      <figcaption>Wait-time analysis from a rider's perspective</figcaption>
+    </figure>
+    <figure class="project-carousel__slide" data-carousel-slide role="group" aria-roledescription="slide" aria-label="5 of 5" hidden>
+      <a href="https://ac-transit.com/presentations/" aria-label="Open AC Transit performance presentations and research">
+        <img src="/images/about/actransit-route-speed.png" alt="AC Transit route-speed dashboard with weekday and weekend speed summaries and hourly charts" width="1536" height="921" loading="lazy" decoding="async">
+      </a>
+      <figcaption>Route speed and variability</figcaption>
+    </figure>
+  </div>
+  <div class="project-carousel__controls" data-carousel-controls hidden>
+    <button class="project-carousel__arrow" type="button" data-carousel-previous aria-label="Show previous screenshot">&#8592;</button>
+    <div class="project-carousel__dots" aria-label="Choose a screenshot">
+      <button class="project-carousel__dot" type="button" data-carousel-dot="0" aria-label="Show screenshot 1" aria-current="true"></button>
+      <button class="project-carousel__dot" type="button" data-carousel-dot="1" aria-label="Show screenshot 2"></button>
+      <button class="project-carousel__dot" type="button" data-carousel-dot="2" aria-label="Show screenshot 3"></button>
+      <button class="project-carousel__dot" type="button" data-carousel-dot="3" aria-label="Show screenshot 4"></button>
+      <button class="project-carousel__dot" type="button" data-carousel-dot="4" aria-label="Show screenshot 5"></button>
+    </div>
+    <button class="project-carousel__arrow" type="button" data-carousel-next aria-label="Show next screenshot">&#8594;</button>
+  </div>
+  <p class="visually-hidden" data-carousel-status aria-live="polite"></p>
+</div>
+
+I built this independent performance tracker from AC Transit’s public schedule and real-time vehicle feeds. It turns raw arrivals into rider-centered measures of on-time service, gaps and bunching, waits, speed, and route-level reliability, pairing a live map with daily and weekly views, report cards, and research presentations.
+
+<p class="project-links"><a href="https://ac-transit.com/">Explore the live project&nbsp;&#8594;</a><a href="https://ac-transit.com/presentations/">Presentations &amp; research&nbsp;&#8594;</a><a href="https://ac-transit.com/report-card/">Route report card&nbsp;&#8594;</a></p>
+
+<script src="/js/project-carousel.js" defer></script>
+
+<hr>
+
 ### [Mapbox Movement Index](https://www.mapbox.com/movement-data)
 
 <iframe width="100%" max-width="768" height="315" src="https://www.youtube.com/embed/T3MCOjdgBSk?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
