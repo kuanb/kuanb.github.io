@@ -64,6 +64,8 @@ I’m particularly interested in systems where correctness, latency, and reliabi
 
 I built this independent performance tracker from AC Transit’s public schedule and real-time vehicle feeds. It turns raw arrivals into rider-centered measures of on-time service, gaps and bunching, waits, speed, and route-level reliability, pairing a live map with daily and weekly views, report cards, and research presentations.
 
+The project was featured in [The Oaklandside’s reporting on AC Transit’s worsening reliability](https://oaklandside.org/2026/09/24/ac-transit-buses-delay-unreliable-canceled-rides-2026/), which highlighted the tracker as an independent, real-time report card giving riders daily, route-level service data.
+
 <p class="project-links"><a href="https://ac-transit.com/">Explore the live project&nbsp;&#8594;</a><a href="https://ac-transit.com/presentations/">Presentations &amp; research&nbsp;&#8594;</a><a href="https://ac-transit.com/report-card/">Route report card&nbsp;&#8594;</a></p>
 
 <script src="/js/project-carousel.js" defer></script>
