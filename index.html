@@ -3,12 +3,11 @@ layout: default
 ---
 
 <div class="home">
-
   <div id="whowhatwhere" class="whowhatwhere">
-    <img src="/images/me.jpeg" alt="Kuan Butts" class="avatar"/>
-    <span class="h3" style="text-shadow: 0 0 10px #FFF;">
-      who, what, where
-    </span>
+    <div class="home-kicker">
+      <img src="/images/me.jpeg" alt="Kuan Butts" class="avatar"/>
+      <h1 class="home-kicker__title">who, what, where</h1>
+    </div>
 
     <div
       id="homepage-map"
@@ -25,78 +24,109 @@ layout: default
       HomeMiniMap.mount('#homepage-map');
     </script>
 
-    <div class="blurb">
-      <div class='splash'>
-        Kuan is a software developer and researcher; currently at Mapbox, where I work on distributed pipelines for modality classification, speed profiling, and real-time ETAs.
-      </div>
-      
-      <ul>
-        <li>
-          <div class='splash' style="padding-left:10px;">
-            
-            <p class='smallp'>
-              <small><i class="fa fa-map-pin" aria-hidden="true"></i></small>
-              2019 - Present: 
-              Staff SWE on <a href="http://www.mapbox.com/telemetry/">Telemetry</a> at <a href="http://www.mapbox.com/">Mapbox</a> (San Francisco)
-              <br>
-              2019 - 2025: 
-              Sr. Software Engineer
-            </p>
+    <div class="home-content">
+      <p class="home-intro">
+        I’m a software developer and researcher at Mapbox, working on distributed pipelines for modality classification, speed profiling, and real-time ETAs.
+      </p>
 
-            <p class='smallp'>
-              <small><i class="fa fa-map-pin" aria-hidden="true"></i></small>
-              2017 - 2019: 
-              Data science & engineering at <a href="http://urbanfootprint.com/">UrbanFootprint</a> (Berkeley)
-            </p>
-            
-            <p class='smallp'>
-              <small><i class="fa fa-map-pin" aria-hidden="true"></i></small>
-              2016: 
-              <a href="http://www.codeforamerica.org/people/kuan-butts">Software Engineer & Fellow</a> at <a href="http://www.codeforamerica.org/">Code for America</a> (San Francisco)
-            </p>
-            
-            <p class='smallp'>
-              <small><i class="fa fa-map-pin" aria-hidden="true"></i></small>
-              2015: 
-              Civic Tech Fellow at <a href="http://microsoftnewyork.com/">Microsoft</a> (New York City)
-            </p>
-            
-            <p class='smallp'>
-              <small><i class="fa fa-map-pin" aria-hidden="true"></i></small>
-              2012 - 2015: 
-              Transport modeling software researcher with <a href="http://www.media.mit.edu/research/groups/changing-places">MIT Media Lab</a> and <a href="https://mfc.mit.edu/">Flocktracker</a> (Cambridge)
-            </p>
-          
-          </div>
-        </li>
-      </ul>
-    </div>
+      <section class="home-section" aria-labelledby="experience-heading">
+        <div class="home-section__header">
+          <h2 id="experience-heading">Experience</h2>
+        </div>
 
-    <div class="strong-btn">
-      <h4>
-        Select posts from <a href="http://kuanbutts.com/blog/">blog</a>
-      </h4>
-      <div class="blog-post">
-        <a href="2026/04/07/scaling-cache-to-kinesis-stream-multi-tenant/">Streaming When Your Cache Becomes the Bottleneck</a><br>Tradeoffs Between Redis and Kinesis at Scale
-      </div>
-      <div class="blog-post">
-        <a href="2025/12/25/lightweight-go-router/">Building a Lightweight Map Matcher in Go</a><br>A practical exploration of building a high volume, high concurrency, dependency-light road-snapping service in Go.
-      </div>
-      <div class="blog-post">
-        <a href="2023/06/13/protomaps-simple-gh-page-service/">Self-Hosting Vector Tiles with Protomaps</a><br>Useful tooling for building light, controllable map clients without third-party APIs.
-      </div>
-      <div class="blog-post">
-        <a href="2020/08/25/simplified-map-matching/">Map Matching Simplified (HMM map matching algorithm)</a><br>A practical explanation of implementing a map-matching algorithm from GPS traces using Python and state likelihood modeling.
-      </div>
-      <div class="blog-post">
-        <a href="2018/11/09/meshgrids/">Performant Spatial Analysis via Cell Clustering</a><br>Matrix-based techniques for efficient spatial clustering using vectorized operations in Python.
-      </div>
-      <div class="blog-post">
-        <a href="2017/10/21/spectral-cluster-berkeley/">Identifying urban zones with spectral clustering</a><br>Walkthrough of computing centrality metrics on a transportation network using custom tools and graph libraries.
-      </div>
+        <ol class="timeline">
+          <li class="timeline__item">
+            <div class="timeline__date">2019—now</div>
+            <div class="timeline__body">
+              <h3><a href="https://www.mapbox.com/">Mapbox</a></h3>
+              <p class="timeline__meta">Staff Software Engineer, <a href="https://www.mapbox.com/telemetry/">Telemetry</a> · San Francisco</p>
+              <p class="timeline__previous"><span>Previously</span> Senior Software Engineer, 2019—2025</p>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <div class="timeline__date">2017—2019</div>
+            <div class="timeline__body">
+              <h3><a href="https://urbanfootprint.com/">UrbanFootprint</a></h3>
+              <p class="timeline__meta">Data science &amp; engineering · Berkeley</p>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <div class="timeline__date">2016</div>
+            <div class="timeline__body">
+              <h3><a href="https://www.codeforamerica.org/people/kuan-butts">Code for America</a></h3>
+              <p class="timeline__meta">Software Engineer &amp; Fellow · San Francisco</p>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <div class="timeline__date">2015</div>
+            <div class="timeline__body">
+              <h3><a href="https://microsoftnewyork.com/">Microsoft</a></h3>
+              <p class="timeline__meta">Civic Tech Fellow · New York City</p>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <div class="timeline__date">2012—2015</div>
+            <div class="timeline__body">
+              <h3>
+                <a href="https://www.media.mit.edu/research/groups/changing-places">MIT Media Lab</a>
+                <span class="timeline__joiner">+</span>
+                <a href="https://mfc.mit.edu/">Flocktracker</a>
+              </h3>
+              <p class="timeline__meta">Transport modeling software researcher · Cambridge</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="home-section" aria-labelledby="writing-heading">
+        <div class="home-section__header">
+          <h2 id="writing-heading">Selected writing</h2>
+          <a class="home-section__more" href="/blog/">All posts <span aria-hidden="true">→</span></a>
+        </div>
+
+        <ul class="featured-posts">
+          <li>
+            <a href="/2026/04/07/scaling-cache-to-kinesis-stream-multi-tenant/">
+              <span>Streaming When Your Cache Becomes the Bottleneck</span>
+              <span class="featured-posts__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="/2025/12/25/lightweight-go-router/">
+              <span>Building a Lightweight Map Matcher in Go</span>
+              <span class="featured-posts__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="/2023/06/13/protomaps-simple-gh-page-service/">
+              <span>Self-Hosting Vector Tiles with Protomaps</span>
+              <span class="featured-posts__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="/2020/08/25/simplified-map-matching/">
+              <span>Map Matching Simplified (HMM map matching algorithm)</span>
+              <span class="featured-posts__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="/2018/11/09/meshgrids/">
+              <span>Performant Spatial Analysis via Cell Clustering</span>
+              <span class="featured-posts__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="/2017/10/21/spectral-cluster-berkeley/">
+              <span>Identifying urban zones with spectral clustering</span>
+              <span class="featured-posts__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
+      </section>
     </div>
   </div>
-  
 </div>
-
-

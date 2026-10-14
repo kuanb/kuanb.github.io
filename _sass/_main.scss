@@ -260,6 +260,26 @@ hr {
   padding-bottom: 25px;
   margin-bottom: 5px;
 
+  .home-kicker {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    clear: both;
+  }
+
+  .home-kicker .avatar {
+    flex: 0 0 auto;
+    margin-right: 0;
+  }
+
+  .home-kicker__title {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 0 0 10px #fff;
+  }
+
   .homepage-map {
     width: 100%;
     height: clamp(220px, 50vw, 340px);
@@ -283,74 +303,183 @@ hr {
     }
   }
 
-  .blurb {
-    line-height: 1em;
-    font-size: 1rem;
-    padding: 10px;
-    padding-top: 25px;
-    // background-color: rgba(255, 255, 255, 0.55);
-
-    .splash {
-      padding: 10px;
-      background-color: #FFF;
-      font-weight: 300;
-      line-height: 1.5;
-      margin-bottom: 5px;
-    }
+  .home-content {
+    max-width: 42rem;
+    margin-top: 2rem;
   }
-  
-  ul, li {
-    list-style: none;
-    list-style-type: none;
 
-    br {
-      line-height: 1.25rem;
-    }
+  .home-intro {
+    max-width: 40rem;
+    margin: 0;
+    color: #333;
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
 
-    .splash {
+  .home-section {
+    margin-top: 2.75rem;
+  }
+
+  .home-section__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #dce2e6;
+
+    h2 {
+      margin: 0;
+      color: #333;
       font-size: 0.9rem;
+      line-height: 1.4;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
   }
 
-  .strong-btn {
-    font-size: 1rem;
-    float: left;
-    // text-align: right;
-    background-color: #FFF;
-    opacity: 1;
+  .home-section__more {
+    flex: 0 0 auto;
+    color: #52606a;
+    font-size: 0.8rem;
+    font-weight: 400;
+
+    &:hover,
+    &:focus {
+      color: #157d9b;
+    }
+  }
+
+  .timeline,
+  .featured-posts {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .timeline__item {
+    display: grid;
+    grid-template-columns: 6.75rem minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.05rem 0;
+    border-bottom: 1px solid #edf0f2;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  .timeline__date {
+    padding-top: 0.1rem;
+    color: #68747d;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  .timeline__body {
+    h3 {
+      margin: 0 0 0.2rem;
+      font-size: 1rem;
+      line-height: 1.45;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    a {
+      color: #333;
+
+      &:hover,
+      &:focus {
+        color: #157d9b;
+      }
+    }
+  }
+
+  .timeline__meta {
+    color: #4f5961;
+  }
+
+  .timeline__previous {
+    margin-top: 0.35rem !important;
+    color: #7a838a;
+
+    span {
+      margin-right: 0.35rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+  }
+
+  .timeline__joiner {
+    padding: 0 0.2rem;
+    color: #9aa2a8;
     font-weight: 300;
-    padding: 10px 20px;
-    max-width: 500px;
+  }
 
-    .blog-post {
-      margin-top: 5px;
-      margin-bottom: 10px;
-      padding-left: 5px;
-      border-bottom: 0.5px #c0ebf7 solid;;
-      border-bottom-left-radius: 3px;
+  .featured-posts {
+    li {
+      border-bottom: 1px solid #edf0f2;
 
-      &:hover {
-        background-color: #29acd1;
-        cursor: pointer;
-
-        a {
-          color: #FFF;
-        }
+      &:last-child {
+        border-bottom: 0;
       }
     }
 
-    b {
-      font-weight: 700;
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      color: #333;
+      font-size: 0.95rem;
+      font-weight: 500;
+      line-height: 1.4;
+
+      &:hover,
+      &:focus {
+        color: #157d9b;
+
+        .featured-posts__arrow {
+          transform: translateX(0.2rem);
+        }
+      }
     }
   }
-}
 
-.smallp {
-  text-indent: -10px;
-  margin-left: 10px;
-  padding-left: 10px;
-  margin-bottom: 0.5rem;
-  line-height: normal;
+  .featured-posts__arrow {
+    flex: 0 0 auto;
+    color: #8b959c;
+    transition: transform 0.15s ease;
+  }
+
+  @media screen and (max-width: 36rem) {
+    .home-content {
+      margin-top: 1.5rem;
+    }
+
+    .home-section {
+      margin-top: 2.25rem;
+    }
+
+    .timeline__item {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+      padding: 0.95rem 0;
+    }
+
+    .timeline__date {
+      padding-top: 0;
+    }
+  }
 }
 
 .site-header a:hover,
