@@ -16,6 +16,49 @@ So, back to squidmaps: What really caught my attention was the [ephemeral maps A
 
 That creates a very natural conversational mapping loop: describe a map, look at it, ask for a change, and repeat.
 
+## Moving the complexity behind the agent
+
+The important change is not that geoprocessing disappears. It is that the client no longer has to understand and orchestrate every operation. In a traditional web mapping tool, the person making the map often has to locate the data, choose a conversion, run each spatial operation in the right order, and carry the result from one provider-side tool to the next.
+
+#### Legacy web geo tools: the client orchestrates each operation
+
+```mermaid
+flowchart LR
+  Client["Client<br/>chooses tools, formats and sequence"]
+  Import["Provider<br/>data import"]
+  Convert["Provider<br/>format conversion"]
+  Process["Provider<br/>buffer, clip, join or route"]
+  Publish["Style and publish"]
+  Map["Map view"]
+
+  Client <-->|"manage"| Import
+  Client <-->|"manage"| Convert
+  Client <-->|"manage"| Process
+  Client --> Publish --> Map --> Client
+```
+
+#### Agentic map tools: the client communicates intent
+
+```mermaid
+flowchart LR
+  Client["Client<br/>describes intent"]
+  Agent["AI agent"]
+  Sources["Open-ended<br/>data sources"]
+  Methods["Format conversion<br/>methods"]
+  GeoOps["Geoprocessing<br/>and routing"]
+  Handoff["Clean GeoJSON<br/>and map specification"]
+  API["Squidmaps<br/>ephemeral maps API"]
+  View["Clean<br/>Squidmaps view"]
+
+  Client <-->|"request and feedback"| Agent
+  Agent <-->|"discover and retrieve"| Sources
+  Agent <-->|"convert"| Methods
+  Agent <-->|"run"| GeoOps
+  Agent --> Handoff --> API --> View --> Client
+```
+
+In the agentic version, the client describes the desired map and responds to what they see. The agent can reach into an open-ended set of datasets, conversion methods, and spatial processes, but the handoff to squidmaps stays simple: cleaned GeoJSON and a structured map specification. The complexity still exists, but it sits behind the agent instead of inside the conversation the client must have with the mapping software.
+
 ## Converting a narrated walk
 
 I tried this workflow I described in the last section, with a walk I took through Oakland. I described the day more or less as I remembered it: start at the Morcom Rose Garden, walk down Grand Avenue to the farmers market, continue along Lake Merritt for coffee and thrifting, head east for bánh mì and an ube waffle, finish at the Día de los Muertos festival in Fruitvale, and then take the 62 and 57 buses home.
