@@ -10,23 +10,21 @@ comments: true
 
 *Generating highly customized chat workflows with tightly curated data models.*
 
-At a recent OutpostAI conference, a few talks circled the same problem from different directions: there is more data available than ever, but the path from a person's question to a useful answer is still surprisingly dependent on one person who knows the warehouse, the metric definitions, and the dashboard stack.
+I just returned from the OutpostAI conference, where I noticed a pattern across several talks: there is more data than ever, but the path from a person's question to a useful answer still depends heavily on one person who knows the warehouse, the metric definitions, and how to turn the results into something people can use, usually a dashboard.
 
-One presenter described a hardware company where many people wanted to understand simulation results, but only one person knew the data warehouse well enough to write the queries and generate dashboards. That person had become the interface to the data. Every new question became a ticket, a query, and usually another dashboard that somebody had to maintain.
+One presenter described a hardware company where many people wanted to understand simulation results, but only one person knew the data warehouse well enough to write the queries and generate dashboards. That person had effectively become the interface to the data. Each new question became a ticket, and each new dashboard added to the maintenance burden.
 
-That framing stuck with me because it describes a lot of analytics work. A dashboard is useful when a question is repeated and stable. It is much less useful when the real need is: "I see something odd. Can you help me understand it?"
-
-The person asking may not know the right metric name. They may say that a bus route feels unreliable without knowing whether to look at trip delivery, a rider-window measure, median delay, long gaps, or dropped trips. Making them navigate a dashboard assumes they already understand the data model well enough to choose the correct chart.
+This discussion also made me think about friction I have encountered while presenting AC Transit performance statistics in the [report card project](https://ac-transit.com/report-card/). People want to know where the problems are in a route or the system, but they may not know the terminology needed to find the right metric. They may say that a bus route feels unreliable without knowing whether to look at trip delivery, a rider-window measure, median delay, long gaps, or dropped trips. Making them navigate a dashboard assumes they already understand the data model well enough to choose the correct chart.
 
 I wanted to try a different interface against my [independent AC Transit performance project](https://ac-transit.com/ask/): let somebody ask the question to the extent they understand it, translate that question into a tightly bounded analytical operation, and return the text and graphics that fit the question.
 
-The resulting prototype is not an agent with open access to a database. It is a small public chat service built around an explicit read-only tool boundary.
+The resulting prototype is not an agent with open access to a database. Instead, it is a small public chat service built around an explicit read-only tool boundary.
 
 ## The FastMCP idea that unlocked the prototype
 
-The conference session that made this feel tractable was about [FastMCP](https://gofastmcp.com/). The basic demonstration was simple: put a decorator on a normal Python function and it becomes a discoverable MCP tool.
+The conference session that helped me shape this idea was about [FastMCP](https://gofastmcp.com/). The basic demonstration was simple: put a decorator on a normal Python function and it becomes a discoverable MCP tool.
 
-The analogy I wrote down was Flask's `@app.route`. The function already exists. The decorator makes it part of a public interface without requiring me to hand-write all of the protocol plumbing.
+The analogy I wrote down was Flask's `@app.route`. The function already exists, but the decorator makes it part of a public interface without requiring me to hand-write all of the protocol plumbing.
 
 More importantly, the decorator is opt-in. An agent does not get "the repository" or "the database." It gets a small list of functions that I deliberately exposed. FastMCP derives a schema from the function signature, uses the docstring as tool guidance, validates arguments, and serializes the result back through MCP.
 
@@ -61,13 +59,17 @@ def rank_routes(
     )
 ```
 
-Those `Literal` types are doing real product work. The model cannot invent a metric or silently mix regular local service with school, All Nighter, or Transbay routes. A request outside the enum is rejected before it reaches the query code.
+Those `Literal` types are doing real product work. The model cannot invent a metric or accidentally mix regular local service with school, All Nighter, or Transbay routes. Those service types should be analyzed separately, but a visitor may not know that the distinction matters. A request outside the enum is rejected before it reaches the query code.
 
 I currently expose only a handful of tools: route and system summaries, same-group route comparisons, route rankings, hourly profiles, a bounded scheduled-arrival list, and public metric definitions. Undecorated helpers and raw query methods stay invisible.
 
 ## The workflow
 
 I kept the architecture entirely in GCP except for the static site. The page is hosted on GitHub Pages, the analysis service and MCP run on Cloud Run, the model is accessed through Vertex AI, and the tools read published JSON summaries from Cloud Storage or bounded data from BigQuery.
+
+This makes the prototype a tool-driven form of [retrieval-augmented generation (RAG)](https://en.wikipedia.org/wiki/Retrieval-augmented_generation), although it is not the usual document-and-vector-database version. RAG supplements a language model's trained knowledge with information retrieved from an external source when it answers a question.
+
+Here, the retrieval step is a bounded MCP tool call rather than a semantic search over document chunks. The tools query published JSON summaries or BigQuery, Gemini uses the returned data to write a short answer, and the same tool results supply the charts and tables. The model therefore generates from current AC Transit data instead of relying only on facts stored in its weights.
 
 The important parts of the architecture are the two sets of gates: one before the model sees a request, and another before a response reaches the browser.
 
@@ -106,11 +108,11 @@ The FastMCP service is private to the analysis agent. The public browser never c
 
 *The public interface makes the cost controls visible and keeps follow-up questions attached to the latest answer.*
 
-## Input hardening is only half of the problem
+## Input hardening is the first half of the lifecycle
 
 Because this is a public service, I assume people will eventually send requests that are irrelevant, adversarial, or simply much larger than I intended. I also want a brief burst of attention to remain cheap.
 
-The current request gates are intentionally aggressive:
+The current request gates are intentionally aggressive because this is still a prototype:
 
 - 500 characters per prompt
 - one request every 20 seconds per browser
@@ -119,12 +121,12 @@ The current request gates are intentionally aggressive:
 - a shared daily question budget
 - no more than three follow-ups in a thread
 - no more than four tool calls and two tool rounds per answer
-- at most 31 calendar days for the heavier analytical tools
+- at most 31 calendar days for the heavier analytical tools, with plans to extend this window
 - at most four hours and 250 rows for a scheduled-arrival listing
 
 These are configuration values, not magic numbers. They can change as I observe real use. The point is that cost and abuse controls are part of the interface, not an invisible emergency measure. The page tells a visitor why they are waiting and how much shared capacity remains.
 
-Prompt rules are useful, but they are not the security boundary. The harder boundary is that every callable function is read-only, bounded, and typed. There is no general SQL tool. There is no write tool. There is no way to ask for an unbounded table dump.
+Prompt rules are useful, but I do not treat them as a reliable security boundary. The harder boundary is that every callable function is read-only, bounded, and typed. There is no general SQL tool and no write tool, which sharply limits the available abuse paths. Row and date limits also block bulk extraction; there is no way to ask for an unbounded table dump.
 
 ## Constraining the response is just as important
 
@@ -202,7 +204,7 @@ The same payload can be rendered responsively, inspected with assistive technolo
 
 ## The data model still matters
 
-A chat box does not remove the need for a semantic layer. It makes that layer more important.
+A chat box does not remove the need for a semantic layer.
 
 For example, the project distinguishes **On Time Service Delivered**, a stop-level rider-window measure, from **Trip delivery**, which measures whether scheduled trips were observed running. A casual question about buses "not showing up" could refer to either one. The tool descriptions, metric registry, and system policy help the agent select the right operation and explain the caveat.
 
@@ -233,8 +235,8 @@ Later, I can classify the archive by question type, inspect recurring unanswered
 
 ## What I like about this pattern
 
-Dashboards are not going away. Stable metrics still deserve stable views. The chat interface is useful for the space before a question has become stable enough to deserve one.
+Dashboards are not going away, and well-curated ones remain critical. The chat interface is useful for the space before a question has become stable enough to deserve one. Patterns in logged requests can show which information my pre-built dashboards surface poorly. They can also help translate questions from people who understand the service problem but do not know the system's metric names, making the existing metrics easier to use.
 
-FastMCP made it quick to turn existing Python functions into an explicit agent-facing interface. The harder and more interesting work was deciding what not to expose: which metrics are valid, which route groups are comparable, how much data a tool may return, and which response shapes the frontend will accept.
+FastMCP made the last mile of this workflow quick by turning existing Python functions into an explicit agent-facing interface. The harder work was curation: deciding what not to expose, which metrics are valid, which route groups are comparable, how much data a tool may return, and which response shapes the frontend will accept. That curation still has to leave the tool flexible and useful for a general audience.
 
-That constraint is what makes the public experiment feel viable. The user gets a customized answer without needing to know the warehouse or dashboard taxonomy. The agent gets flexibility in choosing among a few useful operations. The data service remains read-only and bounded. The browser does the presentation work. And the traces left behind can become the tests that keep the interface from getting worse as it grows.
+The user gets a customized answer without needing to know the warehouse or dashboard taxonomy. The agent gets flexibility in choosing among a few useful operations. The data service remains read-only and bounded. The browser does the presentation work. The traces left behind can become the tests that keep the interface from getting worse as it grows.
