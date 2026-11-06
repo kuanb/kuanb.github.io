@@ -6,8 +6,6 @@ summary: Generating highly customized chat workflows with tightly curated data m
 comments: true
 ---
 
-# Rapid Agent Chat Interface Prototyping with FastMCP
-
 *Generating highly customized chat workflows with tightly curated data models.*
 
 I just returned from the OutpostAI conference, where I noticed a pattern across several talks: there is more data than ever, but the path from a person's question to a useful answer still depends heavily on one person who knows the warehouse, the metric definitions, and how to turn the results into something people can use, usually a dashboard.
