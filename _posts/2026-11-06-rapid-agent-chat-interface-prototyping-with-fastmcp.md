@@ -102,7 +102,7 @@ flowchart TB
 
 The FastMCP service is private to the analysis agent. The public browser never calls it directly and never receives database credentials. The model can only select among the tools the MCP advertises, and the MCP service account has read-only access to the relevant data.
 
-![The live prompt interface showing rate limits, the retained question thread, and a follow-up field](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/rapid-agent-chat-fastmcp/chat-thread.png)
+![The live prompt interface showing rate limits, the retained question thread, and a follow-up field](https://raw.githubusercontent.com/kuanb/kuanb.github.io/07b0674a913011796318a17bebe1c84fecfeeb9c/images/_posts/rapid-agent-chat-fastmcp/chat-thread.png)
 
 *The public interface makes the cost controls visible and keeps follow-up questions attached to the latest answer.*
 
@@ -196,7 +196,7 @@ This also shifts work off the server. The response contains labels, values, seri
 
 The same payload can be rendered responsively, inspected with assistive technology, and restyled without calling the model again.
 
-![A generated answer with daily trip bars and a 24-by-7 dropped-trip heatmap rendered in the browser](https://raw.githubusercontent.com/kuanb/kuanb.github.io/master/images/_posts/rapid-agent-chat-fastmcp/structured-response-charts.png)
+![A generated answer with daily trip bars and a 24-by-7 dropped-trip heatmap rendered in the browser](https://raw.githubusercontent.com/kuanb/kuanb.github.io/07b0674a913011796318a17bebe1c84fecfeeb9c/images/_posts/rapid-agent-chat-fastmcp/structured-response-charts.png)
 
 *The server returned chart primitives; the browser rendered the two bar charts and the hourly heatmap.*
 
