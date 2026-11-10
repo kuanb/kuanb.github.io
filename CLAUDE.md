@@ -44,7 +44,7 @@ categories: [category1, category2]
 ## Conventions
 
 - Permalink style: `pretty` (e.g., `/2025/12/25/post-title/`)
-- Pagination: 8 posts per page at `/blog/`
+- Blog archive: all posts appear at `/blog/`, grouped by year
 - Images referenced from `/images/` directory
 - No CI/CD workflows; relies on GitHub Pages native Jekyll build
 - Apps panel (`_includes/apps_panel.html`): entries must be kept in alphabetical order by app name

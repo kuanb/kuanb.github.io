@@ -544,6 +544,18 @@ table {
   margin: 0;
 }
 
+.posts-year {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: thin solid #d8d8d8;
+}
+
+.posts-year-first {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
 .posts .post {
   margin-bottom: 0.75em;
   padding-bottom: .375em;
@@ -772,13 +784,6 @@ h6,
 .social-icons iframe[title=Flattr] {
     position: relative;
     top: 0.1em;
-}
-
-.pagination_context {
-  text-align: right;
-  font-style: italic;
-  font-size: 1rem;
-  font-weight: 100;
 }
 
 @media screen and (min-width: 48em) {

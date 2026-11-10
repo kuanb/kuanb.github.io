@@ -54,9 +54,5 @@ companies: [
 # Build settings
 markdown:      kramdown
 permalink:     pretty
-paginate:      8
-paginate_path: "/blog/page:num/"
 sass:
   compressed:  true
-gems:
-  - jekyll-paginate
