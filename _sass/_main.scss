@@ -860,13 +860,24 @@ h6,
     font-size: 1rem;
     width: 100%;
 }
-.social-icons a.fa {
+.social-icons a.fa,
+.social-icons a.social-icon {
     padding: 0.2em;
     opacity: 1;
     cursor: pointer;
 }
-.social-icons a.fa:hover {
+.social-icons a.fa:hover,
+.social-icons a.social-icon:hover {
     opacity: 1;
+}
+.social-icons a.social-icon--bluesky {
+    display: inline-flex;
+    vertical-align: -0.125em;
+}
+.social-icons a.social-icon--bluesky img {
+    display: block;
+    width: 1em;
+    height: 1em;
 }
 .social-icons iframe[title=Flattr] {
     position: relative;
