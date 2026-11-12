@@ -73,6 +73,16 @@ img {
   }
 }
 
+.post-interactive-embed__label {
+  margin: 0 0 0.45rem;
+  color: #555;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 .post-interactive-fallback {
   margin-top: 0.75rem;
 }
@@ -93,14 +103,17 @@ img {
     grid-template-columns: 1fr;
   }
 
-  .post-interactive-embed {
-    display: none;
+  .post-interactive-embed iframe {
+    height: min(34rem, 72vh);
+    min-height: 26rem;
   }
 
   .post-interactive-fallback a {
     display: block;
     padding: 0.8rem 1rem;
     border: 1px solid #157d9b;
+    background: #f4fbfd;
+    font-weight: 500;
     text-align: center;
   }
 }

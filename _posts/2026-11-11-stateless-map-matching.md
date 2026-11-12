@@ -199,9 +199,10 @@ The [interactive map matcher](https://kuanbutts.com/stateless-router/map-match-v
 
 The lighter [JSON runner](https://kuanbutts.com/stateless-router/run-map-match/) accepts a coordinate array and shows the complete response. It also supports a URL-encoded `coordinates` query parameter, which makes a short browser-executed request shareable as a link.
 
-The full matcher is embedded below on larger screens. On a narrow screen, open the standalone demo so the map and controls have enough room.
+The full matcher is embedded below. On a narrow screen, the preview stays interactive but uses a shorter viewport. Open it full-screen when you want more room for the map and controls.
 
 <div class="post-interactive-embed">
+  <p class="post-interactive-embed__label">Interactive preview</p>
   <iframe
     src="https://kuanbutts.com/stateless-router/map-match-v1/"
     title="Browser-only Protomaps map matcher"
@@ -209,7 +210,7 @@ The full matcher is embedded below on larger screens. On a narrow screen, open t
   ></iframe>
 </div>
 
-<p class="post-interactive-fallback"><a href="https://kuanbutts.com/stateless-router/map-match-v1/">Open the interactive map matcher</a></p>
+<p class="post-interactive-fallback"><a href="https://kuanbutts.com/stateless-router/map-match-v1/">Open the interactive map matcher full-screen <span aria-hidden="true">→</span></a></p>
 
 The source for the experiment is available in the [`stateless-router` repository](https://github.com/kuanb/stateless-router).
 
