@@ -4,7 +4,7 @@ title: Stateless map matching
 layout: post
 summary: HTTP range requests, a temporary road graph, and browser-native RPC
 comments: true
-image: /images/_posts/stateless-map-matching/app-overview.png
+image: /images/posts/stateless-map-matching/app-overview.png
 ---
 
 *HTTP range requests, a temporary road graph, and browser-native RPC*
@@ -19,7 +19,7 @@ The result is a [browser-only map-matching experiment](https://kuanbutts.com/sta
 
 The project does build a graph. It builds a small, temporary one from the geometry around each request and discards it with the page. "Stateless" means that the service keeps no authoritative world graph between requests. Each request has working state while the calculation runs, and that is it.
 
-![The stateless-router browser demo showing an Oakland probe trace, direct matches, and purple inferred route segments.](/images/_posts/stateless-map-matching/app-overview.png)
+![The stateless-router browser demo showing an Oakland probe trace, direct matches, and purple inferred route segments.](/images/posts/stateless-map-matching/app-overview.png)
 
 *The complete experiment runs in the browser. The static page fetches Protomaps road tiles, performs sequence-aware matching, and returns JSON.*
 
@@ -93,11 +93,11 @@ This version separates direct matching from route inference.
   <div class="post-image-comparison__grid">
     <div>
       <p class="post-image-comparison__label">Directly supported matches</p>
-      <img src="/images/_posts/stateless-map-matching/direct-match-gap.png" alt="A close view of direct map matches along Broadway in Oakland.">
+      <img src="/images/posts/stateless-map-matching/direct-match-gap.png" alt="A close view of direct map matches along Broadway in Oakland.">
     </div>
     <div>
       <p class="post-image-comparison__label">Inferred route connector</p>
-      <img src="/images/_posts/stateless-map-matching/inferred-route-gap.png" alt="A close view of a dashed purple inferred route connector through an Oakland intersection.">
+      <img src="/images/posts/stateless-map-matching/inferred-route-gap.png" alt="A close view of a dashed purple inferred route connector through an Oakland intersection.">
     </div>
   </div>
   <figcaption>Direct matches may not cover every part of a continuous trajectory. The dashed purple geometry is inferred by routing through the temporary local graph and is returned separately from observation-supported matches.</figcaption>
