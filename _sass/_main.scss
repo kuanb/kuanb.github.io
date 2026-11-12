@@ -31,6 +31,80 @@ img {
   max-height: 600px;
 }
 
+.post-image-comparison {
+  margin: 1.5rem 0;
+
+  figcaption {
+    margin-top: 0.75rem;
+    color: #555;
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+}
+
+.post-image-comparison__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+
+  img {
+    display: block;
+    width: 100%;
+    max-height: none;
+  }
+}
+
+.post-image-comparison__label {
+  margin: 0 0 0.4rem;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.post-interactive-embed {
+  margin: 1.5rem 0 0.75rem;
+
+  iframe {
+    display: block;
+    width: 100%;
+    height: min(900px, 85vh);
+    border: 1px solid #d9dde3;
+  }
+}
+
+.post-interactive-fallback {
+  margin-top: 0.75rem;
+}
+
+.mermaid {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  text-align: center;
+
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  .post-image-comparison__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .post-interactive-embed {
+    display: none;
+  }
+
+  .post-interactive-fallback a {
+    display: block;
+    padding: 0.8rem 1rem;
+    border: 1px solid #157d9b;
+    text-align: center;
+  }
+}
+
 .project-carousel {
   margin: 0.75rem 0 1.25rem;
 }
