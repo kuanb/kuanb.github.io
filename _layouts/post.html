@@ -76,10 +76,10 @@ layout: default
   {% endfor %}
 {% endif %}
 
+{% if content contains 'language-mermaid' %}
+<script src="{{ '/js/vendor/mermaid-10.9.8.min.js' | relative_url }}"></script>
 <script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-
-  mermaid.initialize({ startOnLoad: false });
+  window.mermaid.initialize({ startOnLoad: false });
 
   for (const code of document.querySelectorAll('pre code.language-mermaid')) {
     const pre = code.parentElement;
@@ -89,5 +89,6 @@ layout: default
     pre.replaceWith(div);
   }
 
-  await mermaid.run();
+  await window.mermaid.run();
 </script>
+{% endif %}
