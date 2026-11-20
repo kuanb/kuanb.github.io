@@ -1,6 +1,6 @@
 ---
 published: true
-title: Can a cheaper open model replace Gemini in a transit data chatbot?
+title: Building an eval harness for model selection and regression monitoring
 layout: post
 summary: A small, task-specific evaluation of whether a managed open-weight model can replace Gemini in an AC Transit data chatbot without giving up the tool use and answers the interface requires
 description: A small, task-specific evaluation of whether a managed open-weight model can replace Gemini in an AC Transit data chatbot without giving up the tool use and answers the interface requires.
